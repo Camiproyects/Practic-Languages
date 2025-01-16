@@ -1,192 +1,242 @@
-import bcrypt
-import mysql.connector
-from mysql.connector import Error
+"""
+Ejemplo de cajero automatico 
 
-def conectar_bd():
-    """Establece conexión con la base de datos MySQL."""
-    try:
-        conexion = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="Cajero_Automatico"
-        )
-        return conexion
-    except Error as e:
-        print(f"Error al conectar a la base de datos: {e}")
-        return None
+Andres Camilo Laguna Bernal
 
-def inicializar_bd():
-    """Inicializa la base de datos y crea la tabla si no existe."""
-    conexion = conectar_bd()
-    if conexion:
-        cursor = conexion.cursor()
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS usuarios (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                nombre VARCHAR(255) NOT NULL,
-                correo VARCHAR(255) UNIQUE NOT NULL,
-                telefono VARCHAR(15) UNIQUE NOT NULL,
-                contrasena VARCHAR(255) NOT NULL,
-                saldo FLOAT NOT NULL DEFAULT 0
-            )
-        """)
-        conexion.commit()
-        cursor.close()
-        conexion.close()
+16-01-2025
+"""
 
-def cifrar_contrasena(telefono, contrasena):
-    """
-    Cifra una contraseña usando el número de teléfono como parte del proceso.
-    """
-    clave = telefono.encode("utf-8")  # Convertimos el teléfono en bytes
-    contrasena = contrasena.encode("utf-8")  # Convertimos la contraseña en bytes
-    return bcrypt.hashpw(contrasena + clave, bcrypt.gensalt())
+import json
+import os
+import tkinter as tk
+from tkinter import messagebox
 
-def verificar_contrasena(telefono, contrasena, hash_contrasena):
-    """
-    Verifica si una contraseña es válida comparándola con su hash.
-    """
-    clave = telefono.encode("utf-8")
-    contrasena = contrasena.encode("utf-8")
-    return bcrypt.checkpw(contrasena + clave, hash_contrasena)
 
-def guardar_usuario(nombre, correo, telefono, contrasena, saldo):
-    """Guarda un nuevo usuario en la base de datos."""
-    conexion = conectar_bd()
-    if conexion:
-        cursor = conexion.cursor()
-        try:
-            contrasena_cifrada = cifrar_contrasena(telefono, contrasena)
-            cursor.execute("""
-                INSERT INTO usuarios (nombre, correo, telefono, contrasena, saldo)
-                VALUES (%s, %s, %s, %s, %s)
-            """, (nombre, correo, telefono, contrasena_cifrada, saldo))
-            conexion.commit()
-            print("Usuario creado con éxito.")
-        except Error as e:
-            print(f"Error al guardar el usuario: {e}")
-        finally:
-            cursor.close()
-            conexion.close()
+def ruta_archivo():
+    """Devuelve la ruta completa del archivo JSON."""
+    return os.path.join(os.path.dirname(__file__), "Cajero_Automatico.json")
 
-def obtener_usuario_por_correo(correo):
-    """Obtiene un usuario por su correo."""
-    conexion = conectar_bd()
-    if conexion:
-        cursor = conexion.cursor(dictionary=True)
-        cursor.execute("""
-            SELECT * FROM usuarios
-            WHERE correo = %s
-        """, (correo,))
-        usuario = cursor.fetchone()
-        cursor.close()
-        conexion.close()
-        return usuario
-    return None
 
-def actualizar_saldo(correo, nuevo_saldo):
-    """Actualiza el saldo de un usuario."""
-    conexion = conectar_bd()
-    if conexion:
-        cursor = conexion.cursor()
-        cursor.execute("""
-            UPDATE usuarios
-            SET saldo = %s
-            WHERE correo = %s
-        """, (nuevo_saldo, correo))
-        conexion.commit()
-        cursor.close()
-        conexion.close()
+def Cargar_Usuarios():
+    """Carga los usuarios desde un archivo JSON."""
+    archivo_json = ruta_archivo()
+    if os.path.exists(archivo_json):
+        with open(archivo_json, "r") as archivo:
+            return json.load(archivo)
+    return []
 
-def acceso_cliente():
-    """Inicio de sesión para cliente."""
-    print("\n--- Acceso Cliente ---")
-    correo_c = input("Escribe tu correo: ")
-    pass_c = input("Escribe tu contraseña: ")
 
-    usuario = obtener_usuario_por_correo(correo_c)
-    if usuario and verificar_contrasena(usuario["telefono"], pass_c, usuario["contrasena"].encode("utf-8")):
-        print(f"Bienvenido, {usuario['nombre']}. Tu saldo actual es: {usuario['saldo']}")
-        while True:
-            operaciones_cliente()
-            operacion = input("Elige una operación: ")
-            if operacion == "1":
-                enviar_saldo(correo_c)
-            elif operacion == "2":
-                retirar_saldo(correo_c)
-            elif operacion == "3":
-                insertar_saldo(correo_c)
-            elif operacion.lower() == "salir":
-                print("Saliendo del menú de operaciones.")
-                break
-            else:
-                print("Opción no válida. Intenta nuevamente.")
-    else:
-        print("Credenciales incorrectas. Intenta nuevamente.")
+def Guardar_Usuarios(usuarios):
+    """Guarda los usuarios en un archivo JSON."""
+    archivo_json = ruta_archivo()
+    with open(archivo_json, "w") as archivo:
+        json.dump(usuarios, archivo, indent=4)
 
-def operaciones_cliente():
-    """Muestra las opciones disponibles para el cliente."""
-    print("\n¿Qué operación deseas realizar?")
-    print("1. Enviar Dinero")
-    print("2. Retirar Dinero")
-    print("3. Insertar Dinero")
-    print("Escribe 'salir' para volver al menú anterior.")
 
-def insertar_saldo(correo):
-    """Permite agregar dinero al saldo del usuario."""
-    print("\n--- Insertar Dinero ---")
-    try:
-        monto = float(input("Escribe el monto a insertar: "))
-    except ValueError:
-        print("Error: Debes ingresar un monto válido.")
+def validar_telefono(telefono):
+    """Valida que el teléfono tenga exactamente 10 dígitos y solo números."""
+    if len(telefono) != 10 or not telefono.isdigit():
+        return False
+    return True
+
+
+def validar_correo(correo):
+    """Valida el formato del correo electrónico."""
+    import re
+    patron = r'^[a-zA-Z0-9_.+-]+@[a-zAZ0-9-]+\.[a-zA-Z0-9-.]+$'
+    return bool(re.match(patron, correo))
+
+
+def Acceso_Cliente(usuarios, telefono, pass_c, ventana_principal):
+    """Verifica las credenciales de un cliente y muestra el menú de operaciones."""
+    for usuario in usuarios:
+        if usuario["Telefono"] == telefono and usuario["Pass_C"] == pass_c:
+            messagebox.showinfo("Acceso Cliente", f"Bienvenido, {usuario['Nombre']}. Tu saldo actual es: {usuario['Saldo']}")
+            mostrar_menu_operaciones(usuario, usuarios, ventana_principal)
+            return
+    messagebox.showerror("Error", "Credenciales incorrectas.")
+
+
+def mostrar_menu_operaciones(usuario, usuarios, ventana_principal):
+    """Muestra el menú de operaciones del cliente después de un acceso exitoso."""
+    # Limpiar ventana
+    for widget in ventana_principal.winfo_children():
+        widget.destroy()
+
+    tk.Label(ventana_principal, text=f"Bienvenido {usuario['Nombre']}", font=("Helvetica", 16)).pack(pady=10)
+
+    def enviar_dinero():
+        monto = entry_monto.get()
+        telefono_destino = entry_telefono_destino.get()
+
+        if not monto.isdigit() or float(monto) <= 0:
+            messagebox.showerror("Error", "El monto debe ser un número positivo.")
+            return
+
+        monto = float(monto)
+        if monto > usuario['Saldo']:
+            messagebox.showerror("Error", "Saldo insuficiente.")
+            return
+
+        telefono_destino_completo = "+57" + telefono_destino
+        for destinatario in usuarios:
+            if destinatario["Telefono"] == telefono_destino_completo:
+                usuario["Saldo"] -= monto
+                destinatario["Saldo"] += monto
+                Guardar_Usuarios(usuarios)
+                messagebox.showinfo("Transacción Realizada", f"Has enviado {monto} a {destinatario['Nombre']}.")
+                messagebox.showinfo("Saldo Actual", f"Tu nuevo saldo es: {usuario['Saldo']}")
+                return
+        messagebox.showerror("Error", "El destinatario no existe.")
+
+    def retirar_dinero():
+        monto = entry_monto.get()
+        if not monto.isdigit() or float(monto) <= 0:
+            messagebox.showerror("Error", "El monto debe ser un número positivo.")
+            return
+
+        monto = float(monto)
+        if monto > usuario['Saldo']:
+            messagebox.showerror("Error", "Saldo insuficiente.")
+            return
+
+        usuario["Saldo"] -= monto
+        Guardar_Usuarios(usuarios)
+        messagebox.showinfo("Transacción Realizada", f"Has retirado {monto}.")
+        messagebox.showinfo("Saldo Actual", f"Tu nuevo saldo es: {usuario['Saldo']}.")
+
+    def insertar_dinero():
+        monto = entry_monto.get()
+        if not monto.isdigit() or float(monto) <= 0:
+            messagebox.showerror("Error", "El monto debe ser un número positivo.")
+            return
+
+        monto = float(monto)
+        usuario["Saldo"] += monto
+        Guardar_Usuarios(usuarios)
+        messagebox.showinfo("Transacción Realizada", f"Has agregado {monto}.")
+        messagebox.showinfo("Saldo Actual", f"Tu nuevo saldo es: {usuario['Saldo']}.")
+
+    # Formulario para las operaciones
+    tk.Label(ventana_principal, text="Número de Teléfono del Destinatario:").pack()
+    entry_telefono_destino = tk.Entry(ventana_principal)
+    entry_telefono_destino.pack(pady=5)
+
+    tk.Label(ventana_principal, text="Monto:").pack()
+    entry_monto = tk.Entry(ventana_principal)
+    entry_monto.pack(pady=5)
+
+    tk.Button(ventana_principal, text="Enviar Dinero", command=enviar_dinero).pack(pady=5)
+    tk.Button(ventana_principal, text="Retirar Dinero", command=retirar_dinero).pack(pady=5)
+    tk.Button(ventana_principal, text="Insertar Dinero", command=insertar_dinero).pack(pady=5)
+
+    tk.Button(ventana_principal, text="Salir", command=ventana_principal.quit).pack(pady=10)
+
+
+def Crear_Usuario(usuarios, nombre, correo_c, telefono, pass_c, ventana_principal):
+    """Crea un usuario nuevo (cliente)."""
+    if not validar_telefono(telefono):
+        messagebox.showerror("Error", "El número de teléfono debe tener exactamente 10 dígitos y solo números.")
         return
 
-    usuario = obtener_usuario_por_correo(correo)
-    if usuario:
-        nuevo_saldo = usuario["saldo"] + monto
-        actualizar_saldo(correo, nuevo_saldo)
-        print(f"Has agregado {monto}. Tu nuevo saldo es {nuevo_saldo}.")
-    else:
-        print("Usuario no encontrado.")
-
-def crear_usuario():
-    """Crea un usuario nuevo (cliente)."""
-    print("\n--- Crear Usuario ---")
-    nombre = input("Escribe tu nombre: ")
-    correo_c = input("Escribe tu correo: ")
-    telefono = input("Escribe tu número de teléfono (sin el prefijo +57): ").strip()
-
-    if not telefono.isdigit() or len(telefono) != 10:
-        print("Error: El número de teléfono debe tener exactamente 10 dígitos y no contener letras ni símbolos.")
+    if not validar_correo(correo_c):
+        messagebox.showerror("Error", "El correo electrónico no es válido.")
         return
 
     telefono_completo = "+57" + telefono
-    pass_c = input("Escribe tu contraseña: ")
     saldo = 0
 
-    guardar_usuario(nombre, correo_c, telefono_completo, pass_c, saldo)
+    for usuario in usuarios:
+        if usuario["Correo_C"] == correo_c:
+            messagebox.showerror("Error", "El correo ya está registrado.")
+            return
+        if usuario.get("Telefono") == telefono_completo:
+            messagebox.showerror("Error", "El número de teléfono ya está registrado.")
+            return
 
-def seleccionar_usuario():
-    """Permite elegir el tipo de usuario."""
-    print("\n--- Gestor de Usuarios ---")
-    print("1. Acceder Como Cliente")
-    print("2. Acceder Como Administrador")
-    print("3. Crear Un Usuario Como Cliente")
+    nuevo_usuario = {
+        "Nombre": nombre,
+        "Correo_C": correo_c,
+        "Telefono": telefono_completo,
+        "Pass_C": pass_c,
+        "Saldo": saldo,
+    }
+    usuarios.append(nuevo_usuario)
+    Guardar_Usuarios(usuarios)
+    messagebox.showinfo("Usuario Creado", f"Usuario creado con éxito. Bienvenido, {nombre}.")
+    mostrar_acceso_cliente(ventana_principal, usuarios)
 
-def main():
-    inicializar_bd()
-    while True:
-        seleccionar_usuario()
-        opcion = input("Elige una opción: ")
-        if opcion == "1":
-            acceso_cliente()
-        elif opcion == "2":
-            print("Función no implementada. Regresando al menú principal.")
-        elif opcion == "3":
-            crear_usuario()
-        else:
-            print("Opción no válida. Intenta nuevamente.")
+
+def mostrar_acceso_cliente(ventana_principal, usuarios):
+    """Ventana para acceso de cliente."""
+    # Limpiar ventana
+    for widget in ventana_principal.winfo_children():
+        widget.destroy()
+
+    tk.Label(ventana_principal, text="Acceso Cliente", font=("Helvetica", 16)).pack(pady=10)
+
+    def verificar_acceso():
+        telefono = entry_telefono.get()
+        pass_c = entry_pass.get()
+        Acceso_Cliente(usuarios, telefono, pass_c, ventana_principal)
+
+    tk.Label(ventana_principal, text="Número de Teléfono:").pack()
+    entry_telefono = tk.Entry(ventana_principal)
+    entry_telefono.pack(pady=5)
+
+    tk.Label(ventana_principal, text="Contraseña:").pack()
+    entry_pass = tk.Entry(ventana_principal, show="*")
+    entry_pass.pack(pady=5)
+
+    tk.Button(ventana_principal, text="Acceder", command=verificar_acceso).pack(pady=10)
+
+
+def mostrar_crear_usuario(ventana_principal, usuarios):
+    """Ventana para crear un nuevo usuario."""
+    # Limpiar ventana
+    for widget in ventana_principal.winfo_children():
+        widget.destroy()
+
+    tk.Label(ventana_principal, text="Crear Usuario", font=("Helvetica", 16)).pack(pady=10)
+
+    def crear_usuario():
+        nombre = entry_nombre.get()
+        correo_c = entry_correo.get()
+        telefono = entry_telefono.get()
+        pass_c = entry_pass.get()
+        Crear_Usuario(usuarios, nombre, correo_c, telefono, pass_c, ventana_principal)
+
+    tk.Label(ventana_principal, text="Nombre:").pack()
+    entry_nombre = tk.Entry(ventana_principal)
+    entry_nombre.pack(pady=5)
+
+    tk.Label(ventana_principal, text="Correo:").pack()
+    entry_correo = tk.Entry(ventana_principal)
+    entry_correo.pack(pady=5)
+
+    tk.Label(ventana_principal, text="Número de Teléfono:").pack()
+    entry_telefono = tk.Entry(ventana_principal)
+    entry_telefono.pack(pady=5)
+
+    tk.Label(ventana_principal, text="Contraseña:").pack()
+    entry_pass = tk.Entry(ventana_principal, show="*")
+    entry_pass.pack(pady=5)
+
+    tk.Button(ventana_principal, text="Crear Usuario", command=crear_usuario).pack(pady=10)
+
+
+def ventana_principal():
+    """Ventana principal con opciones de acceso."""
+    usuarios = Cargar_Usuarios()
+
+    ventana = tk.Tk()
+    ventana.title("Gestor de Cajero Automático")
+    ventana.geometry("400x400")  # Tamaño fijo
+
+    mostrar_acceso_cliente(ventana, usuarios)
+
+    ventana.mainloop()
+
 
 if __name__ == "__main__":
-    main()
+    ventana_principal()
