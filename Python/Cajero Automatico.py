@@ -1,69 +1,131 @@
-import json
-import os
+import bcrypt
+import mysql.connector
+from mysql.connector import Error
 
-def ruta_archivo():
-    """Devuelve la ruta completa del archivo JSON."""
-    return os.path.join(os.path.dirname(__file__), "Cajero_Automatico.json")
+def conectar_bd():
+    """Establece conexión con la base de datos MySQL."""
+    try:
+        conexion = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="Cajero_Automatico"
+        )
+        return conexion
+    except Error as e:
+        print(f"Error al conectar a la base de datos: {e}")
+        return None
 
-def Cargar_Usuarios():
-    """Carga los usuarios desde un archivo JSON."""
-    archivo_json = ruta_archivo()
-    if os.path.exists(archivo_json):
-        with open(archivo_json, "r") as archivo:
-            return json.load(archivo)
-    return []
+def inicializar_bd():
+    """Inicializa la base de datos y crea la tabla si no existe."""
+    conexion = conectar_bd()
+    if conexion:
+        cursor = conexion.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS usuarios (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nombre VARCHAR(255) NOT NULL,
+                correo VARCHAR(255) UNIQUE NOT NULL,
+                telefono VARCHAR(15) UNIQUE NOT NULL,
+                contrasena VARCHAR(255) NOT NULL,
+                saldo FLOAT NOT NULL DEFAULT 0
+            )
+        """)
+        conexion.commit()
+        cursor.close()
+        conexion.close()
 
-def Guardar_Usuarios(usuarios):
-    """Guarda los usuarios en un archivo JSON."""
-    archivo_json = ruta_archivo()
-    with open(archivo_json, "w") as archivo:
-        json.dump(usuarios, archivo, indent=4)
+def cifrar_contrasena(telefono, contrasena):
+    """
+    Cifra una contraseña usando el número de teléfono como parte del proceso.
+    """
+    clave = telefono.encode("utf-8")  # Convertimos el teléfono en bytes
+    contrasena = contrasena.encode("utf-8")  # Convertimos la contraseña en bytes
+    return bcrypt.hashpw(contrasena + clave, bcrypt.gensalt())
 
-def Seleccion_De_Usuario():
-    """Permite elegir el tipo de usuario."""
-    print("\n--- Gestor de Usuarios ---")
-    print("1. Acceder Como Cliente")
-    print("2. Acceder Como Administrador")
-    print("3. Crear Un Usuario Como Cliente")
+def verificar_contrasena(telefono, contrasena, hash_contrasena):
+    """
+    Verifica si una contraseña es válida comparándola con su hash.
+    """
+    clave = telefono.encode("utf-8")
+    contrasena = contrasena.encode("utf-8")
+    return bcrypt.checkpw(contrasena + clave, hash_contrasena)
 
-def Acceso_Administrador():
-    """Inicio de sesión para administrador."""
-    print("\n--- Acceso Administrador ---")
-    correo_a = input("Escribe tu correo: ")
-    pass_a = input("Escribe tu contraseña: ")
-    
+def guardar_usuario(nombre, correo, telefono, contrasena, saldo):
+    """Guarda un nuevo usuario en la base de datos."""
+    conexion = conectar_bd()
+    if conexion:
+        cursor = conexion.cursor()
+        try:
+            contrasena_cifrada = cifrar_contrasena(telefono, contrasena)
+            cursor.execute("""
+                INSERT INTO usuarios (nombre, correo, telefono, contrasena, saldo)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (nombre, correo, telefono, contrasena_cifrada, saldo))
+            conexion.commit()
+            print("Usuario creado con éxito.")
+        except Error as e:
+            print(f"Error al guardar el usuario: {e}")
+        finally:
+            cursor.close()
+            conexion.close()
 
-def Acceso_Cliente(usuarios):
+def obtener_usuario_por_correo(correo):
+    """Obtiene un usuario por su correo."""
+    conexion = conectar_bd()
+    if conexion:
+        cursor = conexion.cursor(dictionary=True)
+        cursor.execute("""
+            SELECT * FROM usuarios
+            WHERE correo = %s
+        """, (correo,))
+        usuario = cursor.fetchone()
+        cursor.close()
+        conexion.close()
+        return usuario
+    return None
+
+def actualizar_saldo(correo, nuevo_saldo):
+    """Actualiza el saldo de un usuario."""
+    conexion = conectar_bd()
+    if conexion:
+        cursor = conexion.cursor()
+        cursor.execute("""
+            UPDATE usuarios
+            SET saldo = %s
+            WHERE correo = %s
+        """, (nuevo_saldo, correo))
+        conexion.commit()
+        cursor.close()
+        conexion.close()
+
+def acceso_cliente():
     """Inicio de sesión para cliente."""
     print("\n--- Acceso Cliente ---")
     correo_c = input("Escribe tu correo: ")
     pass_c = input("Escribe tu contraseña: ")
 
-    for usuario in usuarios:
-        if usuario["Correo_C"] == correo_c and usuario["Pass_C"] == pass_c:
-            print(f"Bienvenido, {usuario['Nombre']}. Tu saldo actual es: {usuario['Saldo']}")
-            while True:
-                if usuario["Saldo"] == 0:
-                    print("\nTu saldo es 0. Solo puedes insertar dinero.")
-                    Insertar_Saldo(usuarios, correo_c)
-                    return
-                Operaciones_C()
-                Operacion = input("Elige una operación: ")
-                if Operacion == "1":
-                    Enviar_Saldo(usuarios, correo_c)
-                elif Operacion == "2":
-                    Retirar_Saldo(usuarios, correo_c)
-                elif Operacion == "3":
-                    Insertar_Saldo(usuarios, correo_c)
-                elif Operacion.lower() == "salir":
-                    print("Saliendo del menú de operaciones.")
-                    break
-                else:
-                    print("Opción no válida. Intenta nuevamente.")
-            return
-    print("Credenciales incorrectas. Intenta nuevamente.")
+    usuario = obtener_usuario_por_correo(correo_c)
+    if usuario and verificar_contrasena(usuario["telefono"], pass_c, usuario["contrasena"].encode("utf-8")):
+        print(f"Bienvenido, {usuario['nombre']}. Tu saldo actual es: {usuario['saldo']}")
+        while True:
+            operaciones_cliente()
+            operacion = input("Elige una operación: ")
+            if operacion == "1":
+                enviar_saldo(correo_c)
+            elif operacion == "2":
+                retirar_saldo(correo_c)
+            elif operacion == "3":
+                insertar_saldo(correo_c)
+            elif operacion.lower() == "salir":
+                print("Saliendo del menú de operaciones.")
+                break
+            else:
+                print("Opción no válida. Intenta nuevamente.")
+    else:
+        print("Credenciales incorrectas. Intenta nuevamente.")
 
-def Operaciones_C():
+def operaciones_cliente():
     """Muestra las opciones disponibles para el cliente."""
     print("\n¿Qué operación deseas realizar?")
     print("1. Enviar Dinero")
@@ -71,111 +133,58 @@ def Operaciones_C():
     print("3. Insertar Dinero")
     print("Escribe 'salir' para volver al menú anterior.")
 
-def Enviar_Saldo(usuarios, correo_c):
-    """Permite enviar dinero a otro usuario usando su número de teléfono."""
-    print("\n--- Enviar Dinero ---")
-    telefono_destino = input("Escribe el número de teléfono del destinatario (sin el prefijo +57): ").strip()
-    telefono_destino_completo = "+57" + telefono_destino 
-    monto = float(input("Escribe el monto a enviar: "))
-
-    for usuario in usuarios:
-        if usuario["Correo_C"] == correo_c:
-            if usuario["Saldo"] >= monto:
-                for destinatario in usuarios:
-                    if destinatario.get("Telefono") == telefono_destino_completo:
-                        usuario["Saldo"] -= monto
-                        destinatario["Saldo"] += monto
-                        Guardar_Usuarios(usuarios)
-                        print(f"Se enviaron {monto} a {destinatario['Nombre']} ({telefono_destino_completo}).")
-                        print(f"Tu nuevo saldo es {usuario['Saldo']}.")
-                        return
-                print("El número de teléfono del destinatario no existe.")
-                return
-            else:
-                print("Saldo insuficiente.")
-                return
-    print("Tu usuario no fue encontrado.")
-
-def Retirar_Saldo(usuarios, correo_c):
-    """Permite retirar dinero del saldo del usuario."""
-    print("\n--- Retirar Dinero ---")
-    monto = float(input("Escribe el monto a retirar: "))
-
-    for usuario in usuarios:
-        if usuario["Correo_C"] == correo_c:
-            if usuario["Saldo"] >= monto:
-                usuario["Saldo"] -= monto
-                Guardar_Usuarios(usuarios)
-                print(f"Has retirado {monto}. Tu nuevo saldo es {usuario['Saldo']}.")
-                return
-            else:
-                print("Saldo insuficiente.")
-                return
-    print("Tu usuario no fue encontrado.")
-
-def Insertar_Saldo(usuarios, correo_c):
+def insertar_saldo(correo):
     """Permite agregar dinero al saldo del usuario."""
     print("\n--- Insertar Dinero ---")
-    monto = float(input("Escribe el monto a insertar: "))
+    try:
+        monto = float(input("Escribe el monto a insertar: "))
+    except ValueError:
+        print("Error: Debes ingresar un monto válido.")
+        return
 
-    for usuario in usuarios:
-        if usuario["Correo_C"] == correo_c:
-            usuario["Saldo"] += monto
-            Guardar_Usuarios(usuarios)
-            print(f"Has agregado {monto}. Tu nuevo saldo es {usuario['Saldo']}.")
-            return
-    print("Tu usuario no fue encontrado.")
+    usuario = obtener_usuario_por_correo(correo)
+    if usuario:
+        nuevo_saldo = usuario["saldo"] + monto
+        actualizar_saldo(correo, nuevo_saldo)
+        print(f"Has agregado {monto}. Tu nuevo saldo es {nuevo_saldo}.")
+    else:
+        print("Usuario no encontrado.")
 
-def Crear_Usuario(usuarios):
+def crear_usuario():
     """Crea un usuario nuevo (cliente)."""
     print("\n--- Crear Usuario ---")
     nombre = input("Escribe tu nombre: ")
     correo_c = input("Escribe tu correo: ")
     telefono = input("Escribe tu número de teléfono (sin el prefijo +57): ").strip()
 
-    
     if not telefono.isdigit() or len(telefono) != 10:
         print("Error: El número de teléfono debe tener exactamente 10 dígitos y no contener letras ni símbolos.")
         return
 
     telefono_completo = "+57" + telefono
-
     pass_c = input("Escribe tu contraseña: ")
     saldo = 0
 
-    for usuario in usuarios:
-        
-        if usuario["Correo_C"] == correo_c:
-            print("Error: El correo ya está registrado.")
-            return
-        if usuario.get("Telefono") == telefono_completo:
-            print("Error: El número de teléfono ya está registrado.")
-            return
+    guardar_usuario(nombre, correo_c, telefono_completo, pass_c, saldo)
 
-    nuevo_usuario = {
-        "Nombre": nombre,
-        "Correo_C": correo_c,
-        "Telefono": telefono_completo,
-        "Pass_C": pass_c,
-        "Saldo": saldo,
-    }
-    usuarios.append(nuevo_usuario)
-    Guardar_Usuarios(usuarios)
-    print(f"Usuario creado con éxito. Bienvenido, {nombre}.")
-    Acceso_Cliente(usuarios)
-
+def seleccionar_usuario():
+    """Permite elegir el tipo de usuario."""
+    print("\n--- Gestor de Usuarios ---")
+    print("1. Acceder Como Cliente")
+    print("2. Acceder Como Administrador")
+    print("3. Crear Un Usuario Como Cliente")
 
 def main():
-    usuarios = Cargar_Usuarios()
+    inicializar_bd()
     while True:
-        Seleccion_De_Usuario()
+        seleccionar_usuario()
         opcion = input("Elige una opción: ")
         if opcion == "1":
-            Acceso_Cliente(usuarios)
+            acceso_cliente()
         elif opcion == "2":
-            Acceso_Administrador()
+            print("Función no implementada. Regresando al menú principal.")
         elif opcion == "3":
-            Crear_Usuario(usuarios)
+            crear_usuario()
         else:
             print("Opción no válida. Intenta nuevamente.")
 
