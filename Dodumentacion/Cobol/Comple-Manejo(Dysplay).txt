@@ -1,0 +1,90 @@
+-------------------------------------------------
+--- MUESTRA INFORMACION EN LA PANTALLA ---
+--- PRINT ---
+-------------------------------------------------
+
+
+***********************
+       * DEMOSTRACIÓN DE LAS CLÁUSULAS DE DISPLAY EN COBOL              *
+       * Este código incluye explicaciones y ejemplos prácticos        *
+       * sobre cómo usar las diversas cláusulas que complementan el    *
+       * comando DISPLAY en COBOL.                                     *
+       ***********************
+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. DEMO-DISPLAY-CLAUSES.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 USER-NAME         PIC A(20).    *> Nombre del usuario.
+       01 USER-AGE          PIC 99.       *> Edad del usuario.
+       01 USER-COMMENT      PIC X(50).    *> Comentario del usuario.
+
+       PROCEDURE DIVISION.
+       ***********************
+       * Ejemplo básico de DISPLAY                                      *
+       ***********************
+           DISPLAY "---------------------------------------------------".
+           DISPLAY "--- MUESTRA INFORMACION EN LA PANTALLA ---".
+           DISPLAY "---------------------------------------------------".
+
+       ***********************
+       * Uso de LINE y COLUMN para ubicar el mensaje                   *
+       ***********************
+           DISPLAY "Hola Mundo" AT LINE 3.
+           DISPLAY "Edad: " AT LINE 4 COLUMN 10.
+
+       ***********************
+       * Uso de SIZE para limitar la longitud del campo mostrado       *
+       ***********************
+           DISPLAY "Nombre muy largo" SIZE 10.
+
+       ***********************
+       * Uso de HIGH para brillo del mensaje                           *
+       ***********************
+           DISPLAY "Contraseña" HIGH.
+
+       ***********************
+       * Uso de REVERSE para video inverso                             *
+       ***********************
+           DISPLAY "Error" REVERSE.
+
+       ***********************
+       * Uso de BEEP para emitir un pitido                             *
+       ***********************
+           DISPLAY "Ingreso Exitoso" BEEP.
+
+       ***********************
+       * Uso de BLINK para hacer parpadear el mensaje                  *
+       ***********************
+           DISPLAY "Alerta" BLINK.
+
+       ***********************
+       * Uso de ERASE para borrar la pantalla                          *
+       ***********************
+           DISPLAY "Limpiando la pantalla...". ERASE.
+
+       ***********************
+       * Uso de ERASE EOL para borrar hasta el final de la línea       *
+       ***********************
+           DISPLAY "Borrando hasta el final de la línea.". ERASE EOL.
+
+       ***********************
+       * Uso de ERASE EOS para borrar hasta el final de la pantalla    *
+       ***********************
+           DISPLAY "Borrando hasta el final de la pantalla.". ERASE EOS.
+
+       ***********************
+       * CONTROL con colores y gráficos (FCOLOR, BCOLOR, GRAPHICS)    *
+       ***********************
+           DISPLAY "Mensaje en texto blanco sobre fondo verde." CONTROL "FCOLOR=white, BCOLOR=green".
+
+       ***********************
+       * Uso de WINDOW-CREATE para crear una ventana                   *
+       ***********************
+           DISPLAY "Creando ventana". DISPLAY WINDOW-CREATE "MiVentana".
+
+       ***********************
+       * FIN DE DEMOSTRACIÓN                                          *
+       ***********************
+           STOP RUN.
