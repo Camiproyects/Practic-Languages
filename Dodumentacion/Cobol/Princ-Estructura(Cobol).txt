@@ -82,7 +82,7 @@
            DISPLAY "Compra menor o igual a 500."
 
        --------------------------------------------------------------
-       * Ejemplo de loop con PERFORM.                                  *
+    * Ejemplo de loop con PERFORM.                                  *
        --------------------------------------------------------------
        PERFORM HASTA-CINCO-TIEMPOS VARYING NUMERO-CLIENTE FROM 1 BY 1 UNTIL NUMERO-CLIENTE > 5.
 
