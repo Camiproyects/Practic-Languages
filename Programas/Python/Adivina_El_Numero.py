@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-
+Name: Adivina el numero
+Description: Juego en el que el usuario debe adivinar un número aleatorio
+Author: Andres Camilo Laguna Bernal
+Date:
+Terminado: Si
 """
 import random
 

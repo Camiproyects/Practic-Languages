@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+Name: Administrador de Tareas
+Description: Programa Diceñado Para La Administracion De Tareas (Datos: Titulo, Descripcion, Fecha Limite, Completada)
+Author: Andres Camilo Laguna Bernal
+Date:
+Terminado: Si
+"""
 import json
 import os
 

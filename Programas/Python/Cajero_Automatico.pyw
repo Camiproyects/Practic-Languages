@@ -1,11 +1,10 @@
+# -*- coding: utf-8 -*-
 """
-Ejemplo de cajero automatico 
-
-Andres Camilo Laguna Bernal
-
-16-01-2025
-
-***
+Name: Cajero Automático
+Description: Programa Como Practica Para Un Cajero Automatico (Incluye Pantalla de Acceso y Creacion de Usuario Con Tkinter)
+Author: Andres Camilo Laguna Bernal
+Date:
+Terminado: Si
 """
 
 import json

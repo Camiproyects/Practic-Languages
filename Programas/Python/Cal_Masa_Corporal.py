@@ -1,14 +1,10 @@
-#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jan 17 07:59:24 2025
-
-/**
-* Esta clase denominada Indice IMC calcula el índice de masa corporal de
-* una persona y con base en el resultado indica si tiene un peso normal,
-* inferior o superior al normal u obesidad.
-*/
-
+Name: Calculadora de Masa Corporal
+Description: Programa Diceñado Para Calcular El Indice De Masa Corporal (IMC)
+Author: Andres Camilo Laguna Bernal
+Date:
+Terminado: Si
 """
 try:
     print("-- Esto es un simple programa para medir el índice de masa corporal --")

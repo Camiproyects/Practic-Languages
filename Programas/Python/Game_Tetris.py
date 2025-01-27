@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+Name: Juego Tetris
+Description: Programa que simula el juego de Tetris
+Author: Andres Camilo Laguna Bernal
+Date:
+Terminado: No
+"""
 import pygame
 import random
 import math

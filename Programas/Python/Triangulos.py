@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+Name: Triángulos
+Description: Programa que determina el tipo de triángulo y sus ángulos a partir de sus lados(mustra el dibujo del triángulo)
+Author: Andres Camilo Laguna Bernal
+Date:
+Terminado: Si
+"""
 # pip install matplotlib
 
 import math
