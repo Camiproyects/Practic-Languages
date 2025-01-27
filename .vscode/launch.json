@@ -5,18 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "COBOL Debug",
             "type": "cobol",
             "request": "launch",
-            "name": "COBOL (native): Launch",
-            "program": "${workspaceFolder}/<insert-program-name-here>",
+            "program": "${workspaceFolder}/Programs/Cobol/${fileBasename}",
             "cwd": "${workspaceFolder}",
-            "stopOnEntry": true
-        },
-        {
-            "type": "cobol",
-            "request": "attach",
-            "name": "COBOL (native): Attach to process",
-            "processId": "${command:pickProcess}"
+            "stopOnEntry": true,
+            "commandLine": "",
+            "sourceMap": {
+                "/": "${workspaceFolder}"
+            }
         }
     ]
 }

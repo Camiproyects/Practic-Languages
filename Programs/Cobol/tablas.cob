@@ -5,7 +5,7 @@
       *    INGRESADO POR EL USUARIO.                                 *
       *    Date: 2025-01-23                                          *
       *    Author: Andres Camilo Laguna _Bernal                      *
-      ****************************************************************       
+      ****************************************************************
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        01 DATOS-VARIADOS.
