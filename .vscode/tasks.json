@@ -2,20 +2,14 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Compile COBOL",
+            "label": "Compilar COBOL",
             "type": "shell",
-            "command": "cobc",
-            "args": [
-                "-x",
-                "-free",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
-                "${file}"
-            ],
+            "command": "cobc -x -o ${fileDirname}/${fileBasenameNoExtension} ${file}",
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": []
         }
     ]
 }
