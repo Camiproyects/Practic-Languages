@@ -1,20 +1,17 @@
 {
-    // Use IntelliSense para saber los atributos posibles.
-    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Use IntelliSense para conocer los atributos posibles.
+    // Mantenga el puntero sobre un atributo para ver su descripción.
     // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "COBOL Debug",
-            "type": "cobol",
+            "name": "Ejecutar COBOL",
+            "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/Programs/Cobol/${fileBasename}",
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
             "cwd": "${workspaceFolder}",
-            "stopOnEntry": true,
-            "commandLine": "",
-            "sourceMap": {
-                "/": "${workspaceFolder}"
-            }
+            "externalConsole": false,
+            "MIMode": "gdb"
         }
     ]
 }
