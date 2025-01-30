@@ -29,12 +29,14 @@
         PANTALLA.
               MOVE ' ' TO DAT.
               DISPLAY DAT LINE 1 POSITION 1 ERASE EOS.
-              DISPLAY '1- CODIGO        :' LINE 5  POSITION 20.            
-              DISPLAY '2- DESCRIPCION   :' LINE 7  POSITION 20.
-              DISPLAY '3- PRECIO COMPRA :' LINE 9  POSITION 20.
-              DISPLAY '4- PRECIO VENTA  :' LINE 11 POSITION 20.
-              DISPLAY '5- INVENTARIO    :' LINE 13 POSITION 20.
-              DISPLAY '6- DATOS(S/NUM)  :' LINE 21 POSITION 20.
+              DISPLAY '***************************' LINE 4  POSITION 20.            
+              DISPLAY '*1- CODIGO        :' LINE 5  POSITION 20.            
+              DISPLAY '*2- DESCRIPCION   :' LINE 7  POSITION 20.
+              DISPLAY '*3- PRECIO COMPRA :' LINE 9  POSITION 20.
+              DISPLAY '*4- PRECIO VENTA  :' LINE 11 POSITION 20.
+              DISPLAY '*5- INVENTARIO    :' LINE 13 POSITION 20.
+              DISPLAY '**************************:' LINE 14 POSITION 20.
+              DISPLAY '6- DATOS(S/NUM)   :' LINE 21 POSITION 20.
               PERFORM TOMA-DATOS.	
 
         TOMA-DATOS.

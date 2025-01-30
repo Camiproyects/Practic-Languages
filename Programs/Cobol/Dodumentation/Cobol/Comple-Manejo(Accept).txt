@@ -1,0 +1,94 @@
+---------------------------------------------------
+--- ACEPTA INFORMACION DE EL TECLADO ---
+--- INPUT ---
+---------------------------------------------------
+
+
+***********************
+       * DEMOSTRACIÓN DE LAS CLÁUSULAS DE ACCEPT EN COBOL              *
+       * Este código incluye explicaciones y ejemplos prácticos        *
+       * sobre cómo usar las diversas cláusulas que complementan el    *
+       * comando ACCEPT en COBOL.                                      *
+       ***********************
+
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. DEMO-ACCEPT-CLAUSES.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 USER-NAME         PIC A(20).    *> Nombre del usuario.
+       01 USER-AGE          PIC 99.       *> Edad del usuario.
+       01 PASSWORD          PIC X(10).    *> Contraseña.
+       01 USER-COMMENT      PIC X(50).    *> Comentario del usuario.
+       01 CURSOR-POSITION   PIC 9(4).     *> Posición del cursor.
+       01 ESC-KEY           PIC 9(2) VALUE 27. *> Código de escape.
+
+       PROCEDURE DIVISION.
+       ***********************
+       * Ejemplo básico de ACCEPT desde el teclado                    *
+       ***********************
+           DISPLAY "---------------------------------------------------".
+           DISPLAY "--- ACEPTA INFORMACION DE EL TECLADO ---".
+           DISPLAY "---------------------------------------------------".
+           DISPLAY "Por favor, ingresa tu nombre: ".
+           ACCEPT USER-NAME.
+           DISPLAY "Hola, " USER-NAME "!".
+
+       ***********************
+       * Uso de LINE y COLUMN para ubicar el cursor                   *
+       ***********************
+           DISPLAY "Ingresa tu edad (columna 10): " AT LINE 5 COLUMN 10.
+           ACCEPT USER-AGE.
+
+       ***********************
+       * BEEP y BLINK                                                 *
+       ***********************
+           DISPLAY "Ingresa tu contraseña (con pitido y parpadeo): ".
+           ACCEPT PASSWORD BEEP BLINK.
+
+       ***********************
+       * Uso de TAB y TIME                                            *
+       ***********************
+           DISPLAY "Ingresa un comentario (espera de 5 segundos): ".
+           ACCEPT USER-COMMENT TAB TIME 500.
+
+       ***********************
+       * CURSOR para guardar posición                                 *
+       ***********************
+           ACCEPT USER-NAME CURSOR POS.
+           DISPLAY "Posición del cursor después de entrada: " CURSOR-POSITION.
+
+       ***********************
+       * ERASE, ERASE EOL y ERASE EOS                                 *
+       ***********************
+           DISPLAY "Se limpiará toda la pantalla.". ERASE.
+           DISPLAY "Se limpiará hasta el final de la línea.". ERASE EOL.
+           DISPLAY "Se limpiará hasta el final de la pantalla.". ERASE EOS.
+
+       ***********************
+       * PROMPT y ECHO                                                *
+       ***********************
+           DISPLAY "Ingresa tu nombre (PROMPT y ECHO activos): ".
+           ACCEPT USER-NAME PROMPT "_" ECHO.
+
+       ***********************
+       * REVERSE y COLOR                                              *
+       ***********************
+           DISPLAY "Ingresa tu nombre (en video inverso y color azul): ".
+           ACCEPT USER-NAME REVERSE COLOR 2.
+
+       ***********************
+       * FULL y REQUIRED                                              *
+       ***********************
+           DISPLAY "Ingresa un nombre completo (obligatorio y lleno): ".
+           ACCEPT USER-NAME REQUIRED FULL.
+
+       ***********************
+       * ON EXCEPTION para teclas especiales                          *
+       ***********************
+           DISPLAY "Presiona Escape para salir.". 
+           ACCEPT USER-NAME ON EXCEPTION ESC-KEY
+               DISPLAY "Tecla Escape presionada. Salida del programa.".
+
+       ***********************
+       * FIN DE DEMOSTRACIÓN    
