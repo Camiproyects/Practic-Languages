@@ -11,9 +11,9 @@
              03 VARIABLES.
                  05 COD          PIC 9(6).
                  05 DES          PIC X(50).
-                 05 PRECOM       PIC 9(8)V9(2).
-                 05 PREVEN       PIC 9(8)V9(2).
-                 05 INV          PIC 9(7)V9(2).
+                 05 PRECOM       PIC X(11).
+                 05 PREVEN       PIC X(11).
+                 05 INV          PIC X(10).
                  05 DAT          PIC X.
                  05 COD-EDIT     PIC   ZZZZ,ZZ9.
                  05 PRECOM-EDIT  PIC ZZZ,ZZZ,ZZ9.99.

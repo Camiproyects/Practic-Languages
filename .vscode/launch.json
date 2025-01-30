@@ -1,9 +1,7 @@
 {
-    // Use IntelliSense para conocer los atributos posibles.
-    // Mantenga el puntero sobre un atributo para ver su descripción.
-    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
         {
             "name": "Ejecutar COBOL",
             "type": "cppdbg",
@@ -11,7 +9,14 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}",
             "cwd": "${workspaceFolder}",
             "externalConsole": false,
-            "MIMode": "gdb"
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Habilitar modo COBOL",
+                    "text": "-enable-cobol",
+                    "ignoreFailures": false
+                }
+            ]
         }
     ]
 }
