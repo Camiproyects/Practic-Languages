@@ -1,4 +1,4 @@
-        IDENTIFICATION DIVISION.
+			IDENTIFICATION DIVISION.
         PROGRAM-ID. inventario.
       ****************************************************************
       *    PROGRAMA PARA LA PRACTICA DE MUESTRA DE PANTALLA DE COBOL *
