@@ -1,0 +1,15 @@
+{
+    "usuarios": [
+        {
+            "nom": "Juan Perez",
+            "tidoc": "DNI",
+            "numdoc": "12345678",
+            "cupag": 3000.00,
+            "numcon": "987654321",
+            "cro": "juan.perez@example.com",
+            "carg": "gerente",
+            "det": "Detalles del gerente",
+            "codun": "U001"
+        }
+    ]
+}
