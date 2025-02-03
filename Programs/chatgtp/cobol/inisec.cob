@@ -39,8 +39,8 @@
            PERFORM ACPDAT UNTIL SW = 'Q'.
            
            STOP RUN.
-       ACPDAT
+       ACPDAT.
            ACCEPT NUMDOC                          LINE 5  POSIITON 40.
            ACCEPT CODPASS                         LINE 5  POSIITON 40.
-           OPEN I-O USUARIOS USUARIOS
+           OPEN I-O USUARIOS USUARIOS.
            
