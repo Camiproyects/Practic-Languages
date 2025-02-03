@@ -1,0 +1,141 @@
+---------------------------------------------------------------
+--- MANEJO DE ARCHIVOS EN COBOL ---
+--- GUÍA COMPLETA ---
+---------------------------------------------------------------
+
+**********************
+* ESTRUCTURA PARA MANEJO DE ARCHIVOS EN COBOL *
+**********************
+* Esta guía explica cómo trabajar con archivos en COBOL,      *
+* incluyendo lectura, escritura y actualización de registros. *
+**********************
+
+IDENTIFICATION DIVISION.
+--------------------------------------------------------------
+* Sección de identificación del programa.                    *
+--------------------------------------------------------------
+PROGRAM-ID. MANEJO-ARCHIVOS.
+AUTHOR. "Tu Nombre".
+DATE-WRITTEN. "2025-01-23".
+
+ENVIRONMENT DIVISION.
+--------------------------------------------------------------
+* Sección que define el entorno del programa, incluyendo     *
+* la configuración de archivos.                              *
+--------------------------------------------------------------
+INPUT-OUTPUT SECTION.
+FILE-CONTROL.
+    SELECT ARCHIVO-CLIENTES ASSIGN TO "clientes.dat"
+        ORGANIZATION IS SEQUENTIAL
+        ACCESS MODE IS SEQUENTIAL
+        FILE STATUS IS FS-ARCHIVO.
+
+DATA DIVISION.
+--------------------------------------------------------------
+* Sección de datos, donde se definen las variables y la      *
+* estructura de los archivos.                                *
+--------------------------------------------------------------
+
+FILE SECTION.
+--------------------------------------------------------------
+* Definición de la estructura del archivo de clientes.       *
+--------------------------------------------------------------
+FD ARCHIVO-CLIENTES.
+01 REGISTRO-CLIENTE.
+   05 CLIENTE-ID        PIC 9(5).     *> ID único del cliente
+   05 CLIENTE-NOMBRE    PIC A(30).    *> Nombre del cliente
+   05 CLIENTE-EDAD      PIC 99.       *> Edad del cliente
+   05 CLIENTE-CORREO    PIC A(50).    *> Correo electrónico
+
+WORKING-STORAGE SECTION.
+--------------------------------------------------------------
+* Variables temporales para el manejo del archivo.           *
+--------------------------------------------------------------
+01 FS-ARCHIVO           PIC XX.       *> Estado del archivo
+01 EOF-FLAG             PIC X VALUE 'N'. *> Bandera de fin de archivo
+   88 EOF              VALUE 'Y'.     *> Condición de fin de archivo
+
+PROCEDURE DIVISION.
+--------------------------------------------------------------
+* Sección de procedimientos, donde se ejecuta la lógica del  *
+* programa.                                                  *
+--------------------------------------------------------------
+
+* Abrir archivo para escritura (creación).                   *
+OPEN OUTPUT ARCHIVO-CLIENTES.
+IF FS-ARCHIVO NOT = "00"
+    DISPLAY "Error al abrir el archivo para escritura."
+    STOP RUN.
+
+* Escribir registros en el archivo.                          *
+MOVE 1 TO CLIENTE-ID.
+MOVE "Juan Pérez" TO CLIENTE-NOMBRE.
+MOVE 25 TO CLIENTE-EDAD.
+MOVE "juan@example.com" TO CLIENTE-CORREO.
+WRITE REGISTRO-CLIENTE.
+
+MOVE 2 TO CLIENTE-ID.
+MOVE "Ana Gómez" TO CLIENTE-NOMBRE.
+MOVE 30 TO CLIENTE-EDAD.
+MOVE "ana@example.com" TO CLIENTE-CORREO.
+WRITE REGISTRO-CLIENTE.
+
+* Cerrar el archivo después de escribir.                     *
+CLOSE ARCHIVO-CLIENTES.
+
+* Abrir archivo para lectura.                                *
+OPEN INPUT ARCHIVO-CLIENTES.
+IF FS-ARCHIVO NOT = "00"
+    DISPLAY "Error al abrir el archivo para lectura."
+    STOP RUN.
+
+* Leer registros del archivo.                                *
+PERFORM UNTIL EOF
+    READ ARCHIVO-CLIENTES
+        AT END
+            SET EOF TO TRUE
+        NOT AT END
+            DISPLAY "ID: " CLIENTE-ID
+            DISPLAY "Nombre: " CLIENTE-NOMBRE
+            DISPLAY "Edad: " CLIENTE-EDAD
+            DISPLAY "Correo: " CLIENTE-CORREO
+            DISPLAY "-------------------------"
+    END-READ
+END-PERFORM.
+
+* Cerrar el archivo después de leer.                         *
+CLOSE ARCHIVO-CLIENTES.
+
+* Fin del programa.                                          *
+STOP RUN.
+
+**********************
+* EXPLICACIÓN DE MANEJO DE ARCHIVOS EN COBOL *
+**********************
+
+1. **ENVIRONMENT DIVISION**:
+   - En esta sección, se define la configuración de los archivos.
+   - `SELECT` asocia el archivo lógico (`ARCHIVO-CLIENTES`) con un archivo físico (`clientes.dat`).
+   - `ORGANIZATION IS SEQUENTIAL` indica que el archivo es secuencial.
+   - `ACCESS MODE IS SEQUENTIAL` permite acceso secuencial al archivo.
+   - `FILE STATUS` almacena el estado del archivo después de cada operación.
+
+2. **FILE SECTION**:
+   - Define la estructura de los registros del archivo.
+   - `FD` (File Descriptor) describe el archivo y sus campos.
+
+3. **WORKING-STORAGE SECTION**:
+   - Contiene variables temporales, como `FS-ARCHIVO` para el estado del archivo y `EOF-FLAG` para detectar el fin del archivo.
+
+4. **PROCEDURE DIVISION**:
+   - **Apertura de archivos**: `OPEN OUTPUT` para escritura y `OPEN INPUT` para lectura.
+   - **Escritura de registros**: `WRITE` guarda los datos en el archivo.
+   - **Lectura de registros**: `READ` recupera los datos del archivo.
+   - **Cierre de archivos**: `CLOSE` cierra el archivo después de su uso.
+
+**********************
+* REFERENCIAS:
+**********************
+- *Documentación oficial de COBOL*: https://www.ibm.com/docs/en/cobol
+- *Libro de COBOL*: "Structured COBOL Programming" por Nancy B. Stern, Robert A. Stern.
+- *Tutoriales de COBOL en línea*: https://www.guru99.com/cobol-tutorial.html

@@ -6,7 +6,7 @@
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-           SELECT ARCHIVO-CLIENTES ASSIGN TO "archives/usuarios.json"
+           SELECT ARCHIVO-CLIENTES ASSIGN TO "manage/usuarios.py"
            ORGANIZATION IS SEQUENTIAL
            ACCESS MODE IS SEQUENTIAL.
 
@@ -14,7 +14,7 @@
        FILE SECTION.
        FD ARCHIVO-CLIENTES.
        01 USUDATA.
-           05 CODUNI          PIC X(10).
+           05 CODUNI          PIC 9(10).
            05 NOMAPE          PIC X(65).
            
        WORKING-STORAGE SECTION.
@@ -43,7 +43,7 @@
               05 SW-CORREO       PIC X(30).
               05 SW-CARGO        PIC X.
               05 SW-DETALL       PIC X(65).
-              05 SW-CODUNI       PIC X(10).
+              05 SW-CODUNI       PIC 9(10).
               05 SW-FECREG       PIC 9(08).
 
        PROCEDURE DIVISION.
@@ -68,6 +68,7 @@
            ACCEPT DETALL             LINE 15  POSITION 65.
            ACCEPT NUMCON             LINE 16  POSITION 65. 
            ACCEPT CORREO             LINE 17  POSITION 65.
+           COMPUTE CODUNI = (NUMCON + NUMDOC) / 2.
            PERFORM VALID-DATA UNTIL SW-KILL = 'E'.
       
        VALID-DATA.
