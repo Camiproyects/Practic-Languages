@@ -1,8 +1,3 @@
-      *>------------------------------------------------------------
-      *> Programa: INICIO_SESION
-      *> Autor: ANDRES CAMILO LAGUNA BERNAL
-      *> Fecha de creación: 03-01-2025
-      *>------------------------------------------------------------
        IDENTIFICATION DIVISION.
        PROGRAM-ID. INICIO_SESION.
        AUTHOR. "ANDRES CAMILO LAGUNA BERNAL".
@@ -55,23 +50,20 @@
 
        PROCEDURE DIVISION.
        INICIO.
-      *> Se prepara la pantalla y se muestra un encabezado
            MOVE ' ' TO LIM.
            MOVE ALL '*' TO MAR.
            DISPLAY LIM ERASE EOS.
-      *> Se ejecuta el menú del CRUD hasta que el usuario decida salir ('Q')
            PERFORM MENU-CRUD UNTIL WS-OPCION = 'Q'.
            DISPLAY "PROGRAMA TERMINADO".
            STOP RUN.
 
        MENU-CRUD.
-      *> Presenta el menú de opciones al usuario
-           DISPLAY "Seleccione operación:".
-           DISPLAY "  C -> Crear usuario".
-           DISPLAY "  R -> Leer usuarios".
-           DISPLAY "  U -> Actualizar usuario".
-           DISPLAY "  D -> Eliminar usuario".
-           DISPLAY "  Q -> Salir".
+           DISPLAY "Seleccione operación:"     LINE 5  POSITION 20.
+           DISPLAY "  C -> Crear usuario"      LINE 9  POSITION 20.
+           DISPLAY "  R -> Leer usuarios"      LINE 11 POSITION 20.
+           DISPLAY "  U -> Actualizar usuario" LINE 13 POSITION 20.
+           DISPLAY "  D -> Eliminar usuario"   LINE 15 POSITION 20.
+           DISPLAY "  Q -> Salir"              LINE 17 POSITION 20.
            ACCEPT WS-OPCION.
            EVALUATE WS-OPCION
                WHEN "C" 
@@ -90,28 +82,26 @@
            
 
        OPERACION-CREAR.
-      *> Solicita los datos para crear un usuario
-           DISPLAY "----- Crear usuario -----".
-           DISPLAY "Ingrese Cédula de Ciudadania (TIPDOC y NUMDOC):".
-           ACCEPT TIPDOC.
-           ACCEPT NUMDOC.
-           DISPLAY "Ingrese Nombre y Apellido:".
-           ACCEPT NOMAPE.
-           DISPLAY "Ingrese Cargo (1=Empleado, 2=Admin):".
-           ACCEPT CARGO.
-           DISPLAY "Ingrese Monto a Pagar:".
-           ACCEPT MONTPA.
-           DISPLAY "Ingrese Detalles:".
-           ACCEPT DETALL.
-           DISPLAY "Ingrese Número de Contacto:".
-           ACCEPT NUMCON.
-           DISPLAY "Ingrese Correo:".
-           ACCEPT CORREO.
-           DISPLAY "Ingrese Fecha de Registro (AAAAMMDD):".
-           ACCEPT FECREG.
-      *> Calcula el código único como promedio de NUMDOC y NUMCON
+           DISPLAY LIM ERASE EOS.
+           DISPLAY "----- Crear usuario -----" LINE 5 POSITION 20.
+           DISPLAY "Ingrese Tipo Numero Identidad:" LINE 6 POSITION 20.
+           ACCEPT TIPDOC LINE 6 POSITION 55.
+           ACCEPT NUMDOC LINE 6 POSITION 55.
+           DISPLAY "Ingrese Nombre y Apellido:" LINE 7 POSITION 20.
+           ACCEPT NOMAPE LINE 7 POSITION 55.
+           DISPLAY "1=Empleado 2=Admin:" LINE 8 POSITION 20.
+           ACCEPT CARGO LINE 8 POSITION 55.
+           DISPLAY "Ingrese Monto a Pagar:" LINE 9 POSITION 20.
+           ACCEPT MONTPA LINE 9 POSITION 55.
+           DISPLAY "Ingrese Detalles:" LINE 10 POSITION 20.
+           ACCEPT DETALL LINE 10 POSITION 55.
+           DISPLAY "Ingrese Número de Contacto:" LINE 11 POSITION 20.
+           ACCEPT NUMCON LINE 11 POSITION 55.
+           DISPLAY "Ingrese Correo:" LINE 12 POSITION 20.
+           ACCEPT CORREO LINE 12 POSITION 55.
+           DISPLAY "Ingrese Fecha de Registro :" LINE 13 POSITION 20.
+           ACCEPT FECREG LINE 13 POSITION 55.
            COMPUTE CODUNI = (NUMDOC + NUMCON) / 2.
-      *> Construye la cadena JSON con la operación y los datos
            STRING 
               '{"operacion": "C", "datos": {' DELIMITED BY SIZE
               '"tipdoc": "' TIPDOC '", ' DELIMITED BY SIZE
@@ -126,15 +116,12 @@
               '"coduni": ' CODUNI '}}' DELIMITED BY SIZE
            INTO WS-DATO-JSON
            END-STRING.
-      *> Se abre el archivo en modo EXTEND para agregar la operación sin borrar las existentes
            OPEN EXTEND ARCHIVO-CLIENTES.
            WRITE USUDATA FROM WS-DATO-JSON.
            CLOSE ARCHIVO-CLIENTES.
            DISPLAY "Operación de creación enviada.".
            
-
        OPERACION-LEER.
-      *> Envía la operación de lectura
            DISPLAY "----- Leer usuarios -----".
            STRING '{"operacion": "R"}' DELIMITED BY SIZE
            INTO WS-DATO-JSON
@@ -144,27 +131,25 @@
            CLOSE ARCHIVO-CLIENTES.
            DISPLAY "Operación de lectura enviada.".
            
-
-       OPERACION-ACTUALIZAR.
-      *> Solicita los datos para actualizar un usuario
-           DISPLAY "----- Actualizar usuario -----".
-           DISPLAY "Ingrese Cédula de Ciudadania (TIPDOC y NUMDOC)".
-           ACCEPT TIPDOC.
-           ACCEPT NUMDOC.
-           DISPLAY "Ingrese nuevo Nombre y Apellido:".
-           ACCEPT NOMAPE.
-           DISPLAY "Ingrese nuevo Cargo (1=Empleado, 2=Admin):".
-           ACCEPT CARGO.
-           DISPLAY "Ingrese nuevo Monto a Pagar:".
-           ACCEPT MONTPA.
-           DISPLAY "Ingrese nuevos Detalles:".
-           ACCEPT DETALL.
-           DISPLAY "Ingrese nuevo Número de Contacto:".
-           ACCEPT NUMCON.
-           DISPLAY "Ingrese nuevo Correo:".
-           ACCEPT CORREO.
-           DISPLAY "Ingrese nueva Fecha de Registro (AAAAMMDD):".
-           ACCEPT FECREG.
+       OPERACION-ACTUALIZAR.           DISPLAY LIM ERASE EOS.
+           DISPLAY "----- Crear usuario -----" LINE 5 POSITION 20.
+           DISPLAY "Ingrese Tipo Numero Identidad:" LINE 6 POSITION 20.
+           ACCEPT TIPDOC LINE 6 POSITION 55.
+           ACCEPT NUMDOC LINE 6 POSITION 55.
+           DISPLAY "Ingrese Nombre y Apellido:" LINE 7 POSITION 20.
+           ACCEPT NOMAPE LINE 7 POSITION 55.
+           DISPLAY "1=Empleado 2=Admin:" LINE 8 POSITION 20.
+           ACCEPT CARGO LINE 8 POSITION 55.
+           DISPLAY "Ingrese Monto a Pagar:" LINE 9 POSITION 20.
+           ACCEPT MONTPA LINE 9 POSITION 55.
+           DISPLAY "Ingrese Detalles:" LINE 10 POSITION 20.
+           ACCEPT DETALL LINE 10 POSITION 55.
+           DISPLAY "Ingrese Número de Contacto:" LINE 11 POSITION 20.
+           ACCEPT NUMCON LINE 11 POSITION 55.
+           DISPLAY "Ingrese Correo:" LINE 12 POSITION 20.
+           ACCEPT CORREO LINE 12 POSITION 55.
+           DISPLAY "Ingrese Fecha de Registro :" LINE 13 POSITION 20.
+           ACCEPT FECREG LINE 13 POSITION 55.
            COMPUTE CODUNI = (NUMDOC + NUMCON) / 2.
            STRING 
               '{"operacion": "U", "datos": {' DELIMITED BY SIZE
@@ -187,7 +172,6 @@
            
 
        OPERACION-ELIMINAR.
-      *> Solicita la identificación del usuario a eliminar
            DISPLAY "----- Eliminar usuario -----".
            DISPLAY "Ingrese Cédula de Ciudadania :".
            ACCEPT TIPDOC.
