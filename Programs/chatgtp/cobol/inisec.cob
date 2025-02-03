@@ -40,7 +40,7 @@
            
            STOP RUN.
        ACPDAT.
-           ACCEPT NUMDOC                          LINE 5  POSIITON 40.
-           ACCEPT CODPASS                         LINE 5  POSIITON 40.
+           ACCEPT NUMDOC                          LINE 5  POSIITON 45.
+           ACCEPT CODPASS                         LINE 5  POSIITON 45.
            OPEN I-O USUARIOS USUARIOS.
            
