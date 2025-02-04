@@ -79,7 +79,6 @@
            ACCEPT T-NUMDOC LINE 6 POSITION 55.
            ACCEPT T-CODUNI LINE 7 POSITION 55.
            MOVE T-NUMDOC TO NUMDOC.
-           MOVE T-CODUNI TO CODUNI.
            READ ARCHIVO-CLIENTES RECORD KEY NUMDOC
                 INVALID KEY 
                     DISPLAY "Usuario no encontrado." LINE 7 POSITION 20
