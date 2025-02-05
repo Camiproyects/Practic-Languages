@@ -45,6 +45,8 @@
        01 WS-OPCION     PIC X.
        01 WS-DATO-JSON  PIC X(500).
        01 WS-CLAVE      PIC 9(10).
+       01 PANT-AD       PIC X(30).
+       01 PANT-EM       PIC X(30).
 
        01 TEMP-USUDATA.
            05 T-NOMAPE   PIC X(65).
@@ -72,6 +74,8 @@
 
        INI-SEC.
            PERFORM CLEAR-SCREEN.
+           MOVE "Empleados/Em-pant-princ"   TO PANT-EM.
+           MOVE "Admin/Ad-pant-princ"       TO PANT-AD.
            DISPLAY "-------------------------------" LINE 3 POSITION 20.
            DISPLAY "  INICIO DE SESION             " LINE 4 POSITION 20.
            DISPLAY "-------------------------------" LINE 5 POSITION 20.
@@ -80,22 +84,24 @@
            ACCEPT T-NUMDOC LINE 6 POSITION 55.
            ACCEPT T-CODUNI LINE 7 POSITION 55.
            MOVE T-NUMDOC TO NUMDOC.
-           READ ARCHIVO-CLIENTES RECORD KEY NUMDOC
+            READ ARCHIVO-CLIENTES RECORD KEY NUMDOC
                 INVALID KEY 
-                    DISPLAY "Usuario no encontrado." LINE 9 POSITION 50
+                DISPLAY "Usuario no encontrado." LINE 9 POSITION 50
                 NOT INVALID KEY
-                    IF T-CODUNI = CODUNI
+                IF T-CODUNI = CODUNI
                     CLOSE ARCHIVO-CLIENTES
                     DISPLAY "ENTRASTE" LINE 9 POSITION 50
                     PERFORM PAUSA
                     IF CARGO = "2"
-                    CALL "pant_princ" USING
-                        NUMDOC
-                    END-CALL
-                    
-                    ELSE 
-                    DISPLAY "CREDENCIALES ERRONEAS" LINE 9 POSITION 50
-           END-READ.
+                        CALL PANT-AD USING NUMDOC
+                        END-CALL
+                    ELSE
+                        CALL PANT-EM   USING NUMDOC
+                        END-CALL
+                    END-IF
+                ELSE 
+                DISPLAY "CREDENCIALES ERRONEAS" LINE 9 POSITION 50
+            END-READ.
            PERFORM PAUSA.
 
        CLEAR-SCREEN.
