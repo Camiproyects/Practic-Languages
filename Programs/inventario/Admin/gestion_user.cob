@@ -9,17 +9,18 @@
       *              la clave NUMDOC.                                *
       *                                                              *
       * Autor: ANDRES CAMILO LAGUNA BERNAL                           *
-      * Fecha: 04-01-2025                                            *
+      * Fecha: 02-01-2025                                            *
       ****************************************************************
        DATE-WRITTEN. "03-01-2025".
 
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-           SELECT ARCHIVO-CLIENTES ASSIGN TO "data/usuarios.dat"
+           SELECT ARCHIVO-CLIENTES ASSIGN TO "Data/usuarios.dat"
                ORGANIZATION IS INDEXED
                ACCESS MODE IS DYNAMIC
                RECORD KEY IS NUMDOC
+               ALTERNATE RECORD KEY IS CODUNI WITH DUPLICATES
                FILE STATUS IS WS-FS.
 
        DATA DIVISION.
@@ -42,8 +43,6 @@
        01 WS-FS         PIC XX.
        01 LIM           PIC X.
        01 WS-OPCION     PIC X.
-       01 WS-DATO-JSON  PIC X(500).
-       01 WS-CLAVE      PIC 9(10).
 
        01 TEMP-USUDATA.
            05 T-NOMAPE   PIC X(65).
@@ -81,7 +80,7 @@
            DISPLAY "  D -> Eliminar usuario"    LINE 13 POSITION 20.
            DISPLAY "  Q -> Salir"               LINE 15 POSITION 20.
            DISPLAY "Seleccione una opción:"     LINE 17 POSITION 20.
-           ACCEPT WS-OPCION LINE 17 POSITION 40.
+           ACCEPT WS-OPCION LINE 17 POSITION 41.
            EVALUATE WS-OPCION
                WHEN "C" 
                     PERFORM OPERACION-CREAR

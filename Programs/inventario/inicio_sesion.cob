@@ -2,7 +2,7 @@
        PROGRAM-ID. inicio_sesion.
        AUTHOR. "ANDRES CAMILO LAGUNA BERNAL".
       ****************************************************************
-      *                GESTIÓN USUARIOS                              *
+      *                INICIO DE SESION                              *
       *                                                              *
       * Descripción: Manejo de usuarios mediante archivo indexado.   *
       *              Se utilizan operaciones CRUD basadas en         *
@@ -16,10 +16,11 @@
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-           SELECT ARCHIVO-CLIENTES ASSIGN TO "data/usuarios.dat"
+           SELECT ARCHIVO-CLIENTES ASSIGN TO "Data/usuarios.dat"
                ORGANIZATION IS INDEXED
                ACCESS MODE IS DYNAMIC
                RECORD KEY IS NUMDOC
+               ALTERNATE RECORD KEY IS CODUNI WITH DUPLICATES
                FILE STATUS IS WS-FS.
 
        DATA DIVISION.
@@ -55,11 +56,11 @@
            05 T-CARGO    PIC X.
            05 T-DETALL   PIC X(65).
            05 T-FECREG   PIC 9(08).
-           05 T-CODUNI   PIC 9(10).
+           05 T-CODUNI   PIC 9(4).
 
        PROCEDURE DIVISION.
        INICIO.
-           PERFORM CLEAR-WIND.
+           PERFORM CLEAR-SCREEN.
            OPEN INPUT ARCHIVO-CLIENTES.
            IF WS-FS NOT = "00"
               DISPLAY "Error al abrir el archivo. FS = " WS-FS
@@ -70,7 +71,7 @@
            STOP RUN.
 
        INI-SEC.
-           PERFORM CLEAR-WIND.
+           PERFORM CLEAR-SCREEN.
            DISPLAY "-------------------------------" LINE 3 POSITION 20.
            DISPLAY "  INICIO DE SESION             " LINE 4 POSITION 20.
            DISPLAY "-------------------------------" LINE 5 POSITION 20.
@@ -81,13 +82,23 @@
            MOVE T-NUMDOC TO NUMDOC.
            READ ARCHIVO-CLIENTES RECORD KEY NUMDOC
                 INVALID KEY 
-                    DISPLAY "Usuario no encontrado." LINE 7 POSITION 20
+                    DISPLAY "Usuario no encontrado." LINE 9 POSITION 50
                 NOT INVALID KEY
-                    DISPLAY "ENTRASTE"
+                    IF T-CODUNI = CODUNI
+                    CLOSE ARCHIVO-CLIENTES
+                    DISPLAY "ENTRASTE" LINE 9 POSITION 50
+                    PERFORM PAUSA
+                    IF CARGO = "2"
+                    CALL "pant_princ" USING
+                        NUMDOC
+                    END-CALL
+                    
+                    ELSE 
+                    DISPLAY "CREDENCIALES ERRONEAS" LINE 9 POSITION 50
            END-READ.
            PERFORM PAUSA.
 
-       CLEAR-WIND.
+       CLEAR-SCREEN.
            MOVE " " TO LIM.
            DISPLAY LIM LINE 1 POSITION 1 ERASE EOS.
 

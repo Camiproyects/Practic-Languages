@@ -1,0 +1,131 @@
+---------------------------------------------------------------
+--- ABRIR Y CERRAR UNA VENTANA EN COBOL ---
+--- GUÍA COMPLETA ---
+---------------------------------------------------------------
+
+**********************
+* DESCRIPCIÓN GENERAL *
+**********************
+Esta guía explica cómo utilizar comandos especiales en COBOL para crear (abrir) y remover (cerrar) ventanas en la pantalla.
+En entornos que soportan tales funcionalidades (por ejemplo, 
+    RM/COBOL o Micro Focus COBOL) se pueden usar sentencias como
+         WINDOW-CREATE y WINDOW-REMOVE para diseñar interfaces de usuario basadas en texto, 
+         tales como ventanas de diálogo, menúes o formularios.
+
+**********************
+* REQUISITOS Y CONSIDERACIONES *
+**********************
+1. Entorno de Ejecución:
+   - Utiliza un compilador/entorno COBOL que soporte sentencias para manejo de ventanas (
+       por ejemplo, RM/COBOL o Micro Focus COBOL).
+   - Revisa la documentación de tu compilador para conocer la sintaxis y las opciones disponibles para la 
+   administración de ventanas.
+
+2. Sintaxis Básica y Comandos:
+   - WINDOW-CREATE:
+     Se utiliza para crear una ventana. Se debe especificar un identificador o nombre, 
+     la posición (fila y columna) y el tamaño (ancho y alto) de la ventana.
+   - WINDOW-REMOVE:
+     Se utiliza para cerrar o remover la ventana creada, restaurando la pantalla a su estado original.
+
+3. Consideraciones de Interfaz:
+   - La ventana creada es una región de la pantalla donde se puede mostrar información o interactuar con el usuario.
+   - Es importante remover la ventana cuando ya no se necesita para evitar superposiciones y mantener una interfaz limpia.
+
+**********************
+* EJEMPLO DE CÓDIGO *
+**********************
+El siguiente programa COBOL crea una ventana, muestra un mensaje, espera la interacción del usuario y
+ finalmente cierra la ventana. Se incluyen comentarios que destacan los cambios y explican cada parte.
+
+       ****************************************************************
+       *              DEMOSTRACIÓN DE MANEJO DE VENTANAS              *
+       *                                                              *
+       * Descripción: Este programa crea una ventana en pantalla,     *
+       * muestra un mensaje y, al presionar ENTER, cierra la ventana.   *
+       *                                                              *
+       * Requisitos: Entorno que soporte WINDOW-CREATE y WINDOW-REMOVE. *
+       *                                                              *
+       * Autor: Tu Nombre                                             *
+       * Fecha: 2025-01-23                                              *
+       ****************************************************************
+       
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. VentanaDemo.
+       AUTHOR. "Tu Nombre".
+       DATE-WRITTEN. "2025-01-23".
+
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       * Se asume que el entorno está configurado para manejo de pantalla.
+       
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-DUMMY        PIC X(1) VALUE SPACE.
+       01 WS-NOMBRE-VEN   PIC X(20) VALUE "MainWindow". 
+       01 WS-LINEA        PIC 9(2) VALUE 5.    *> Posición inicial de la ventana (fila)
+       01 WS-COLUMNA      PIC 9(2) VALUE 5.    *> Posición inicial de la ventana (columna)
+       01 WS-ANCHO        PIC 9(2) VALUE 50.   *> Ancho de la ventana
+       01 WS-ALTO         PIC 9(2) VALUE 20.   *> Alto de la ventana
+
+       PROCEDURE DIVISION.
+       MAIN-PARA.
+           PERFORM CLEAR-SCREEN.
+           
+           * ******************************* CAMBIO ******************************* 
+           * Se crea una ventana utilizando el comando WINDOW-CREATE.         *
+           * Se especifica el nombre, posición (fila y columna) y tamaño    *
+           * (ancho y alto) de la ventana.                                       *
+           * ************************************************************************
+           DISPLAY WS-NOMBRE-VEN WINDOW-CREATE AT WS-LINEA WS-COLUMNA SIZE WS-ANCHO WS-ALTO.
+           
+           DISPLAY "Ventana creada. Presione ENTER para continuar..." LINE 10 POSITION 10.
+           ACCEPT WS-DUMMY.
+           
+           * ******************************* CAMBIO ******************************* 
+           * Se remueve la ventana utilizando WINDOW-REMOVE para cerrar la       *
+           * ventana y restaurar la pantalla a su estado original.               *
+           * ************************************************************************
+           DISPLAY WS-NOMBRE-VEN WINDOW-REMOVE.
+           
+           DISPLAY "Ventana cerrada. Fin del programa." LINE 12 POSITION 10.
+           STOP RUN.
+       
+       CLEAR-SCREEN.
+           * Llama al sistema para limpiar la pantalla (dependiente del entorno)
+           CALL "SYSTEM" USING "clear".
+
+**********************
+* EXPLICACIÓN DEL CÓDIGO *
+**********************
+1. IDENTIFICATION DIVISION:
+   - Se define el nombre del programa (VentanaDemo) y se especifica la información del autor y la fecha de creación.
+
+2. WORKING-STORAGE SECTION:
+   - Se definen variables para almacenar los parámetros de la ventana:
+     * WS-NOMBRE-VEN: Identificador de la ventana (en este caso, "MainWindow").
+     * WS-LINEA y WS-COLUMNA: Posición inicial en la pantalla (fila y columna).
+     * WS-ANCHO y WS-ALTO: Tamaño de la ventana en columnas y filas, respectivamente.
+   - WS-DUMMY se utiliza para pausar el programa y esperar la entrada del usuario.
+
+3. PROCEDURE DIVISION:
+   - CLEAR-SCREEN: Se invoca un procedimiento para limpiar la pantalla; en este ejemplo se asume que la llamada al 
+   sistema con "clear" es compatible con el entorno.
+   - WINDOW-CREATE: Se crea la ventana mediante el comando:
+         DISPLAY WS-NOMBRE-VEN WINDOW-CREATE AT WS-LINEA WS-COLUMNA SIZE WS-ANCHO WS-ALTO.
+     Esto crea una ventana llamada "MainWindow" en la posición (5,5) con un tamaño de 50 columnas por 20 filas.
+   - Se muestra un mensaje dentro de la ventana y se espera que el usuario presione ENTER.
+   - WINDOW-REMOVE: Se cierra la ventana con el comando:
+         DISPLAY WS-NOMBRE-VEN WINDOW-REMOVE.
+     Esto elimina la ventana y devuelve la pantalla a su estado previo.
+
+**********************
+* REFERENCIAS *
+**********************
+- Documentación oficial de COBOL (IBM, Micro Focus): https://www.ibm.com/docs/en/cobol
+- Tutoriales y ejemplos prácticos de COBOL en línea: https://www.guru99.com/cobol-tutorial.html
+- Libros de referencia: "Structured COBOL Programming" por Nancy B. Stern y Robert A. Stern.
+
+---------------------------------------------------------------
+FIN DEL DOCUMENTO
+---------------------------------------------------------------
