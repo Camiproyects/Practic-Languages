@@ -112,3 +112,4 @@
        PAUSA.
            DISPLAY "Presione ENTER para continuar...".
            ACCEPT WS-OPCION.
+           WINDOW-CREATE.

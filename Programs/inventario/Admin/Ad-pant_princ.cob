@@ -38,12 +38,13 @@
                WHEN 1
                PERFORM CLEAR-SCREEN
                DISPLAY "ENTRAS"
-      *           CALL "gestion_user" USING
-      *           END-CALL
-                 
-                  
+                 CALL "gestion_user"     USING NUMDOC
+                 END-CALL
+               WHEN 2 
+               CALL "gestion_articles"   USING NUMDOC
+                 END-CALL
                WHEN OTHER
-                  CONTINUE
+                  DISPLAY "ERROR"
            END-EVALUATE.
            
            
