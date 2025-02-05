@@ -7,7 +7,10 @@
 * ESTRUCTURA PARA MANEJO DE ARCHIVOS EN COBOL *
 **********************
 * Esta guía explica cómo trabajar con archivos en COBOL,      *
-* incluyendo lectura, escritura y actualización de registros. *
+* incluyendo lectura, escritura, actualización y eliminación *
+* de registros. Además, se abordan temas avanzados como el   *
+* uso de archivos indexados, llaves primarias y acceso       *
+* dinámico a registros.                                      *
 **********************
 
 IDENTIFICATION DIVISION.
@@ -30,6 +33,13 @@ FILE-CONTROL.
         ACCESS MODE IS SEQUENTIAL
         FILE STATUS IS FS-ARCHIVO.
 
+    SELECT ARCHIVO-INDEXADO ASSIGN TO "clientes.idx"
+        ORGANIZATION IS INDEXED
+        ACCESS MODE IS RANDOM
+        RECORD KEY IS CLIENTE-ID
+        ALTERNATE RECORD KEY IS CLIENTE-NOMBRE
+        FILE STATUS IS FS-ARCHIVO-INDEX.
+
 DATA DIVISION.
 --------------------------------------------------------------
 * Sección de datos, donde se definen las variables y la      *
@@ -47,11 +57,19 @@ FD ARCHIVO-CLIENTES.
    05 CLIENTE-EDAD      PIC 99.       *> Edad del cliente
    05 CLIENTE-CORREO    PIC A(50).    *> Correo electrónico
 
+FD ARCHIVO-INDEXADO.
+01 REGISTRO-INDEXADO.
+   05 CLIENTE-ID        PIC 9(5).     *> ID único del cliente
+   05 CLIENTE-NOMBRE    PIC A(30).    *> Llave alterna
+   05 CLIENTE-EDAD      PIC 99.
+   05 CLIENTE-CORREO    PIC A(50).
+
 WORKING-STORAGE SECTION.
 --------------------------------------------------------------
 * Variables temporales para el manejo del archivo.           *
 --------------------------------------------------------------
 01 FS-ARCHIVO           PIC XX.       *> Estado del archivo
+01 FS-ARCHIVO-INDEX     PIC XX.
 01 EOF-FLAG             PIC X VALUE 'N'. *> Bandera de fin de archivo
    88 EOF              VALUE 'Y'.     *> Condición de fin de archivo
 
@@ -80,7 +98,6 @@ MOVE 30 TO CLIENTE-EDAD.
 MOVE "ana@example.com" TO CLIENTE-CORREO.
 WRITE REGISTRO-CLIENTE.
 
-* Cerrar el archivo después de escribir.                     *
 CLOSE ARCHIVO-CLIENTES.
 
 * Abrir archivo para lectura.                                *
@@ -103,8 +120,23 @@ PERFORM UNTIL EOF
     END-READ
 END-PERFORM.
 
-* Cerrar el archivo después de leer.                         *
 CLOSE ARCHIVO-CLIENTES.
+
+* Abrir archivo indexado para acceso aleatorio.              *
+OPEN I-O ARCHIVO-INDEXADO.
+IF FS-ARCHIVO-INDEX NOT = "00"
+    DISPLAY "Error al abrir el archivo indexado."
+    STOP RUN.
+
+* Buscar registro con clave primaria.                        *
+MOVE 1 TO CLIENTE-ID.
+READ ARCHIVO-INDEXADO KEY IS CLIENTE-ID
+    INVALID KEY
+        DISPLAY "Cliente no encontrado."
+    NOT INVALID KEY
+        DISPLAY "Cliente encontrado: " CLIENTE-NOMBRE.
+
+CLOSE ARCHIVO-INDEXADO.
 
 * Fin del programa.                                          *
 STOP RUN.
@@ -114,24 +146,24 @@ STOP RUN.
 **********************
 
 1. **ENVIRONMENT DIVISION**:
-   - En esta sección, se define la configuración de los archivos.
-   - `SELECT` asocia el archivo lógico (`ARCHIVO-CLIENTES`) con un archivo físico (`clientes.dat`).
-   - `ORGANIZATION IS SEQUENTIAL` indica que el archivo es secuencial.
-   - `ACCESS MODE IS SEQUENTIAL` permite acceso secuencial al archivo.
-   - `FILE STATUS` almacena el estado del archivo después de cada operación.
+   - Define la configuración de los archivos.
+   - `SELECT` asocia archivos con nombres físicos.
+   - `ORGANIZATION IS SEQUENTIAL` para archivos secuenciales.
+   - `ORGANIZATION IS INDEXED` para archivos indexados.
+   - `FILE STATUS` almacena el estado de cada archivo.
 
 2. **FILE SECTION**:
-   - Define la estructura de los registros del archivo.
-   - `FD` (File Descriptor) describe el archivo y sus campos.
+   - Define la estructura de los registros en archivos.
+   - Uso de llaves primarias y alternativas para indexación.
 
 3. **WORKING-STORAGE SECTION**:
-   - Contiene variables temporales, como `FS-ARCHIVO` para el estado del archivo y `EOF-FLAG` para detectar el fin del archivo.
+   - Contiene variables temporales.
+   - Manejo de banderas de estado y EOF.
 
 4. **PROCEDURE DIVISION**:
-   - **Apertura de archivos**: `OPEN OUTPUT` para escritura y `OPEN INPUT` para lectura.
-   - **Escritura de registros**: `WRITE` guarda los datos en el archivo.
-   - **Lectura de registros**: `READ` recupera los datos del archivo.
-   - **Cierre de archivos**: `CLOSE` cierra el archivo después de su uso.
+   - **Apertura y cierre de archivos**.
+   - **Escritura y lectura secuencial**.
+   - **Búsqueda con clave primaria en archivos indexados**.
 
 **********************
 * REFERENCIAS:
@@ -139,3 +171,4 @@ STOP RUN.
 - *Documentación oficial de COBOL*: https://www.ibm.com/docs/en/cobol
 - *Libro de COBOL*: "Structured COBOL Programming" por Nancy B. Stern, Robert A. Stern.
 - *Tutoriales de COBOL en línea*: https://www.guru99.com/cobol-tutorial.html
+
