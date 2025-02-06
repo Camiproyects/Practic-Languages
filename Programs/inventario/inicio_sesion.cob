@@ -85,7 +85,7 @@
            DISPLAY LIM ERASE EOS.
            DISPLAY "----- Crear usuario -----" LINE 5 POSITION 20.
            DISPLAY "Ingrese Tipo Numero Identidad:" LINE 6 POSITION 20.
-           ACCEPT TIPDOC LINE 6 POSITION 55.
+           MOVE 'CC' TO TIPDOC.
            ACCEPT NUMDOC LINE 6 POSITION 55.
            DISPLAY "Ingrese Nombre y Apellido:" LINE 7 POSITION 20.
            ACCEPT NOMAPE LINE 7 POSITION 55.
