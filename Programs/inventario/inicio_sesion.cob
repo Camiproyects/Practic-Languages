@@ -1,69 +1,116 @@
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. INICIO_SESION.
+       PROGRAM-ID. inicio_sesion.
        AUTHOR. "ANDRES CAMILO LAGUNA BERNAL".
+      ****************************************************************
+      *                INICIO DE SESION                              *
+      *                                                              *
+      * Descripción: Manejo de usuarios mediante archivo indexado.   *
+      *              Se utilizan operaciones CRUD basadas en         *
+      *              la clave NUMDOC.                                *
+      *                                                              *
+      * Autor: ANDRES CAMILO LAGUNA BERNAL                           *
+      * Fecha: 04-01-2025                                            *
+      ****************************************************************
        DATE-WRITTEN. "03-01-2025".
 
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-           SELECT ARCHIVO-CLIENTES ASSIGN TO "manage/usuarios.py"
-               ORGANIZATION IS LINE SEQUENTIAL
-               ACCESS MODE IS SEQUENTIAL.
+           SELECT ARCHIVO-CLIENTES ASSIGN TO "Data/usuarios.dat"
+               ORGANIZATION IS INDEXED
+               ACCESS MODE IS DYNAMIC
+               RECORD KEY IS NUMDOC
+               ALTERNATE RECORD KEY IS CODUNI WITH DUPLICATES
+               FILE STATUS IS WS-FS.
 
        DATA DIVISION.
        FILE SECTION.
-       FD ARCHIVO-CLIENTES.
-       01 USUDATA.
-           05 CODUNI   PIC 9(10).
+       FD  ARCHIVO-CLIENTES.
+       01  USUDATA.
            05 NOMAPE   PIC X(65).
+           05 TIPDOC   PIC X(02).
+           05 NUMDOC   PIC 9(10).
+           05 MONTPA   PIC 9(10).
+           05 NUMCON   PIC 9(10).
+           05 CORREO   PIC X(30).
+           05 CARGO    PIC X.
+           05 DETALL   PIC X(65).
+           05 FECREG   PIC 9(08).
+           05 REDOND   PIC 9(10).
+           05 CODUNI   PIC 9(4).
 
        WORKING-STORAGE SECTION.
-       01 VARIABLES.
-           03 DATAVARIABLE.
-              05 TIPDOC   PIC X(02).
-              05 NUMDOC   PIC 9(10).
-              05 MONTPA   PIC 9(10).
-              05 NUMCON   PIC 9(10).
-              05 CORREO   PIC X(30).
-              05 CARGO    PIC X.
-              05 DETALL   PIC X(65).
-              05 FECREG   PIC 9(08).
-       01 PANTALLA.
-           03 MANAGE.
-              05 LIM      PIC X.
-              05 DAT      PIC X.
-              05 MAR      PIC X(60).
-              05 SW-KILL  PIC X.
-       01 PERSIS.
-           05 SW-NOMAPE   PIC X(65).
-           05 SW-TIPDOC   PIC X(02).
-           05 SW-NUMDOC   PIC 9(10).
-           05 SW-MONTPA   PIC 9(10).
-           05 SW-NUMCON   PIC 9(10).
-           05 SW-CORREO   PIC X(30).
-           05 SW-CARGO    PIC X.
-           05 SW-DETALL   PIC X(65).
-           05 SW-CODUNI   PIC 9(10).
-           05 SW-FECREG   PIC 9(08).
-       01 WS-OPCION      PIC X.
-       01 WS-DATO-JSON   PIC X(500).
+       01 WS-FS         PIC XX.
+       01 LIM           PIC X.
+       01 WS-OPCION     PIC X.
+       01 WS-DATO-JSON  PIC X(500).
+       01 WS-CLAVE      PIC 9(10).
+       01 PANT-AD       PIC X(30).
+       01 PANT-EM       PIC X(30).
+
+       01 TEMP-USUDATA.
+           05 T-NOMAPE   PIC X(65).
+           05 T-TIPDOC   PIC X(02).
+           05 T-NUMDOC   PIC 9(10).
+           05 T-MONTPA   PIC 9(10).
+           05 T-NUMCON   PIC 9(10).
+           05 T-CORREO   PIC X(30).
+           05 T-CARGO    PIC X.
+           05 T-DETALL   PIC X(65).
+           05 T-FECREG   PIC 9(08).
+           05 T-CODUNI   PIC 9(4).
 
        PROCEDURE DIVISION.
        INICIO.
-           MOVE ' ' TO LIM.
-           MOVE ALL '*' TO MAR.
-           DISPLAY LIM ERASE EOS.
-           PERFORM MENU-CRUD UNTIL WS-OPCION = 'Q'.
-           DISPLAY "PROGRAMA TERMINADO".
+           PERFORM CLEAR-SCREEN.
+           OPEN INPUT ARCHIVO-CLIENTES.
+           IF WS-FS NOT = "00"
+              DISPLAY "Error al abrir el archivo. FS = " WS-FS
+              STOP RUN
+           END-IF.
+           PERFORM INI-SEC UNTIL WS-OPCION = "Q".
+           DISPLAY "PROGRAMA TERMINADO :p".
            STOP RUN.
 
-       MENU-CRUD.
-           DISPLAY "Seleccione operación:"     LINE 5  POSITION 20.
-           DISPLAY "  C -> Crear usuario"      LINE 9  POSITION 20.
-           DISPLAY "  R -> Leer usuarios"      LINE 11 POSITION 20.
-           DISPLAY "  U -> Actualizar usuario" LINE 13 POSITION 20.
-           DISPLAY "  D -> Eliminar usuario"   LINE 15 POSITION 20.
-           DISPLAY "  Q -> Salir"              LINE 17 POSITION 20.
+       INI-SEC.
+           PERFORM CLEAR-SCREEN.
+           MOVE "Empleados/Em-pant-princ"   TO PANT-EM.
+           MOVE "Admin/Ad-pant-princ"       TO PANT-AD.
+           DISPLAY "-------------------------------" LINE 3 POSITION 20.
+           DISPLAY "  INICIO DE SESION             " LINE 4 POSITION 20.
+           DISPLAY "-------------------------------" LINE 5 POSITION 20.
+           DISPLAY "INSERTA CEDULA DE CIUDADANIA   " LINE 6 POSITION 20.
+           DISPLAY "INSERTA NUMERO DE EMPLEADO     " LINE 7 POSITION 20.
+           ACCEPT T-NUMDOC LINE 6 POSITION 55.
+           ACCEPT T-CODUNI LINE 7 POSITION 55.
+           MOVE T-NUMDOC TO NUMDOC.
+            READ ARCHIVO-CLIENTES RECORD KEY NUMDOC
+                INVALID KEY 
+                DISPLAY "Usuario no encontrado." LINE 9 POSITION 50
+                NOT INVALID KEY
+                IF T-CODUNI = CODUNI
+                    CLOSE ARCHIVO-CLIENTES
+                    DISPLAY "ENTRASTE" LINE 9 POSITION 50
+                    PERFORM PAUSA
+                    IF CARGO = "2"
+                        CALL PANT-AD USING NUMDOC
+                        END-CALL
+                    ELSE
+                        CALL PANT-EM   USING NUMDOC
+                        END-CALL
+                    END-IF
+                ELSE 
+                DISPLAY "CREDENCIALES ERRONEAS" LINE 9 POSITION 50
+            END-READ.
+           PERFORM PAUSA.
+
+       CLEAR-SCREEN.
+           MOVE " " TO LIM.
+           DISPLAY LIM LINE 1 POSITION 1 ERASE EOS.
+
+
+       PAUSA.
+           DISPLAY "Presione ENTER para continuar...".
            ACCEPT WS-OPCION.
            EVALUATE WS-OPCION
                WHEN "C" 
@@ -186,3 +233,4 @@
            WRITE USUDATA FROM WS-DATO-JSON.
            CLOSE ARCHIVO-CLIENTES.
            DISPLAY "Operación de eliminación enviada.".
+           WINDOW-CREATE.

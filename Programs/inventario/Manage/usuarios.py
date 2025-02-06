@@ -4,7 +4,11 @@ import os
 # Archivo donde COBOL escribe las operaciones (cola de instrucciones)
 OPERACIONES_FILE = 'manage/usuarios.py'
 # Archivo de datos principal en formato JSON (persistencia de usuarios)
+<<<<<<< HEAD:Programs/inventario/manage/usuarios.py
 USUARIOS_FILE = '../archives/usuarios.json'
+=======
+USUARIOS_FILE = '../data/usuarios.json'
+>>>>>>> 21f9ab7e40e011a887db9f2746c7be6955ed2972:Programs/inventario/Manage/usuarios.py
 
 def leer_lineas_operaciones(archivo):
     """

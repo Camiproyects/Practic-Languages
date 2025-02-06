@@ -1,0 +1,77 @@
+---------------------------------------------------------------
+--- DOCUMENTACIÓN GENERAL DE GnuCOBOL 3.2.0 ---
+---------------------------------------------------------------
+
+**********************
+* INTRODUCCIÓN *
+**********************
+GnuCOBOL es un compilador libre y moderno de COBOL que traduce el código fuente COBOL a C y
+ luego lo compila utilizando un compilador de C nativo. Implementa una parte sustancial de
+  los estándares COBOL 85, X/Open COBOL y los más recientes ISO COBOL (2002, 2014, 2022), así
+   como muchas extensiones presentes en otros compiladores COBOL como IBM COBOL, MicroFocus COBOL
+    y ACUCOBOL-GT.
+
+**********************
+* CARACTERÍSTICAS PRINCIPALES *
+**********************
+- **Compatibilidad con múltiples dialectos:** Soporte para 19 dialectos de COBOL, 
+incluyendo COBOL85, X/Open COBOL, COBOL2002, COBOL2014, MicroFocus, IBM, MVS, ACUCOBOL-GT, RM/COBOL y BS2000. 
+
+- **Integración con C:** Permite el acceso directo a casi todas las bibliotecas de C, ampliando las capacidades del lenguaje. 
+
+- **Soporte para secciones especializadas:** Incluye soporte para `REPORT SECTION`, `SCREEN SECTION` y `FUNCTION-ID`. 
+
+- **Compatibilidad con estándares recientes:** Implementa casi por completo las características del
+ "Compiler Directing Facility" de COBOL 2022. 
+
+
+- **Soporte para bases de datos:** Disponibilidad de preprocesadores `EXEC SQL` para PostgreSQL,
+ Firebird, ODBC y DB2. 
+
+
+- **Compatibilidad multiplataforma:** Funciona en diversas plataformas,
+ incluyendo GNU/Linux, Unix, macOS y Microsoft Windows. 
+
+
+**********************
+* NOVEDADES EN LA VERSIÓN 3.2.0 *
+**********************
+La versión 3.2.0 de GnuCOBOL, lanzada el 28 de julio de 2023, introduce numerosas mejoras y nuevas características:
+
+- **Gestión mejorada de dialectos:** Se han ajustado los valores predeterminados para alinearse mejor con
+ el dialecto seleccionado y se ha añadido un nuevo dialecto GCOS.
+
+- **Optimización del rendimiento:** Se ha mejorado significativamente el tiempo de ejecución de varias sentencias y
+ se ha reducido el uso de memoria, especialmente cuando las comprobaciones en tiempo de ejecución están habilitadas.
+
+
+- **Manejo de archivos:** Cambios en la entrada/salida de archivos para soportar `LINE-SEQUENTIAL`
+ según COBOL2023 y opciones en tiempo de ejecución para modificar la forma en que se manejan los archivos.
+
+
+- **Depuración mejorada:** Mejoras en la depuración a nivel de código fuente mediante GDB y soporte para volcados de
+ memoria (`coredump`).
+
+- **Diagnósticos más detallados:** Salida de contexto para diagnósticos, facilitando la identificación y corrección de errores.
+
+
+**********************
+* RECURSOS ADICIONALES *
+**********************
+Para una comprensión más profunda y detalles técnicos, se recomienda consultar los siguientes recursos:
+
+- **Manual del Programador de GnuCOBOL:** Ofrece una guía detallada sobre la sintaxis, semántica y uso de COBOL según lo
+ implementado por GnuCOBOL.
+
+- **Sitio oficial de GnuCOBOL:** Proporciona información actualizada, descargas y documentación adicional.
+
+
+- **Repositorio de GnuCOBOL en SourceForge:** Acceso a versiones anteriores, notas de lanzamiento y archivos relacionados.
+
+
+Para obtener la versión más reciente y asegurarse de tener las últimas actualizaciones y correcciones, es recomendable visitar el
+ sitio oficial de GnuCOBOL.
+
+---------------------------------------------------------------
+FIN DEL DOCUMENTO
+---------------------------------------------------------------

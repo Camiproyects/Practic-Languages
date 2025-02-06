@@ -1,0 +1,192 @@
+---------------------------------------------------------------
+     DOCUMENTACIÓN DETALLADA DE LAS PALABRAS RESERVADAS EN COBOL
+                      (GNUCOBOL 3.2)
+---------------------------------------------------------------
+
+**********************
+* 1. INTRODUCCIÓN  *
+**********************
+Este documento detalla, de manera modular y organizada, 
+las palabras reservadas en COBOL, enfocándose en la versión 
+GNUCOBOL 3.2. Se describen cada una de ellas según su uso en 
+las diferentes divisiones del programa, ofreciendo ejemplos 
+breves y saltos de línea para facilitar la lectura.
+
+**********************
+* 2. ESTRUCTURA DE UN PROGRAMA COBOL *
+**********************
+Un programa COBOL se compone de cuatro divisiones principales:
+  a) IDENTIFICATION DIVISION  
+  b) ENVIRONMENT DIVISION  
+  c) DATA DIVISION  
+  d) PROCEDURE DIVISION  
+Cada una de estas divisiones utiliza palabras reservadas que 
+definen la estructura, configuración y lógica del programa.
+
+**********************
+* 3. PALABRAS RESERVADAS POR DIVISIÓN *
+**********************
+
+--- 3.1. IDENTIFICATION DIVISION ---
+   - IDENTIFICATION DIVISION.  
+     Define la cabecera del programa.
+     
+   - PROGRAM-ID.  
+     Especifica el nombre del programa.
+     
+   - AUTHOR.  
+     Indica el autor del programa.
+     
+   - DATE-WRITTEN.  
+     Proporciona la fecha de creación.
+     
+Estas palabras establecen la identidad y metadatos del programa.
+
+--- 3.2. ENVIRONMENT DIVISION ---
+   - ENVIRONMENT DIVISION.  
+     Inicia la sección que configura el entorno.
+     
+   - CONFIGURATION SECTION.  
+     Define la configuración del sistema.
+     
+   - INPUT-OUTPUT SECTION.  
+     Especifica dispositivos y archivos.
+     
+   - FILE-CONTROL.  
+     Permite asociar archivos lógicos a archivos físicos mediante:
+         SELECT, ASSIGN TO, ORGANIZATION (SEQUENTIAL, INDEXED, RELATIVE),
+         ACCESS MODE (SEQUENTIAL, RANDOM, DYNAMIC) y FILE STATUS.
+         
+Estas palabras son esenciales para la interacción con el sistema operativo y 
+el manejo de dispositivos de entrada/salida.
+
+--- 3.3. DATA DIVISION ---
+   - DATA DIVISION.  
+     Inicia la definición de datos.
+     
+   - WORKING-STORAGE SECTION.  
+     Define variables que persisten durante la ejecución.
+     
+   - FILE SECTION.  
+     Especifica la estructura de registros de los archivos.
+     
+   - LINKAGE SECTION.  
+     Define los datos que se reciben de subprogramas.
+     
+   - LOCAL-STORAGE SECTION.  
+     Variables que se inicializan cada vez que se invoca el programa.
+     
+   - PICTURE (PIC).  
+     Define el formato de datos (ej. PIC 9(5) para números, PIC X(30) para textos).
+     
+   - VALUE.  
+     Establece valores iniciales.
+     
+   - OCCURS.  
+     Permite definir tablas (arrays).
+     
+   - REDEFINES.  
+     Permite reinterpretar áreas de memoria.
+     
+   - FILLER.  
+     Reserva espacio sin asignar nombre.
+     
+Estas palabras permiten modelar la información y la estructura interna del programa.
+
+--- 3.4. PROCEDURE DIVISION ---
+   - PROCEDURE DIVISION.  
+     Contiene la lógica y el flujo de ejecución.
+     
+   a) Control de flujo:
+      - PERFORM.  
+        Ejecuta párrafos o secciones de código, pudiendo iterar.
+      - IF, ELSE, END-IF.  
+        Control condicional; END-IF delimita el bloque.
+      - EVALUATE, WHEN, NOT, END-EVALUATE.  
+        Estructura similar a "switch" para múltiples condiciones.
+      - GO TO.  
+        Transfiere el control de forma incondicional (su uso se desaconseja).
+      - NEXT SENTENCE.  
+        Transfiere el control a la siguiente oración.
+        
+   b) Operaciones de datos:
+      - MOVE.  
+        Transfiere el contenido de una variable a otra.
+      - ADD, SUBTRACT, MULTIPLY, DIVIDE.  
+        Operadores aritméticos básicos.
+      - COMPUTE.  
+        Evalúa expresiones aritméticas complejas.
+      - STRING y UNSTRING.  
+        Permiten concatenar o dividir cadenas.
+      - INSPECT.  
+        Busca y cuenta caracteres o subcadenas.
+        
+   c) Entrada y salida:
+      - DISPLAY.  
+        Muestra información en la salida estándar.
+      - ACCEPT.  
+        Recibe datos desde el usuario o dispositivos.
+      - STOP RUN o GOBACK.  
+        Terminan la ejecución del programa o retornan al sistema.
+        
+Estas palabras definen cómo se procesa la lógica y se manipulan los datos en tiempo de ejecución.
+
+--- 3.5. EXTENSIONES Y PALABRAS RESERVADAS ADICIONALES ---
+   - COPY.  
+     Inserta código de otros archivos (copybooks) para promover la reutilización.
+     
+   - CALL y ENTRY.  
+     Permiten invocar subprogramas y definir múltiples puntos de entrada.
+     
+   - INITIALIZE.  
+     Inicializa variables a valores predeterminados.
+     
+   - ALTER.  
+     (Desaconsejado) Modifica el flujo de control en tiempo de ejecución.
+     
+   - REPLACE.  
+     Permite modificar fragmentos de código durante la compilación.
+     
+   - DECLARATIVES.  
+     Define procedimientos para el manejo de excepciones.
+     
+   - SPECIAL-NAMES.  
+     Permite asignar nombres especiales a dispositivos, caracteres, o constantes.
+     
+   - SYMBOLIC CHARACTERS.  
+     Define constantes simbólicas que pueden ser usadas en el programa.
+     
+   - Comandos de manejo de ventanas (WIN, WINDOW-CREATE, WINDOW-REMOVE).  
+     Extensiones propias de GnuCOBOL 3.2 para crear y administrar interfaces en modo texto.
+     
+Estas extensiones amplían la funcionalidad del lenguaje más allá del estándar ANSI,
+permitiendo la creación de aplicaciones complejas y altamente estructuradas.
+
+**********************
+* 4. CONSIDERACIONES GENERALES *
+**********************
+- COBOL es **case insensitive**:  
+  Las palabras reservadas se pueden escribir en mayúsculas o minúsculas sin afectar la semántica.
+
+- La estructura jerárquica de niveles (01, 05, etc.) es crucial para definir los datos.
+
+- El uso de copybooks y subprogramas promueve la modularidad y reutilización del código.
+
+- Algunas palabras, como ALTER y REPLACE, deben usarse con precaución debido a su impacto
+  en la legibilidad y mantenimiento del código.
+
+**********************
+* 5. REFERENCIAS *
+**********************
+- GnuCOBOL Programmer’s Guide (versión 3.2):  
+  https://gnucobol.sourceforge.io/HTML/gnucobpg.html
+
+- Documentación oficial de GNU COBOL:  
+  https://gnucobol.sourceforge.io/
+
+- Tutoriales en línea (Guru99):  
+  https://www.guru99.com/cobol-tutorial.html
+
+---------------------------------------------------------------
+FIN DEL DOCUMENTO
+---------------------------------------------------------------

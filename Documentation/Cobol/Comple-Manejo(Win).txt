@@ -1,0 +1,254 @@
+---------------------------------------------------------------
+           DOCUMENTACIÓN DETALLADA DEL COMANDO WIN
+                      EN GNU+COBOL
+---------------------------------------------------------------
+
+**********************
+* 1. INTRODUCCIÓN  *
+**********************
+GnuCOBOL (anteriormente OpenCOBOL) es un compilador libre que implementa el lenguaje COBOL en entornos modernos.
+ Además de la compatibilidad con el estándar ANSI COBOL, GnuCOBOL incorpora diversas extensiones para facilitar tareas avanzadas, entre las que se encuentra el manejo de ventanas en la pantalla.  
+El “comando WIN” es una de estas extensiones que permite administrar, modificar y controlar la presentación de v
+entanas o regiones de la pantalla en aplicaciones basadas en texto. Esta documentación ofrece una descripción detallada, sintaxis, ejemplos de uso, requisitos y consideraciones para emplear el comando WIN en GNU+COBOL.
+
+
+**********************
+
+* 2. DESCRIPCIÓN GENERAL DEL COMANDO WIN *
+
+**********************
+
+El comando WIN es una extensión específica de GnuCOBOL diseñada para el manejo de ventanas en modo texto. Con él
+ se puede:
+   - Abrir o crear una ventana en una ubicación y tamaño determinados.
+
+   - Modificar atributos visuales de la ventana (por ejemplo, color, borde, o atributos de video).
+
+   - Cerrar o remover la ventana, restaurando el estado previo de la pantalla.
+
+Aunque el estándar COBOL no define operaciones de “ventana”, GnuCOBOL incorpora estas capacidades para facilitar
+ el desarrollo de interfaces interactivas en aplicaciones de terminal o consola.
+
+
+**********************
+
+* 3. SINTAXIS Y OPCIONES DEL COMANDO WIN *
+
+**********************
+
+La sintaxis del comando WIN en GNU+COBOL suele integrarse en las sentencias DISPLAY y ACCEPT extendidas para man
+ejo de pantalla. La forma general es la siguiente:
+
+
+   DISPLAY <identificador> WIN <opción> [AT <fila> <columna>] [SIZE <ancho> <alto>] [WITH <atributos>].
+
+
+
+Donde:
+
+   - <identificador>: Es el nombre o etiqueta de la ventana a operar.
+
+   - WIN: Es el comando que activa el modo ventana.
+
+   - <opción>: Puede ser CREATE, MODIFY o REMOVE, según la operación deseada.
+
+       * CREATE: Crea y muestra una ventana.
+
+       * MODIFY: Permite cambiar atributos de una ventana ya existente.
+
+       * REMOVE: Cierra la ventana y limpia la región de pantalla.
+
+   - AT <fila> <columna>: Especifica la posición de la esquina superior izquierda de la ventana.
+
+   - SIZE <ancho> <alto>: Define el tamaño de la ventana en términos de columnas (ancho) y filas (alto).
+
+   - WITH <atributos>: Permite asignar atributos de visualización, tales como color, video (destacado, parpadeo)
+    y otros efectos disponibles según el entorno y la configuración de pantalla.
+
+
+*Nota:* La sintaxis exacta y las opciones disponibles pueden variar según la versión de GnuCOBOL y la configurac
+ión del entorno. Es recomendable consultar el manual de GnuCOBOL (GnuCOBOL Programmer’s Guide) y las notas de versión para conocer todas las opciones implementadas.
+
+
+**********************
+
+* 4. EJEMPLO DE USO DEL COMANDO WIN *
+
+**********************
+
+A continuación se muestra un ejemplo sencillo de cómo crear y luego remover una ventana utilizando el comando WI
+N:
+
+
+       IDENTIFICATION DIVISION.
+
+       PROGRAM-ID. VentanaDemo.
+
+       AUTHOR. "Tu Nombre".
+
+       DATE-WRITTEN. "2025-01-23".
+
+
+
+       ENVIRONMENT DIVISION.
+
+       CONFIGURATION SECTION.
+
+       * Se asume que el entorno de ejecución soporta comandos extendidos de pantalla.
+
+
+
+       DATA DIVISION.
+
+       WORKING-STORAGE SECTION.
+
+       01 WS-DUMMY        PIC X(1) VALUE SPACE.
+
+       01 WS-NOMBRE-VEN   PIC X(20) VALUE "MainWindow".
+
+       01 WS-FILA         PIC 99    VALUE 5.
+
+       01 WS-COLUMNA      PIC 99    VALUE 10.
+
+       01 WS-ANCHO        PIC 99    VALUE 50.
+
+       01 WS-ALTO         PIC 99    VALUE 20.
+
+       01 WS-ATRIBUTOS    PIC X(20) VALUE "COLOR=BLUE,VINVERSE".
+
+
+
+       PROCEDURE DIVISION.
+
+       MAIN-PARA.
+
+           PERFORM CLEAR-SCREEN.
+
+           * *********************** CAMBIO *********************** 
+
+           * Se utiliza el comando WIN con la opción CREATE para crear  *
+
+           * una ventana denominada "MainWindow" en la posición (5,10)   *
+
+           * con un tamaño de 50 columnas por 20 filas y atributos       *
+
+           * visuales definidos en WS-ATRIBUTOS (por ejemplo, color azul  *
+
+           * y video inverso).                                            *
+
+           * **********************************************************
+
+           DISPLAY WS-NOMBRE-VEN WIN CREATE AT WS-FILA WS-COLUMNA SIZE WS-ANCHO WS-ALTO WITH WS-ATRIBUTOS.
+
+           
+
+           DISPLAY "Ventana creada. Presione ENTER para continuar..." LINE 25 POSITION 10.
+
+           ACCEPT WS-DUMMY.
+
+           
+
+           * *********************** CAMBIO *********************** 
+
+           * Se remueve la ventana utilizando el comando WIN con la    *
+
+           * opción REMOVE, que cierra la ventana y limpia la pantalla. *
+
+           * **********************************************************
+
+           DISPLAY WS-NOMBRE-VEN WIN REMOVE.
+
+           
+
+           DISPLAY "Ventana cerrada. Fin del programa." LINE 27 POSITION 10.
+
+           STOP RUN.
+
+       
+
+       CLEAR-SCREEN.
+
+           CALL "SYSTEM" USING "clear".
+
+
+
+**********************
+
+* 5. REQUISITOS Y CONSIDERACIONES *
+
+**********************
+
+1. Requisitos del Entorno:
+
+   - Debes usar GnuCOBOL versión 3.2.0 o superior, ya que incluye las extensiones necesarias para el manejo de v
+   entanas.
+   - El sistema debe contar con soporte para salida de pantalla avanzada (generalmente, a través de una bibliote
+   ca como curses o PDCursesMod).
+
+
+2. Consideraciones:
+
+   - El comando WIN es una extensión propietaria de GnuCOBOL y no forma parte del estándar ANSI COBOL.
+
+   - La compatibilidad de los atributos (como colores o video inverso) depende del sistema y de la biblioteca de
+    pantalla utilizada.
+   - Es posible que algunos entornos o configuraciones no soporten todas las opciones de WIN; en ese caso, se re
+   comienda revisar la documentación específica de la versión instalada.
+   - Utiliza el comando CLEAR-SCREEN para limpiar la pantalla antes de crear o remover ventanas y asegurar una c
+   orrecta presentación.
+
+
+**********************
+
+* 6. ERRORES COMUNES Y CONSEJOS DE DEPURACIÓN *
+
+**********************
+
+- **Errores de Sintaxis:**  
+
+  Verifica que todas las cláusulas (AT, SIZE, WITH) se escriban correctamente y en el orden adecuado. Los errore
+  s tipográficos en el identificador WIN o en los parámetros pueden generar errores de compilación.
+- **Problemas de Compatibilidad:**  
+
+  Si el comando WIN no produce el efecto esperado, comprueba que tu entorno de ejecución y la biblioteca de pant
+  alla (por ejemplo, PDCursesMod) estén correctamente instalados y configurados.
+- **Depuración:**  
+
+  Utiliza la opción de depuración del compilador (por ejemplo, -g o -debug) para obtener mensajes detallados en 
+  caso de fallos en la ejecución de comandos extendidos.
+
+
+**********************
+
+* 7. REFERENCIAS Y RECURSOS ADICIONALES *
+
+**********************
+
+- **GnuCOBOL Programmer’s Guide:**  
+
+  Documentación oficial que incluye detalles sobre extensiones y comandos adicionales.  
+
+  [GnuCOBOL Programmer’s Guide](https://gnucobol.sourceforge.io/HTML/gnucobpg.html)
+
+- **Notas de la Versión GnuCOBOL 3.2.0:**  
+
+  Información sobre nuevas características y mejoras en la versión 3.2.0.  
+
+  [GnuCOBOL 3.2 Release Notes](https://gnucobol.sourceforge.io/NEWS)
+
+- **Biblioteca PDCursesMod:**  
+
+  Utilizada para soporte de pantalla y manejo de ventanas en GnuCOBOL.  
+
+  [PDCursesMod en SourceForge](https://sourceforge.net/projects/pdcursesmod/)
+
+- **Foros y Comunidades:**  
+
+  Participa en foros de GnuCOBOL para resolver dudas y compartir experiencias.  
+
+  [GnuCOBOL Discussion Forum](https://sourceforge.net/p/gnucobol/discussion/)
+---------------------------------------------------------------
+
+FIN DEL DOCUMENTO
+
+---------------------------------------------------------------
