@@ -28,9 +28,10 @@
        FILE SECTION.
        FD  ARCHIVO-CLIENTES.
        01  USUDATA.
-           05 NOMAPE   PIC X(65).
            05 TIPDOC   PIC X(02).
-           05 NUMDOC   PIC 9(10).
+           05  PASA.
+               07 NUMDOC PIC 9(10).
+               07 NOMAPE PIC X(65).
            05 MONTPA   PIC 9(10).
            05 NUMCON   PIC 9(10).
            05 CORREO   PIC X(30).
@@ -49,6 +50,8 @@
        01 WS-CLAVE      PIC 9(10).
        01 PANT-AD       PIC X(30).
        01 PANT-EM       PIC X(30).
+       01 GES-USU       PIC X(30) VALUE "gestion-user".
+       01 GES-ART       PIC X(30) VALUE "gestion-articles".
 
        01 TEMP-USUDATA.
            05 T-NOMAPE   PIC X(65).
@@ -92,14 +95,15 @@
                 NOT INVALID KEY
                 IF T-CODUNI = CODUNI
                     CLOSE ARCHIVO-CLIENTES
-                    DISPLAY "ENTRASTE" LINE 9 POSITION 50
                     PERFORM PAUSA
                     IF CARGO = "2"
-                        CALL PANT-AD USING NUMDOC , NOMAPE
-                        END-CALL
+                      PERFORM AD-PANT
+      *                  CALL PANT-AD USING PASA
+      *                  END-CALL
                     ELSE
-                        CALL PANT-EM USING NUMDOC , NOMAPE
-                        END-CALL
+                      PERFORM EM-PANT
+      *                  CALL PANT-EM USING PASA
+      *                  END-CALL
                     END-IF
                 ELSE 
                 DISPLAY "CREDENCIALES ERRONEAS" LINE 9 POSITION 50
@@ -115,3 +119,37 @@
            DISPLAY "Presione ENTER para continuar...".
            ACCEPT WS-OPCION.
            WINDOW-CREATE.
+
+       AD-PANT.
+           PERFORM CLEAR-SCREEN.
+           DISPLAY "------------------------------" LINE 3  POSITION 20.
+           DISPLAY "  BIENVENIDO "                  LINE 4  POSITION 20.
+           DISPLAY NOMAPE                           LINE 4  POSITION 40.
+           DISPLAY "------------------------------" LINE 5  POSITION 20.
+           DISPLAY "  1. -> ADMN USUARIOS"          LINE 7  POSITION 20.
+           DISPLAY "  2. -> ADMN ARTICULOS"         LINE 9  POSITION 20.
+           DISPLAY "  Q -> Salir"                   LINE 11 POSITION 20.
+           DISPLAY "Seleccione una opción:"         LINE 17 POSITION 20.
+           ACCEPT WS-OPCION                         LINE 17 POSITION 41.
+           EVALUATE WS-OPCION
+             WHEN '1'
+               PERFORM CLEAR-SCREEN
+               CALL GES-USU USING PASA
+               END-CALL
+             WHEN '2'
+               CALL GES-ART USING PASA
+               END-CALL
+             WHEN 'Q'
+               CONTINUE
+             WHEN OTHER
+               DISPLAY "Opción no válida" LINE 19 POSITION 20
+           END-EVALUATE.
+
+       EM-PANT.
+           PERFORM CLEAR-SCREEN.
+           DISPLAY "------------------------------" LINE 3  POSITION 20.
+           DISPLAY "  BIENVENIDO "                  LINE 4  POSITION 20.
+           DISPLAY NOMAPE                           LINE 4  POSITION 40.
+           DISPLAY "------------------------------" LINE 5  POSITION 20.
+
+

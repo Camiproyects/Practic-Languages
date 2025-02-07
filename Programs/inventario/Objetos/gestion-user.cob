@@ -1,6 +1,6 @@
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. gestion_user.
-       AUTHOR. "ANDRES CAMILO LAGUNA BERNAL".
+       PROGRAM-ID. gestion-user.
+       AUTHOR. ANDRES CAMILO LAGUNA BERNAL.
       ****************************************************************
       *                GESTIÓN USUARIOS                              *
       *                                                              *
@@ -9,14 +9,14 @@
       *              la clave NUMDOC.                                *
       *                                                              *
       * Autor: ANDRES CAMILO LAGUNA BERNAL                           *
-      * Fecha: 02-01-2025                                            *
+      * Fecha: 02-02-2025                                            *
       ****************************************************************
-       DATE-WRITTEN. "03-01-2025".
+       DATE-WRITTEN. 02-02-2025.
 
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-           SELECT ARCHIVO-CLIENTES ASSIGN TO "Data/usuarios.dat"
+           SELECT ARCHIVO-CLI ASSIGN TO "../Usuarios/usuarios.dat"
                ORGANIZATION IS INDEXED
                ACCESS MODE IS DYNAMIC
                RECORD KEY IS NUMDOC
@@ -25,7 +25,7 @@
 
        DATA DIVISION.
        FILE SECTION.
-       FD  ARCHIVO-CLIENTES.
+       FD  ARCHIVO-CLI.
        01  USUDATA.
            05 NOMAPE   PIC X(65).
            05 TIPDOC   PIC X(02).
@@ -40,35 +40,28 @@
            05 CODUNI   PIC 9(4).
 
        WORKING-STORAGE SECTION.
-       01 WS-FS         PIC XX.
-       01 LIM           PIC X.
-       01 WS-OPCION     PIC X.
+       01 WS-FS        PIC XX.
+       01 LIM          PIC X.
+       01 WS-OPCION    PIC X.
 
-       01 TEMP-USUDATA.
-           05 T-NOMAPE   PIC X(65).
-           05 T-TIPDOC   PIC X(02).
-           05 T-NUMDOC   PIC 9(10).
-           05 T-MONTPA   PIC 9(10).
-           05 T-NUMCON   PIC 9(10).
-           05 T-CORREO   PIC X(30).
-           05 T-CARGO    PIC X.
-           05 T-DETALL   PIC X(65).
-           05 T-FECREG   PIC 9(08).
-           05 T-CODUNI   PIC 9(10).
+       LINKAGE SECTION.
+       01 PASAR.
+           07 T-NUMDOC   PIC 9(10).
+           07 T-NOMAPE   PIC X(65).
 
-       PROCEDURE DIVISION.
+       PROCEDURE DIVISION USING PASAR.
        INICIO.
            PERFORM CLEAR-SCREEN.
-           OPEN I-O ARCHIVO-CLIENTES
+           OPEN I-O ARCHIVO-CLI
            IF WS-FS NOT = "00"
               DISPLAY "Error al abrir el archivo. FS = " WS-FS
               STOP RUN
            END-IF.
            PERFORM MENU-CRUD UNTIL WS-OPCION = "Q".
-           CLOSE ARCHIVO-CLIENTES.
+           CLOSE ARCHIVO-CLI.
            DISPLAY "PROGRAMA TERMINADO :p".
            STOP RUN.
-
+       
        MENU-CRUD.
            PERFORM CLEAR-SCREEN.
            DISPLAY "-------------------------------" LINE 3 POSITION 20.
@@ -96,27 +89,27 @@
                     DISPLAY "Opción no válida."
            END-EVALUATE.
            
-
+       
        OPERACION-CREAR.
            PERFORM CLEAR-SCREEN.
            DISPLAY "----- Crear usuario -----" LINE 3 POSITION 20.
            MOVE "CC" TO TIPDOC.
-           DISPLAY "Ingrese Número de Documento:" LINE 6 POSITION 20.
-           ACCEPT NUMDOC  LINE 6 POSITION 55.
-           DISPLAY "Ingrese Nombre y Apellido:"  LINE 7 POSITION 20.
-           ACCEPT NOMAPE  LINE 7 POSITION 55.
-           DISPLAY "Cargo (1=Empleado, 2=Admin):" LINE 8 POSITION 20.
-           ACCEPT CARGO   LINE 8 POSITION 55.
-           DISPLAY "Ingrese Monto a Pagar:"      LINE 9 POSITION 20.
-           ACCEPT MONTPA  LINE 9 POSITION 55.
-           DISPLAY "Ingrese Detalles:"           LINE 10 POSITION 20.
-           ACCEPT DETALL  LINE 10 POSITION 55.
-           DISPLAY "Ingrese Número de Contacto:" LINE 11 POSITION 20.
-           ACCEPT NUMCON  LINE 11 POSITION 55.
-           DISPLAY "Ingrese Correo:"             LINE 12 POSITION 20.
-           ACCEPT CORREO  LINE 12 POSITION 55.
+           DISPLAY "Ingrese Número de Documento:"  LINE 6  POSITION 20.
+           ACCEPT NUMDOC                           LINE 6  POSITION 55.
+           DISPLAY "Ingrese Nombre y Apellido:"    LINE 7  POSITION 20.
+           ACCEPT NOMAPE                           LINE 7  POSITION 55.
+           DISPLAY "Cargo (1=Empleado, 2=Admin):"  LINE 8  POSITION 20.
+           ACCEPT CARGO                            LINE 8  POSITION 55.
+           DISPLAY "Ingrese Monto a Pagar:"        LINE 9  POSITION 20.
+           ACCEPT MONTPA                           LINE 9  POSITION 55.
+           DISPLAY "Ingrese Detalles:"             LINE 10 POSITION 20.
+           ACCEPT DETALL                           LINE 10 POSITION 55.
+           DISPLAY "Ingrese Número de Contacto:"   LINE 11 POSITION 20.
+           ACCEPT NUMCON                           LINE 11 POSITION 55.
+           DISPLAY "Ingrese Correo:"               LINE 12 POSITION 20.
+           ACCEPT CORREO                           LINE 12 POSITION 55.
            DISPLAY "Fecha de Registro (AAAAMMDD):" LINE 13 POSITION 20.
-           ACCEPT FECREG LINE 13 POSITION 55.
+           ACCEPT FECREG                           LINE 13 POSITION 55.
            COMPUTE REDOND ROUNDED = (NUMDOC + NUMCON) / 2.
            MOVE REDOND TO CODUNI.
            DISPLAY CODUNI LINE 15 POSITION 30.
@@ -129,48 +122,48 @@
            END-IF.
            PERFORM PAUSA.
            
-
+       
        OPERACION-LEER.
            PERFORM CLEAR-SCREEN.
            DISPLAY "----- Leer usuario -----" LINE 3 POSITION 20.
            DISPLAY "Ingrese Número de Documento:" LINE 5 POSITION 20.
-           ACCEPT NUMDOC  LINE 5 POSITION 55.
-           READ ARCHIVO-CLIENTES
-                RECORD KEY NUMDOC
+           ACCEPT NUMDOC            LINE 5 POSITION 55.
+           READ ARCHIVO-CLI
+                RECORD KEY NUMDOC           
                 INVALID KEY
                     DISPLAY "Usuario no encontrado." LINE 7 POSITION 20
                 NOT INVALID KEY
             DISPLAY "------------------------------" LINE 7 POSITION 20
             DISPLAY "Tipo Doc    : " LINE 8  POSITION 20
-            TIPDOC       LINE 8  POSITION 20
+            TIPDOC                   LINE 8  POSITION 20
             DISPLAY "Num Doc     : " LINE 9  POSITION 20
-            NUMDOC       LINE 9  POSITION 20
+            NUMDOC                   LINE 9  POSITION 20
             DISPLAY "Nombre      : " LINE 10 POSITION 20
-            NOMAPE       LINE 10 POSITION 20
+            NOMAPE                   LINE 10 POSITION 20
             DISPLAY "Cargo       : " LINE 11 POSITION 20
-            CARGO        LINE 11 POSITION 20
+            CARGO                    LINE 11 POSITION 20
             DISPLAY "Monto Pagar : " LINE 12 POSITION 20
-            MONTPA       LINE 12 POSITION 20
+            MONTPA                   LINE 12 POSITION 20
             DISPLAY "Detalles    : " LINE 13 POSITION 20
-            DETALL       LINE 13 POSITION 20
+            DETALL                   LINE 13 POSITION 20
             DISPLAY "Contacto    : " LINE 14 POSITION 20
-            NUMCON       LINE 14 POSITION 20
+            NUMCON                   LINE 14 POSITION 20
             DISPLAY "Correo      : " LINE 15 POSITION 20
-            CORREO       LINE 15 POSITION 20
+            CORREO                   LINE 15 POSITION 20
             DISPLAY "Fecha Reg   : " LINE 16 POSITION 20
-            FECREG       LINE 16 POSITION 20
+            FECREG                   LINE 16 POSITION 20
             DISPLAY "Cod Uni     : " LINE 17 POSITION 20
-            CODUNI       LINE 17 POSITION 20
+            CODUNI                   LINE 17 POSITION 20
            END-READ.
            PERFORM PAUSA.
            
-
+       
        OPERACION-ACTUALIZAR.
            PERFORM CLEAR-SCREEN.
            DISPLAY "----- Actualizar usuario -----" LINE 3 POSITION 20.
            DISPLAY "Ingrese Número de Documento:" LINE 5 POSITION 20.
            ACCEPT NUMDOC  LINE 5 POSITION 55.
-           READ ARCHIVO-CLIENTES RECORD KEY NUMDOC
+           READ ARCHIVO-CLI RECORD KEY NUMDOC
                 INVALID KEY
                     DISPLAY "Usuario no encontrado." LINE 7 POSITION 20
                 NOT INVALID KEY
@@ -207,17 +200,17 @@
            END-READ.
            PERFORM PAUSA.
            
-
+       
        OPERACION-ELIMINAR.
            PERFORM CLEAR-SCREEN.
            DISPLAY "----- Eliminar usuario -----" LINE 3 POSITION 20.
            DISPLAY "Ingrese Número de Documento:" LINE 5 POSITION 20.
            ACCEPT NUMDOC  LINE 5 POSITION 55.
-           READ ARCHIVO-CLIENTES RECORD KEY NUMDOC
+           READ ARCHIVO-CLI RECORD KEY NUMDOC
                 INVALID KEY
                     DISPLAY "Usuario no encontrado." LINE 7 POSITION 20
                 NOT INVALID KEY
-                    DELETE ARCHIVO-CLIENTES
+                    DELETE ARCHIVO-CLI
                     IF WS-FS NOT = "00"
                         DISPLAY "Error al eliminar usuario. FS = " WS-FS
                     ELSE
@@ -226,7 +219,7 @@
            END-READ.
            PERFORM PAUSA.
            
-
+       
        CLEAR-SCREEN.
            MOVE " " TO LIM.
            DISPLAY LIM LINE 1 POSITION 1 ERASE EOS.
