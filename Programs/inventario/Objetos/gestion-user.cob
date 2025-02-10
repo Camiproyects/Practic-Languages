@@ -135,25 +135,25 @@
                 NOT INVALID KEY
             DISPLAY "------------------------------" LINE 7 POSITION 20
             DISPLAY "Tipo Doc    : " LINE 8  POSITION 20
-            TIPDOC                   LINE 8  POSITION 20
+            TIPDOC                   LINE 8  POSITION 40
             DISPLAY "Num Doc     : " LINE 9  POSITION 20
-            NUMDOC                   LINE 9  POSITION 20
+            NUMDOC                   LINE 9  POSITION 40
             DISPLAY "Nombre      : " LINE 10 POSITION 20
-            NOMAPE                   LINE 10 POSITION 20
+            NOMAPE                   LINE 10 POSITION 40
             DISPLAY "Cargo       : " LINE 11 POSITION 20
-            CARGO                    LINE 11 POSITION 20
+            CARGO                    LINE 11 POSITION 40
             DISPLAY "Monto Pagar : " LINE 12 POSITION 20
-            MONTPA                   LINE 12 POSITION 20
+            MONTPA                   LINE 12 POSITION 40
             DISPLAY "Detalles    : " LINE 13 POSITION 20
-            DETALL                   LINE 13 POSITION 20
+            DETALL                   LINE 13 POSITION 40
             DISPLAY "Contacto    : " LINE 14 POSITION 20
-            NUMCON                   LINE 14 POSITION 20
+            NUMCON                   LINE 14 POSITION 40
             DISPLAY "Correo      : " LINE 15 POSITION 20
-            CORREO                   LINE 15 POSITION 20
+            CORREO                   LINE 15 POSITION 40
             DISPLAY "Fecha Reg   : " LINE 16 POSITION 20
-            FECREG                   LINE 16 POSITION 20
+            FECREG                   LINE 16 POSITION 40
             DISPLAY "Cod Uni     : " LINE 17 POSITION 20
-            CODUNI                   LINE 17 POSITION 20
+            CODUNI                   LINE 17 POSITION 40
            END-READ.
            PERFORM PAUSA.
            
