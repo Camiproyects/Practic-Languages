@@ -14,25 +14,26 @@
                ORGANIZATION IS INDEXED
                ACCESS MODE DYNAMIC
                RECORD KEY IS NUMDOC
-               FILE STATUS IS WS-FS.
+               FILE STATUS IS WS-FS-SALIDA.
 
        DATA DIVISION.
        FILE SECTION.
 
        FD ARCHIVO-SALIDA.
        01 USUDATA.
-           05 NUMDOC     PIC 9(10).
+           05 NUMDOC     PIC 9(13).
            05 RAZSOC     PIC X(50).
            05 DIRECT     PIC X(50).
            05 CIUDAD     PIC X(20).
            05 CONTAC     PIC X(30).
-           05 TEL-1      PIC 9(10).
-           05 TEL-2      PIC 9(10).
+           05 TEL-1      PIC X(10).
+           05 TEL-2      PIC X(10).
            05 CORREO     PIC X(100).
 
        WORKING-STORAGE SECTION.
        01 MANAGE-DATA.
            05 WS-FS      PIC XX.
+           05 WS-FS-SALIDA   PIC XX.
            05 WS-OPCION  PIC XX.
            05 LIM        PIC XX.
            05 CONTADOR   PIC 9(2) VALUE 0.

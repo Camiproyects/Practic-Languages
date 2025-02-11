@@ -6,13 +6,14 @@
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
            SELECT ARCHIVO-BASE ASSIGN TO "placli.csv"
-               ORGANIZATION IS LINE SEQUENTIAL.
+               ORGANIZATION IS LINE SEQUENTIAL
+               FILE STATUS IS WS-FS.
 
            SELECT ARCHIVO-SALIDA ASSIGN TO "data-user.dat"
                ORGANIZATION IS INDEXED
                ACCESS MODE DYNAMIC
                RECORD KEY IS NUMDOC
-               FILE STATUS IS WS-FS.
+               FILE STATUS IS WS-FS-SALIDA.
 
        DATA DIVISION.
        FILE SECTION.
@@ -21,20 +22,22 @@
 
        FD ARCHIVO-SALIDA.
        01 USUDATA.
-           05 NUMDOC     PIC 9(14).
-           05 RAZSOC     PIC X(51).
-           05 DIRECT     PIC X(51).
-           05 CIUDAD     PIC X(21).
-           05 CONTAC     PIC X(31).
-           05 TEL-1      PIC X(11).
-           05 TEL-2      PIC X(11).
-           05 CORREO     PIC X(101).
+           05 NUMDOC     PIC 9(13).
+           05 RAZSOC     PIC X(50).
+           05 DIRECT     PIC X(50).
+           05 CIUDAD     PIC X(20).
+           05 CONTAC     PIC X(30).
+           05 TEL-1      PIC X(10).
+           05 TEL-2      PIC X(10).
+           05 CORREO     PIC X(100).
 
        WORKING-STORAGE SECTION.
        01 WS-DATA.
-           05 WS-FS      PIC XX.
-           05 WS-OPTI    PIC X VALUE SPACE.
-           05 CONTADOR   PIC 9(10) VALUE 0.
+           05 WS-FS          PIC XX.
+           05 WS-FS-SALIDA   PIC XX.
+           05 WS-OPTI        PIC X     VALUE SPACE.
+           05 CONTADOR       PIC 9(10) VALUE 0.
+           05 LIN            PIC 9(5)  VALUE 0.
 
        01 HEADER        PIC X(291) VALUE SPACES.
 
@@ -48,46 +51,57 @@
            END-IF.
 
            OPEN I-O ARCHIVO-SALIDA.
-           IF WS-FS NOT = "00" AND WS-FS NOT = "05"
-               DISPLAY "ERROR ABRIENDO ARCHIVO SALIDA: " WS-FS
+           IF WS-FS-SALIDA NOT = "00" AND WS-FS-SALIDA NOT = "05"
+               DISPLAY "ERROR ABRIENDO ARCHIVO SALIDA: " WS-FS-SALIDA
                CLOSE ARCHIVO-BASE
                STOP RUN
            END-IF.
 
-           READ ARCHIVO-BASE INTO HEADER.
+           READ ARCHIVO-BASE INTO HEADER
+               AT END 
+                   DISPLAY "Archivo vacío o sin encabezado."
+                   CLOSE ARCHIVO-BASE
+                   CLOSE ARCHIVO-SALIDA
+                   STOP RUN.
+
            DISPLAY "PROCESANDO DATOS..." LINE 2 POSITION 10.
 
            PERFORM UNTIL WS-OPTI = "Q"
                READ ARCHIVO-BASE INTO REGISTRO
                    AT END MOVE "Q" TO WS-OPTI
-                   NOT AT END PERFORM PROCESAR-REGISTRO
+                   NOT AT END 
+                   PERFORM PROCESAR-REGISTRO
+                   PERFORM VER
                END-READ
            END-PERFORM.
-
-           DISPLAY "TOTAL REGISTROS PROCESADOS: " CONTADOR 
-           LINE 10 POSITION 10.
-           DISPLAY "PROCESO FINALIZADO. PRESIONE ENTER PARA SALIR." 
-           LINE 12 POSITION 10.
-           ACCEPT WS-OPTI.
 
            CLOSE ARCHIVO-BASE.
            CLOSE ARCHIVO-SALIDA.
            STOP RUN.
-
+       
        PROCESAR-REGISTRO.
            UNSTRING REGISTRO DELIMITED BY ';'
                INTO NUMDOC, RAZSOC, DIRECT, 
                CIUDAD, CONTAC, TEL-1, TEL-2, CORREO.
-
-           IF NUMDOC IS NUMERIC
-               WRITE USUDATA
-                INVALID KEY 
-                   DISPLAY "ERROR: CLAVE DUPLICADA O INVALIDA: " NUMDOC
-               NOT INVALID KEY 
-                 ADD 1 TO CONTADOR
-                 DISPLAY "USUARIO CREADO: " NUMDOC LINE 6 POSITION 10
-               END-WRITE
-           ELSE
-               DISPLAY "ERROR EN REGISTRO: NUMDOC INVALIDO." 
-               LINE 7 POSITION 10
+           
+           WRITE USUDATA.
+           
+       VER.
+           ADD 2 TO LIN.
+           DISPLAY "*"     LINE LIN POSITION 1.
+           DISPLAY "*"     LINE LIN POSITION 12.
+           DISPLAY "*"     LINE LIN POSITION 23.
+           DISPLAY "*"     LINE LIN POSITION 34.
+           DISPLAY "*"     LINE LIN POSITION 45.
+           DISPLAY "*"     LINE LIN POSITION 56.
+           DISPLAY "*"     LINE LIN POSITION 67.
+           DISPLAY NUMDOC  LINE LIN POSITION 2.
+           DISPLAY RAZSOC  LINE LIN POSITION 13.
+           DISPLAY DIRECT  LINE LIN POSITION 24.
+           DISPLAY CIUDAD  LINE LIN POSITION 35.
+           DISPLAY CONTAC  LINE LIN POSITION 46.
+           DISPLAY TEL-1   LINE LIN POSITION 57.
+           DISPLAY CORREO  LINE LIN POSITION 68.
+           IF LIN > 30 
+              MOVE 0 TO LIN
            END-IF.
