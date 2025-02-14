@@ -1,0 +1,183 @@
+DOCUMENTACIÓN DE CÓDIGOS DE ERROR EN GNUCOBOL 3.2
+
+Autor: [Nombre del Autor] Fecha: [Fecha de Elaboración]
+Tabla de Contenidos
+
+    Introducción
+
+    Objetivos del Documento
+
+    Descripción General
+
+    Lista de Códigos de Error y su Significado
+    4.1. Código 00
+    4.2. Código 10
+    4.3. Código 22
+    4.4. Código 23
+    4.5. Código 24
+    4.6. Código 30
+    4.7. Código 34
+    4.8. Código 35
+    4.9. Código 39
+    4.10. Código 41
+    4.11. Código 42
+    4.12. Código 43
+    4.13. Código 47
+    4.14. Código 48
+    4.15. Código 49
+    4.16. Código 90
+    4.17. Código 91
+    4.18. Código 92
+    4.19. Código 93
+    4.20. Código 94
+    4.21. Código 98
+    4.22. Código 99
+
+    Notas Adicionales
+
+    Referencias
+
+Introducción
+
+Este documento tiene como propósito describir de manera detallada los códigos de error que pueden generarse en GNUCobol 3.2 durante operaciones con ficheros. Se explica el significado de cada código, sus posibles causas y se proporcionan recomendaciones para su manejo, con el fin de facilitar el diagnóstico y la solución de problemas en aplicaciones COBOL.
+
+    Objetivos del Documento
+
+    Proveer una guía detallada sobre los códigos de error en GNUCobol 3.2.
+    Explicar el significado de cada código y las situaciones en que pueden ocurrir.
+    Ofrecer recomendaciones y posibles soluciones para cada error.
+    Servir como referencia para desarrolladores y mantenedores de sistemas COBOL.
+
+    Descripción General
+
+En esta sección se expone un resumen del funcionamiento de los archivos en GNUCobol 3.2, la importancia de la verificación del FILE STATUS tras cada operación y la relevancia de mantener la integridad de los datos. Se abordan aspectos relacionados con la configuración del entorno y las condiciones que pueden provocar errores en el manejo de ficheros.
+
+    Lista de Códigos de Error y su Significado
+
+Código 00
+    Explicación: Operación satisfactoria, todo bien.
+    Recomendación: Continuar el procesamiento normal.
+
+
+Código 10
+    Explicación: Se ha llegado al final del fichero y se quiere seguir leyendo.
+    Recomendación: Utilizar esta condición para finalizar bucles de lectura o gestionar el final del archivo.
+
+
+Código 22
+    Explicación: Se intenta copiar un registro con una clave ya existente.
+    Recomendación: Revisar la integridad de los datos y la asignación de claves para evitar duplicados.
+
+
+Código 23
+    Explicación: Se hace un acceso directo a un registro inexistente.
+    Recomendación: Verificar que la clave proporcionada corresponda a un registro existente antes de realizar la operación.
+
+
+Código 24
+    Explicación: No hay espacio en disco para realizar la operación.
+    Recomendación: Liberar espacio en disco o redirigir la operación a un dispositivo con mayor capacidad.
+
+
+Código 30
+    Explicación: Error grave de entrada/salida, normalmente relacionado con la configuración del sistema operativo.
+    Recomendación: Revisar los dos dígitos siguientes para obtener información adicional y consultar la documentación del sistema operativo.
+
+
+Código 34
+    Explicación: Similar al 24; indica falta de espacio en disco.
+    Recomendación: Verificar y gestionar el espacio disponible en disco.
+
+
+Código 35
+    Explicación: El archivo al que se hace referencia no existe.
+    Recomendación: Confirmar la existencia y ruta del archivo antes de intentar abrirlo.
+
+
+Código 39
+    Explicación: La organización del fichero no coincide con la especificada en la definición interna (FD).
+    Recomendación: Revisar la estructura definida y, de ser necesario, recrear o sincronizar el archivo.
+
+
+Código 41
+    Explicación: Se intenta abrir un archivo que ya está abierto.
+    Recomendación: Verificar el estado del archivo antes de abrirlo.
+
+
+Código 42
+    Explicación: Se intenta cerrar un archivo que no está abierto.
+    Recomendación: Confirmar que el archivo esté abierto antes de intentar cerrarlo.
+
+
+Código 43
+    Explicación: Se intenta borrar o reescribir un registro en un fichero abierto en modo secuencial.
+    Recomendación: Abrir el fichero en modo I-O para operaciones de borrado o reescritura en archivos indexados.
+
+
+Código 47
+    Explicación: Se realiza una operación (como READ o START) en un fichero abierto en un modo no adecuado para dicha operación.
+    Recomendación: Asegurarse de que el fichero esté abierto en el modo correcto (INPUT o I-O).
+
+
+Código 48
+    Explicación: Se intenta escribir en un fichero que no está abierto en el modo de escritura adecuado.
+    Recomendación: Verificar que el fichero esté abierto como I-O, OUTPUT o EXTEND según corresponda.
+
+
+Código 49
+    Explicación: Se intenta borrar o reescribir en un fichero que no ha sido abierto como I-O o que no está abierto.
+    Recomendación: Confirmar el modo de apertura del fichero y su estado antes de la operación.
+
+
+Código 90
+    Explicación: COBOL ha recibido un mensaje irreconocible, generalmente debido a incompatibilidades en el acceso al fichero.
+    Recomendación: Revisar la coherencia entre la definición del archivo y su uso en el programa.
+
+
+Código 91
+    Explicación: Similar al código 42; se produce al intentar cerrar un archivo que no está abierto.
+    Recomendación: Implementar verificaciones del estado del fichero antes de cerrarlo.
+
+
+Código 92
+    Explicación: Se intenta operar (leer, escribir, borrar o reescribir) sobre un archivo que no está abierto.
+    Recomendación: Confirmar siempre la apertura del archivo antes de realizar operaciones.
+
+
+Código 93
+    Explicación: El archivo está en conflicto con otro usuario (bloqueado).
+    Recomendación: Implementar mecanismos de bloqueo o esperar a que se libere el archivo.
+
+
+Código 94
+    Explicación: Error relacionado con la organización interna del fichero (similar al 39), con múltiples vertientes según los dos dígitos adicionales.
+    Recomendación: Consultar la documentación complementaria y, de ser necesario, reconstruir el archivo.
+
+
+Código 98
+    Explicación: Error interno grave en la estructura del fichero, normalmente tras una terminación abrupta o corte de energía.
+    Recomendación: Realizar un recovery utilizando la herramienta correspondiente (por ejemplo, RM/COBOL) y revisar posibles daños físicos en el disco.
+
+
+Código 99
+    Explicación: Se intenta operar (borrar, leer o reescribir) sobre un registro bloqueado por otro usuario.
+    Recomendación: Implementar políticas de bloqueo o esperar a que se libere el recurso.
+
+
+
+    Notas Adicionales
+
+    Compatibilidad y Configuración: Los códigos pueden variar según el sistema operativo y la configuración del entorno GNUCobol.
+    Manejo de Errores: Se recomienda verificar el FILE STATUS después de cada operación de archivo.
+    Mantenimiento: Actualizar periódicamente la documentación conforme se disponga de nueva información o se actualice el compilador.
+
+    Referencias
+
+    Documentación oficial de GNUCobol: https://www.gnu.org/software/gnucobol/
+    Manuales y guías de COBOL (ej. IBM COBOL, MicroFocus COBOL)
+    Comunidades y foros de desarrolladores
+
+    Conclusiones
+
+Se resumen las principales conclusiones del documento y se ofrecen recomendaciones finales para el manejo de errores en GNUCobol 3.2.
+Asimismo, se sugieren estrategias para la mejora continua en la gestión de ficheros y la prevención de errores críticos.
