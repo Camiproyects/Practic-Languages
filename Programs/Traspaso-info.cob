@@ -66,10 +66,13 @@
 
            DISPLAY "PROCESANDO DATOS..." LINE 2 POSITION 10.
 
+           MOVE 10 TO LIN.
+
            PERFORM UNTIL WS-OPTI = "Q"
                READ ARCHIVO-BASE INTO REGISTRO
                    AT END MOVE "Q" TO WS-OPTI
                    NOT AT END 
+                   ADD 1 TO CONTADOR
                    PERFORM PROCESAR-REGISTRO
                    PERFORM VER
                END-READ
@@ -87,21 +90,18 @@
            WRITE USUDATA.
            
        VER.
-           ADD 2 TO LIN.
+           ADD 1 TO LIN.
+           DISPLAY CONTADOR LINE 2 POSITION 50.
            DISPLAY "*"     LINE LIN POSITION 1.
            DISPLAY "*"     LINE LIN POSITION 12.
-           DISPLAY "*"     LINE LIN POSITION 23.
            DISPLAY "*"     LINE LIN POSITION 34.
            DISPLAY "*"     LINE LIN POSITION 45.
            DISPLAY "*"     LINE LIN POSITION 56.
-           DISPLAY "*"     LINE LIN POSITION 67.
            DISPLAY NUMDOC  LINE LIN POSITION 2.
            DISPLAY RAZSOC  LINE LIN POSITION 13.
-           DISPLAY DIRECT  LINE LIN POSITION 24.
            DISPLAY CIUDAD  LINE LIN POSITION 35.
            DISPLAY CONTAC  LINE LIN POSITION 46.
            DISPLAY TEL-1   LINE LIN POSITION 57.
-           DISPLAY CORREO  LINE LIN POSITION 68.
-           IF LIN > 30 
-              MOVE 0 TO LIN
+           IF LIN > 20 
+              MOVE 10 TO LIN
            END-IF.
