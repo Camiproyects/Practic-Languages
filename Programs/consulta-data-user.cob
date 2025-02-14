@@ -3,8 +3,10 @@
        AUTHOR. ANDRES CAMILO LAGUNA BERNAL.
        DATE-WRITTEN. 11-02-2025.
       *****************************************************************
-      * Programa para consultar datos de usuarios almacenados en un  *
-      * archivo indexado.                                             *
+      *    DESCRIPCION: Programa para consultar datos de 
+      *                 usuarios almacenados en un  
+      *                 archivo indexado.                
+      *
       *****************************************************************
        
        ENVIRONMENT DIVISION.
