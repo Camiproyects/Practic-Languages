@@ -1,77 +1,302 @@
----------------------------------------------------------------
---- DOCUMENTACIÓN GENERAL DE GnuCOBOL 3.2.0 ---
----------------------------------------------------------------
+/**********************************************************************
+ *                        GnuCOBOL 3.2 - INFORME DETALLADO
+ *  Basado en la documentación oficial del "GnuCOBOL 3.2 Programmer's Guide"
+ *  (versión A4) y recursos complementarios.
+ *
+ *  Este informe detalla cada tema principal, incluye ejemplos de código y
+ *  explica en profundidad los aspectos más relevantes del compilador
+ *  GnuCOBOL, siguiendo un estilo técnico y formal.
+ **********************************************************************/
 
-**********************
-* INTRODUCCIÓN *
-**********************
-GnuCOBOL es un compilador libre y moderno de COBOL que traduce el código fuente COBOL a C y
- luego lo compila utilizando un compilador de C nativo. Implementa una parte sustancial de
-  los estándares COBOL 85, X/Open COBOL y los más recientes ISO COBOL (2002, 2014, 2022), así
-   como muchas extensiones presentes en otros compiladores COBOL como IBM COBOL, MicroFocus COBOL
-    y ACUCOBOL-GT.
+/**********************************************************************
+ * 1. INTRODUCCIÓN Y CONTEXTO
+ **********************************************************************
+ * GnuCOBOL es un compilador de COBOL de código abierto, originalmente
+ * conocido como OpenCOBOL, que traduce el código fuente COBOL a C para
+ * posteriormente compilarlo con un compilador C (usualmente GCC). Su
+ * objetivo es facilitar el desarrollo y la migración de aplicaciones
+ * empresariales escritas en COBOL, manteniendo compatibilidad con
+ * estándares históricos (COBOL85) y adoptando algunas características
+ * de COBOL2002 y COBOL2014.
+ *
+ * Ejemplo de comentario introductorio en un programa COBOL:
+ * 
+ *       *>--------------------------------------------------------------
+ *       *> Programa de ejemplo en COBOL utilizando GnuCOBOL
+ *       *> Este programa ilustra la estructura básica de un programa COBOL.
+ *       *>--------------------------------------------------------------
+ *
+ * Referencia:
+ *   [GnuCOBOL Guides – OpenCOBOL FAQ] :contentReference[oaicite:0]{index=0}
+ *
+ **********************************************************************/
 
-**********************
-* CARACTERÍSTICAS PRINCIPALES *
-**********************
-- **Compatibilidad con múltiples dialectos:** Soporte para 19 dialectos de COBOL, 
-incluyendo COBOL85, X/Open COBOL, COBOL2002, COBOL2014, MicroFocus, IBM, MVS, ACUCOBOL-GT, RM/COBOL y BS2000. 
+/**********************************************************************
+ * 2. ESTRUCTURA DEL PROGRAMA COBOL
+ **********************************************************************
+ * Un programa COBOL se divide en cuatro divisiones principales:
+ *
+ * 2.1 IDENTIFICATION DIVISION
+ *     - Define el nombre del programa, autor, fecha de compilación, etc.
+ *     Ejemplo:
+ *         IDENTIFICATION DIVISION.
+ *         PROGRAM-ID. EJEMPLO.
+ *
+ * 2.2 ENVIRONMENT DIVISION
+ *     - Especifica el entorno en el que se ejecuta el programa, como
+ *       dispositivos de entrada/salida y la configuración del sistema.
+ *     Ejemplo:
+ *         ENVIRONMENT DIVISION.
+ *         CONFIGURATION SECTION.
+ *         SOURCE-COMPUTER. IBM-370.
+ *
+ * 2.3 DATA DIVISION
+ *     - Define todas las variables y estructuras de datos, organizadas
+ *       en secciones como WORKING-STORAGE, FILE, LINKAGE, etc.
+ *     Ejemplo:
+ *         DATA DIVISION.
+ *         WORKING-STORAGE SECTION.
+ *         01 WS-MENSAJE PIC X(30) VALUE "Hola, GnuCOBOL!".
+ *
+ * 2.4 PROCEDURE DIVISION
+ *     - Contiene las instrucciones y lógica del programa.
+ *     Ejemplo:
+ *         PROCEDURE DIVISION.
+ *         INICIO.
+ *             DISPLAY WS-MENSAJE.
+ *             STOP RUN.
+ *
+ * Referencia:
+ *   [GnuCOBOL 3.2 Guides] :contentReference[oaicite:1]{index=1}
+ *
+ **********************************************************************/
 
-- **Integración con C:** Permite el acceso directo a casi todas las bibliotecas de C, ampliando las capacidades del lenguaje. 
+/**********************************************************************
+ * 3. SINTAXIS Y SEMÁNTICA DEL LENGUAJE
+ **********************************************************************
+ * Se explica en detalle la sintaxis de las sentencias COBOL, incluyendo:
+ *
+ * 3.1 Instrucciones imperativas:
+ *     - Cada instrucción comienza con un verbo (DISPLAY, MOVE, ADD, etc.).
+ *
+ * Ejemplo:
+ *         MOVE "Valor" TO WS-CAMPO.
+ *
+ * 3.2 Uso de literales y figurativos:
+ *     - Los literales son constantes (numéricas o alfanuméricas) y los
+ *       figurativos son palabras reservadas (como ZERO, SPACE, HIGH-VALUE).
+ *
+ * Ejemplo:
+ *         MOVE ZERO TO WS-CUENTA.
+ *
+ * 3.3 Formatos de Fuente:
+ *     - Formato Fijo: Basado en columnas (tradicional, 80 columnas).
+ *     - Formato Libre: Permite mayor flexibilidad en la ubicación del código.
+ *
+ * Ejemplo en modo libre:
+ *         >>SOURCE FORMAT IS FREE.
+ *         IDENTIFICATION DIVISION.
+ *         PROGRAM-ID. EJEMPLO-FREE.
+ *
+ * Referencia:
+ *   [GnuCOBOL Quick Reference] :contentReference[oaicite:2]{index=2}
+ *
+ **********************************************************************/
 
-- **Soporte para secciones especializadas:** Incluye soporte para `REPORT SECTION`, `SCREEN SECTION` y `FUNCTION-ID`. 
+/**********************************************************************
+ * 4. FUNCIONES INTRÍNSECAS Y SUBRUTINAS INCORPORADAS
+ **********************************************************************
+ * GnuCOBOL ofrece un amplio conjunto de funciones intrínsecas para
+ * operaciones matemáticas, de manipulación de cadenas, fechas, etc.
+ *
+ * 4.1 Ejemplos de funciones intrínsecas:
+ *
+ *   - LENGTH: Devuelve la longitud de una cadena.
+ *     Ejemplo:
+ *         COMPUTE WS-LONGITUD = FUNCTION LENGTH(WS-MENSAJE).
+ *
+ *   - TRIM: Elimina espacios de una cadena.
+ *     Ejemplo:
+ *         MOVE FUNCTION TRIM(WS-MENSAJE, TRAILING) TO WS-MENSAJE-TRIM.
+ *
+ * 4.2 Subrutinas incorporadas:
+ *     - Ejemplo: COBDUMP, que genera un volcado hexadecimal de un área de memoria.
+ *
+ *   Ejemplo de invocación de una subrutina:
+ *         CALL "COBDUMP" USING AREA-DATOS, BUFFER, LONGITUD.
+ *
+ * Referencia:
+ *   [GnuCOBOL Programmer's Guide] :contentReference[oaicite:3]{index=3}
+ *
+ **********************************************************************/
 
-- **Compatibilidad con estándares recientes:** Implementa casi por completo las características del
- "Compiler Directing Facility" de COBOL 2022. 
+/**********************************************************************
+ * 5. INTEROPERABILIDAD CON C Y SUBPROGRAMACIÓN
+ **********************************************************************
+ * Una característica destacada de GnuCOBOL es su capacidad de interactuar
+ * con programas escritos en C.
+ *
+ * 5.1 Llamadas desde COBOL a C:
+ *     - El compilador traduce COBOL a C, permitiendo llamar funciones en C.
+ *
+ *   Ejemplo: Llamada a un subprograma C desde COBOL.
+ *         PROCEDURE DIVISION.
+ *         CALL "nombre_funcion_c" USING parametro1, parametro2.
+ *
+ * 5.2 Llamadas desde C a COBOL:
+ *     - Se puede compilar un subprograma COBOL y llamarlo desde un programa en C.
+ *
+ *   Ejemplo en C:
+ *         #include <libcob.h>
+ *         int main(void) {
+ *             cob_init(0, NULL);
+ *             int resultado = subprograma_cobol();
+ *             return resultado;
+ *         }
+ *
+ *   Ejemplo en COBOL (subprograma):
+ *         IDENTIFICATION DIVISION.
+ *         PROGRAM-ID. SUBCOBOL.
+ *         DATA DIVISION.
+ *         LINKAGE SECTION.
+ *         01 PARAM1 PIC X(10).
+ *         PROCEDURE DIVISION USING PARAM1.
+ *             DISPLAY "Subprograma COBOL llamado desde C".
+ *             GOBACK.
+ *
+ * Referencia:
+ *   [GnuCOBOL Guides – OpenCOBOL FAQ] :contentReference[oaicite:4]{index=4}
+ *
+ **********************************************************************/
 
+/**********************************************************************
+ * 6. PROCESO DE COMPILACIÓN Y CONFIGURACIÓN
+ **********************************************************************
+ * El proceso de compilación se centra en el uso del compilador "cobc" y la
+ * configuración de variables de entorno que afectan la compilación.
+ *
+ * 6.1 Uso del compilador "cobc":
+ *     - Opciones clave:
+ *         -x      -> Genera un ejecutable.
+ *         -m      -> Genera un módulo dinámico o subprograma.
+ *         -free   -> Activa el formato de fuente libre.
+ *         -std=   -> Define el dialecto COBOL (p.ej., cobol85, cobol2002, ibm).
+ *
+ *   Ejemplo de comando:
+ *         cobc -x -free -std=cobol85 MiPrograma.cob
+ *
+ * 6.2 Variables de entorno importantes:
+ *     - COB_CC: Especifica el compilador C a usar (ej. gcc).
+ *     - COB_CFLAGS: Opciones adicionales para el compilador C.
+ *     - COB_COPY_DIR o COBCPY: Directorios de búsqueda para copybooks.
+ *     - LD_LIBRARY_PATH: Ruta para bibliotecas compartidas en sistemas Unix.
+ *
+ * 6.3 Archivos de configuración:
+ *     - Los archivos en el directorio de configuración (por defecto, 
+ *       /usr/local/share/gnucobol/config) definen opciones adicionales,
+ *       tales como la asignación de nombres de archivos y opciones de salida.
+ *
+ * Referencia:
+ *   [GnuCOBOL Build Guides and Manuals] :contentReference[oaicite:5]{index=5}
+ *
+ **********************************************************************/
 
-- **Soporte para bases de datos:** Disponibilidad de preprocesadores `EXEC SQL` para PostgreSQL,
- Firebird, ODBC y DB2. 
+/**********************************************************************
+ * 7. EJEMPLOS Y PROGRAMAS DE MUESTRA
+ **********************************************************************
+ * La documentación incluye varios ejemplos prácticos que demuestran
+ * la aplicación de las funcionalidades de GnuCOBOL.
+ *
+ * 7.1 COBDUMP:
+ *     - Utilidad que genera un volcado hexadecimal y de caracteres.
+ *
+ *   Ejemplo de código (fragmento):
+ *         IDENTIFICATION DIVISION.
+ *         PROGRAM-ID. COBDUMP.
+ *         PROCEDURE DIVISION.
+ *             PERFORM VARYING I FROM 1 BY 1 UNTIL I > LENGTH(AREA)
+ *                 DISPLAY FUNCTION HEX(AREA(I:1))
+ *             END-PERFORM.
+ *
+ * 7.2 DAY-FROM-DATE:
+ *     - Función definida por el usuario que calcula el día de la semana a
+ *       partir de una fecha (formato juliano o gregoriano).
+ *
+ *   Ejemplo de definición:
+ *         IDENTIFICATION DIVISION.
+ *         FUNCTION-ID. DAY-FROM-DATE.
+ *         DATA DIVISION.
+ *         WORKING-STORAGE SECTION.
+ *         01 L-Output-Day-NUM USAGE BINARY-LONG.
+ *         PROCEDURE DIVISION USING L-Input-Date-DT
+ *         RETURNING L-Output-Day-NUM.
+ *             IF TEST-DATE-YYYYMMDD(L-Input-Date-DT) > 0
+ *                 COMPUTE L-Output-Day-NUM = FUNCTION DATE-OF-INTEGER(L-Input-Date-DT)
+ *             ELSE
+ *                 MOVE ZERO TO L-Output-Day-NUM
+ *             END-IF.
+ *             GOBACK.
+ *
+ * 7.3 GCic (GNU COBOL Interactive Compiler):
+ *     - Interfaz de usuario en modo texto para compilar y listar programas.
+ *
+ *   Características:
+ *         - Maneja entrada/salida en pantalla (SCREEN SECTION).
+ *         - Procesa configuraciones y opciones interactivas.
+ *
+ * 7.4 STREAMIO:
+ *     - Ejemplo avanzado de manejo de E/S a nivel de bytes.
+ *
+ *   Ejemplo (fragmento):
+ *         IDENTIFICATION DIVISION.
+ *         PROGRAM-ID. STREAMIO.
+ *         PROCEDURE DIVISION.
+ *             CALL "CBL_READ_FILE" USING HANDLE, OFFSET, NBYTES, 0, BUFFER.
+ *
+ * Referencia:
+ *   [GnuCOBOL Sample Programs] :contentReference[oaicite:6]{index=6}
+ *
+ **********************************************************************/
 
-
-- **Compatibilidad multiplataforma:** Funciona en diversas plataformas,
- incluyendo GNU/Linux, Unix, macOS y Microsoft Windows. 
-
-
-**********************
-* NOVEDADES EN LA VERSIÓN 3.2.0 *
-**********************
-La versión 3.2.0 de GnuCOBOL, lanzada el 28 de julio de 2023, introduce numerosas mejoras y nuevas características:
-
-- **Gestión mejorada de dialectos:** Se han ajustado los valores predeterminados para alinearse mejor con
- el dialecto seleccionado y se ha añadido un nuevo dialecto GCOS.
-
-- **Optimización del rendimiento:** Se ha mejorado significativamente el tiempo de ejecución de varias sentencias y
- se ha reducido el uso de memoria, especialmente cuando las comprobaciones en tiempo de ejecución están habilitadas.
-
-
-- **Manejo de archivos:** Cambios en la entrada/salida de archivos para soportar `LINE-SEQUENTIAL`
- según COBOL2023 y opciones en tiempo de ejecución para modificar la forma en que se manejan los archivos.
-
-
-- **Depuración mejorada:** Mejoras en la depuración a nivel de código fuente mediante GDB y soporte para volcados de
- memoria (`coredump`).
-
-- **Diagnósticos más detallados:** Salida de contexto para diagnósticos, facilitando la identificación y corrección de errores.
-
-
-**********************
-* RECURSOS ADICIONALES *
-**********************
-Para una comprensión más profunda y detalles técnicos, se recomienda consultar los siguientes recursos:
-
-- **Manual del Programador de GnuCOBOL:** Ofrece una guía detallada sobre la sintaxis, semántica y uso de COBOL según lo
- implementado por GnuCOBOL.
-
-- **Sitio oficial de GnuCOBOL:** Proporciona información actualizada, descargas y documentación adicional.
-
-
-- **Repositorio de GnuCOBOL en SourceForge:** Acceso a versiones anteriores, notas de lanzamiento y archivos relacionados.
-
-
-Para obtener la versión más reciente y asegurarse de tener las últimas actualizaciones y correcciones, es recomendable visitar el
- sitio oficial de GnuCOBOL.
-
----------------------------------------------------------------
-FIN DEL DOCUMENTO
----------------------------------------------------------------
+/**********************************************************************
+ * 8. LICENCIAS Y CONSIDERACIONES LEGALES
+ **********************************************************************
+ * La documentación y el propio GnuCOBOL se distribuyen bajo licencias
+ * de software libre, principalmente:
+ *
+ * 8.1 GNU Free Documentation License (FDL):
+ *     - Permite copiar, distribuir y modificar la documentación
+ *       bajo términos específicos, garantizando que la información
+ *       permanezca libre.
+ *
+ * 8.2 GNU General Public License (GPL):
+ *     - Regula la distribución y modificación del código fuente
+ *       de GnuCOBOL.
+ *
+ * Ejemplo de aviso de licencia en un documento:
+ *         This document is distributed under the terms of the GNU Free Documentation
+ *         License, Version 1.3 or any later version.
+ *
+ * Referencia:
+ *   [GnuCOBOL 2.0 Programmer's Guide] :contentReference[oaicite:7]{index=7}
+ *
+ **********************************************************************
+ * 9. CONCLUSIONES Y RECURSOS ADICIONALES
+ **********************************************************************
+ * La documentación de GnuCOBOL es extensa y abarca desde la sintaxis básica
+ * hasta aspectos avanzados como interoperabilidad con C, manejo de E/S, y
+ * configuración del entorno de compilación.
+ *
+ * Recursos adicionales:
+ *    - GnuCOBOL 3.2 Programmer's Guide (A4 y US Letter)
+ *    - GnuCOBOL Quick Reference
+ *    - GnuCOBOL Sample Programs
+ *    - FAQ y foros del proyecto en SourceForge
+ *    - Guías de compilación para entornos Windows (MinGW/Cygwin)
+ *
+ * Se recomienda revisar el sitio oficial:
+ *      https://gnucobol.sourceforge.io/guides.html  :contentReference[oaicite:8]{index=8}
+ *
+ **********************************************************************
+ *                            FIN DEL INFORME
+ **********************************************************************/
