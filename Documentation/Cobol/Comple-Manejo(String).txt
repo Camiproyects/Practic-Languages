@@ -1,196 +1,90 @@
-       IDENTIFICATION DIVISION.
-       PROGRAM-ID. DOC_GENERATOR.
-       AUTHOR. ANDRES CAMILO LAGUNA.
-       DATE-WRITTEN. 14-02-2025.
-       
-       ENVIRONMENT DIVISION.
-       INPUT-OUTPUT SECTION.
-       FILE-CONTROL.
-           SELECT DOCFILE ASSIGN TO "documentacion.txt"
-               ORGANIZATION IS LINE SEQUENTIAL.
-       
-       DATA DIVISION.
-       FILE SECTION.
-       FD  DOCFILE.
-       01  DOC-RECORD       PIC X(250).
-       
-       WORKING-STORAGE SECTION.
-       01  WS-DOC-LINE      PIC X(250) VALUE SPACES.
-       
-       PROCEDURE DIVISION.
-       MAIN-PROGRAM.
-           OPEN OUTPUT DOCFILE.
-           
-           STRING "------------------------------------------------------------" DELIMITED BY SIZE
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "DOCUMENTACIÓN DEL COMANDO DISPLAY EN COBOL" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "Autor: ANDRES CAMILO LAGUNA" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "Fecha: 14-02-2025" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "------------------------------------------------------------" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "Tabla de Contenidos:" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "1. Introducción" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "2. Propósito" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "3. Sintaxis" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "4. Ejemplos" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "5. Buenas Prácticas" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "6. Conclusiones" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "------------------------------------------------------------" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "1. Introducción:" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "El comando DISPLAY en COBOL es fundamental para" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "mostrar información en la salida estándar. Se utiliza" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "para interactuar y depurar programas, mostrando mensajes" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "y valores de variables de forma inmediata." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "2. Propósito:" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "- Visualizar mensajes y valores." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "- Facilitar la depuración." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "- Generar salidas formateadas." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "3. Sintaxis:" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "DISPLAY literal-or-identifier" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "   [UPON device] [WITH NO ADVANCING]." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "4. Ejemplos:" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "Ejemplo 1: DISPLAY ""Hola, mundo!"". " DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "Ejemplo 2: " DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "   MOVE ""Bienvenido a COBOL"" TO WS-MENSAJE," DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "   DISPLAY WS-MENSAJE." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "Ejemplo 3: " DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "   DISPLAY ""Nombre: "" WITH NO ADVANCING," DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "   ACCEPT WS-NOMBRE, DISPLAY ""Bienvenido, "" WS-NOMBRE." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "5. Buenas Prácticas:" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "- Utilizar mensajes claros y descriptivos." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "- Emplear WITH NO ADVANCING solo cuando sea necesario." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "- Verificar el dispositivo indicado con UPON." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "6. Conclusiones:" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "DISPLAY es esencial para la interacción y depuración en COBOL." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "Su correcto uso mejora la claridad y el mantenimiento de" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "los programas COBOL." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "------------------------------------------------------------" DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "Fin del Documento." DELIMITED BY SIZE
-                 INTO WS-DOC-LINE.
-           WRITE DOC-RECORD FROM WS-DOC-LINE.
-           
-           STRING "-------------------------------------
+---------------------------------------------------------------
+       DOCUMENTACIÓN DEL STRING EN COBOL (GNUCOBOL 3.2)
+---------------------------------------------------------------
+
+**********************
+* 1. INTRODUCCIÓN  *
+**********************
+La instrucción STRING se utiliza para concatenar uno o más
+elementos (cadenas literales o variables) en una variable
+destino. Permite construir cadenas dinámicamente y es
+especialmente útil para formar mensajes o combinar datos
+en tiempo de ejecución.
+
+**********************
+* 2. SINTAXIS DEL STRING  *
+**********************
+La sintaxis general es la siguiente:
+
+   STRING source-1 [source-2 ... source-n]
+          DELIMITED BY literal-1 | SIZE
+          [INTO destination]
+          [WITH POINTER pointer-variable]
+          [TALLYING identifier]
+          [ON OVERFLOW imperative-statement]
+          [NOT ON OVERFLOW imperative-statement].
+
+Donde:
+   - source-1, source-2, …, source-n: Elementos a concatenar.
+   - DELIMITED BY:
+       • literal: Copia hasta encontrar ese literal.
+       • SIZE: Copia todo el contenido del elemento.
+   - INTO destination: Variable donde se almacena el resultado.
+   - WITH POINTER pointer-variable: Especifica la posición en la
+     variable destino donde se insertará el siguiente contenido.
+   - TALLYING identifier: Cuenta el número total de caracteres
+     copiados.
+   - ON OVERFLOW / NOT ON OVERFLOW: Manejan la situación en que
+     la variable destino no tiene espacio suficiente.
+
+**********************
+* 3. EJEMPLOS DE USO *
+**********************
+Ejemplo 1: Concatenación básica
+   STRING "Hola, " "mundo!"
+       DELIMITED BY SIZE
+       INTO WS-MENSAJE.
+   DISPLAY WS-MENSAJE.
+
+Ejemplo 2: Uso de DELIMITED BY con literal
+   STRING NOMBRE " " 
+       DELIMITED BY " "
+       INTO WS-SALIDA.
+   * Se copia el contenido de NOMBRE hasta encontrar un espacio.
+
+Ejemplo 3: Uso con WITH POINTER y TALLYING
+   MOVE 1 TO WS-POINTER.
+   STRING "ABC" "DEF"
+       DELIMITED BY SIZE
+       INTO WS-RESULTADO
+       WITH POINTER WS-POINTER
+       TALLYING WS-CONTADOR.
+   DISPLAY WS-RESULTADO.
+   DISPLAY "Caracteres copiados: " WS-CONTADOR.
+
+**********************
+* 4. CONSIDERACIONES *
+**********************
+- La cláusula DELIMITED BY define cuándo se detiene la copia 
+  de cada elemento. Use "SIZE" para copiar todo el contenido.
+- Si se omite INTO, la cadena concatenada se muestra en la
+  salida estándar, pero no se almacena.
+- Inicialice la variable destino para evitar datos residuales.
+- TALLYING ayuda a verificar la cantidad de caracteres copiados,
+  útil para depuración.
+- ON OVERFLOW y NOT ON OVERFLOW permiten gestionar errores 
+  si la variable destino no tiene el tamaño adecuado.
+
+**********************
+* 5. REFERENCIAS *
+**********************
+- GnuCOBOL Programmer’s Guide (v3.2):  
+  https://gnucobol.sourceforge.io/HTML/gnucobpg.html
+- Documentación oficial de GNU COBOL:  
+  https://gnucobol.sourceforge.io/
+- Tutoriales en línea (Guru99):  
+  https://www.guru99.com/cobol-tutorial.html
+
+---------------------------------------------------------------
+FIN DEL DOCUMENTO
+---------------------------------------------------------------
