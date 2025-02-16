@@ -1,0 +1,324 @@
+/**********************************************************************
+ *                        C++ - INFORME DETALLADO
+ *  Basado en la documentación estándar de C++ (ISO/IEC 14882) y
+ *  recursos oficiales y complementarios (como la STL, guías de compiladores
+ *  y manuales de referencia). Este informe detalla los temas fundamentales
+ *  del lenguaje C++ con ejemplos y explicación de cada aspecto, en un estilo
+ *  técnico y formal.
+ **********************************************************************/
+
+/**********************************************************************
+ * 1. INTRODUCCIÓN Y CONTEXTO
+ **********************************************************************
+ * C++ es un lenguaje de programación multiparadigma creado como una extensión
+ * del lenguaje C por Bjarne Stroustrup en la década de 1980. Se caracteriza
+ * por su soporte tanto para la programación procedimental como para la
+ * programación orientada a objetos, además de incluir características de
+ * programación genérica mediante el uso de plantillas (templates).
+ *
+ * C++ es ampliamente utilizado en desarrollo de sistemas, aplicaciones de
+ * alto rendimiento, videojuegos, y aplicaciones embebidas, gracias a su
+ * flexibilidad, eficiencia y capacidad de abstracción.
+ *
+ * Ejemplo de comentario introductorio en un programa C++:
+ *
+ *    // *******************************************************
+ *    // *  Programa de ejemplo en C++
+ *    // *  Este programa ilustra las características básicas
+ *    // *  del lenguaje C++: E/S, manejo de clases y control de flujo.
+ *    // *******************************************************
+ *
+ **********************************************************************/
+
+/**********************************************************************
+ * 2. ESTRUCTURA DE UN PROGRAMA C++
+ **********************************************************************
+ * Un programa C++ se compone típicamente de:
+ *
+ * 2.1 Directivas de preprocesador:
+ *     - Incluir librerías y definir macros.
+ *     Ejemplo:
+ *           #include <iostream>
+ *           #include <vector>
+ *
+ * 2.2 Declaración de espacio de nombres:
+ *     - Uso de namespaces para evitar colisiones.
+ *     Ejemplo:
+ *           using namespace std;
+ *
+ * 2.3 Función principal (main):
+ *     - Punto de entrada del programa.
+ *     Ejemplo:
+ *           int main() {
+ *               // Código del programa
+ *               return 0;
+ *           }
+ *
+ * 2.4 Definición de clases y funciones:
+ *     - Se definen clases, estructuras, funciones y demás componentes.
+ *
+ * Referencia:
+ *   La estructura general se detalla en la "ISO/IEC 14882:2017" y en la documentación
+ *   de la STL.
+ *
+ **********************************************************************/
+
+/**********************************************************************
+ * 3. SINTAXIS Y SEMÁNTICA DEL LENGUAJE
+ **********************************************************************
+ * C++ combina elementos de la programación en C con características propias de
+ * la programación orientada a objetos y genérica.
+ *
+ * 3.1 Declaraciones y definiciones:
+ *     - Declaración de variables, constantes y tipos.
+ *
+ *   Ejemplo:
+ *         int contador = 0;
+ *         const double PI = 3.14159;
+ *
+ * 3.2 Estructuras de control:
+ *     - Instrucciones condicionales (if, switch) y de repetición (for, while, do-while).
+ *
+ *   Ejemplo:
+ *         if (contador < 10) {
+ *             cout << "Menor a 10" << endl;
+ *         } else {
+ *             cout << "Mayor o igual a 10" << endl;
+ *         }
+ *
+ * 3.3 Funciones y sobrecarga:
+ *     - Definición de funciones, sobrecarga de funciones y operadores.
+ *
+ *   Ejemplo:
+ *         int sumar(int a, int b) {
+ *             return a + b;
+ *         }
+ *
+ *         // Sobrecarga de la función sumar para números de punto flotante
+ *         double sumar(double a, double b) {
+ *             return a + b;
+ *         }
+ *
+ * 3.4 Programación orientada a objetos:
+ *     - Clases, herencia, polimorfismo, encapsulación y abstracción.
+ *
+ *   Ejemplo de definición de clase:
+ *         class Persona {
+ *         private:
+ *             string nombre;
+ *             int edad;
+ *         public:
+ *             Persona(const string &n, int e) : nombre(n), edad(e) { }
+ *             void mostrar() const {
+ *                 cout << "Nombre: " << nombre << ", Edad: " << edad << endl;
+ *             }
+ *         };
+ *
+ * 3.5 Plantillas (Templates):
+ *     - Permiten escribir funciones y clases genéricas.
+ *
+ *   Ejemplo de función plantilla:
+ *         template<typename T>
+ *         T maximo(T a, T b) {
+ *             return (a > b) ? a : b;
+ *         }
+ *
+ * Referencia:
+ *   Documentación del ISO C++ y recursos como cppreference.com.
+ *
+ **********************************************************************/
+
+/**********************************************************************
+ * 4. LA BIBLIOTECA ESTÁNDAR (STL)
+ **********************************************************************
+ * La STL (Standard Template Library) es un conjunto de clases y funciones
+ * genéricas que proporcionan contenedores, algoritmos, iteradores y utilidades
+ * para manipular datos.
+ *
+ * 4.1 Contenedores:
+ *     - vector, list, deque, set, map, entre otros.
+ *
+ *   Ejemplo:
+ *         vector<int> numeros = {1, 2, 3, 4, 5};
+ *
+ * 4.2 Algoritmos:
+ *     - Funciones como sort, find, accumulate, etc.
+ *
+ *   Ejemplo:
+ *         sort(numeros.begin(), numeros.end());
+ *
+ * 4.3 Iteradores:
+ *     - Permiten recorrer los contenedores de manera uniforme.
+ *
+ *   Ejemplo:
+ *         for (auto it = numeros.begin(); it != numeros.end(); ++it) {
+ *             cout << *it << " ";
+ *         }
+ *
+ * 4.4 Funciones Lambda:
+ *     - Introducidas en C++11, permiten definir funciones anónimas en línea.
+ *
+ *   Ejemplo:
+ *         auto suma = [](int a, int b) -> int { return a + b; };
+ *         cout << suma(3, 4) << endl;
+ *
+ * Referencia:
+ *   La documentación oficial de la STL y cppreference.com.
+ *
+ **********************************************************************/
+
+/**********************************************************************
+ * 5. COMPILACIÓN Y CONFIGURACIÓN
+ **********************************************************************
+ * Los programas en C++ se compilan usando compiladores como GCC, Clang o MSVC.
+ *
+ * 5.1 Proceso de compilación básico:
+ *     - Comando típico en GCC:
+ *         g++ -std=c++17 -O2 -Wall mi_programa.cpp -o mi_programa
+ *
+ *     - Opciones comunes:
+ *         -std=c++XX     Define el estándar (por ejemplo, c++11, c++14, c++17, c++20).
+ *         -O2, -O3       Optimización.
+ *         -Wall          Habilita todas las advertencias.
+ *
+ * 5.2 Variables de entorno y archivos de configuración:
+ *     - En entornos Unix, variables como CXXFLAGS se utilizan para definir opciones
+ *       de compilación.
+ *
+ * 5.3 Herramientas de construcción:
+ *     - Makefiles, CMake y otros sistemas automatizan la compilación de proyectos
+ *       en C++.
+ *
+ * Ejemplo de Makefile sencillo:
+ *
+ *         CXX = g++
+ *         CXXFLAGS = -std=c++17 -O2 -Wall
+ *         TARGET = mi_programa
+ *         SRCS = main.cpp clase.cpp
+ *
+ *         all: $(TARGET)
+ *
+ *         $(TARGET): $(SRCS)
+ *             $(CXX) $(CXXFLAGS) $(SRCS) -o $(TARGET)
+ *
+ *         clean:
+ *             rm -f $(TARGET)
+ *
+ * Referencia:
+ *   Documentación de GCC y manuales de CMake.
+ *
+ **********************************************************************/
+
+/**********************************************************************
+ * 6. EJEMPLOS Y PROGRAMAS DE MUESTRA
+ **********************************************************************
+ * A continuación se presentan fragmentos de código de ejemplo que ilustran
+ * diversas funcionalidades del lenguaje C++.
+ *
+ * 6.1 Programa "Hola Mundo":
+ *
+ *         #include <iostream>
+ *
+ *         int main() {
+ *             std::cout << "Hola, Mundo!" << std::endl;
+ *             return 0;
+ *         }
+ *
+ * 6.2 Uso de clases y objetos:
+ *
+ *         #include <iostream>
+ *         #include <string>
+ *
+ *         class Persona {
+ *         private:
+ *             std::string nombre;
+ *             int edad;
+ *         public:
+ *             Persona(const std::string &n, int e) : nombre(n), edad(e) { }
+ *             void mostrar() const {
+ *                 std::cout << "Nombre: " << nombre << ", Edad: " << edad << std::endl;
+ *             }
+ *         };
+ *
+ *         int main() {
+ *             Persona p("Juan Pérez", 30);
+ *             p.mostrar();
+ *             return 0;
+ *         }
+ *
+ * 6.3 Uso de plantillas y funciones lambda:
+ *
+ *         #include <iostream>
+ *         #include <algorithm>
+ *         #include <vector>
+ *
+ *         template<typename T>
+ *         T maximo(T a, T b) {
+ *             return (a > b) ? a : b;
+ *         }
+ *
+ *         int main() {
+ *             auto suma = [](int a, int b) -> int { return a + b; };
+ *             std::cout << "Máximo de 4 y 7: " << maximo(4, 7) << std::endl;
+ *             std::cout << "Suma de 3 y 5: " << suma(3, 5) << std::endl;
+ *
+ *             std::vector<int> numeros = {5, 2, 9, 1, 5, 6};
+ *             std::sort(numeros.begin(), numeros.end());
+ *             for (int n : numeros)
+ *                 std::cout << n << " ";
+ *             std::cout << std::endl;
+ *
+ *             return 0;
+ *         }
+ *
+ * Referencia:
+ *   [CPP Reference](https://en.cppreference.com/) y la documentación ISO.
+ *
+ **********************************************************************/
+
+/**********************************************************************
+ * 7. LICENCIAS Y CONSIDERACIONES LEGALES
+ **********************************************************************
+ * C++ se distribuye bajo diversas licencias, dependiendo de la implementación:
+ *
+ * 7.1 El estándar C++ es definido por ISO/IEC 14882. Las implementaciones
+ *     de compiladores C++ como GCC (GNU Compiler Collection) se distribuyen
+ *     bajo la GNU General Public License (GPL) o licencias compatibles.
+ *
+ * 7.2 Las bibliotecas estándar (STL) y la mayoría de herramientas asociadas
+ *     son software libre, permitiendo la copia, modificación y distribución.
+ *
+ * Ejemplo de aviso en un archivo fuente:
+ *         /*
+ *          * Este archivo se distribuye bajo los términos de la GPL v3 o
+ *          * una licencia posterior.
+ *          * https://www.gnu.org/licenses/gpl-3.0.html
+ *          *\/
+ *
+ * Referencia:
+ *   Documentación de la GPL y avisos de licencia en proyectos de código abierto.
+ *
+ **********************************************************************/
+
+/**********************************************************************
+ * 8. CONCLUSIONES Y RECURSOS ADICIONALES
+ **********************************************************************
+ * C++ es un lenguaje versátil y robusto, que permite el desarrollo de
+ * aplicaciones eficientes y de alto rendimiento. La documentación oficial,
+ * combinada con recursos en línea como cppreference.com y la comunidad
+ * de desarrolladores, ofrece un amplio soporte para aprender y
+ * profundizar en cada uno de sus aspectos.
+ *
+ * Recursos adicionales:
+ *    - ISO/IEC 14882 (estándar de C++)
+ *    - cppreference.com: Documentación completa y actualizada.
+ *    - La documentación y tutoriales del compilador GCC/Clang.
+ *    - Libros reconocidos como "The C++ Programming Language" de Bjarne Stroustrup.
+ *
+ * Se recomienda visitar:
+ *      https://isocpp.org/  y
+ *      https://en.cppreference.com/  para mayor información.
+ *
+ **********************************************************************
+ *                            FIN DEL INFORME
+ **********************************************************************/
