@@ -1,0 +1,20 @@
+import requests
+
+def verificar_imei(imei):
+    api_key = 'SU_CLAVE_DE_API'
+    url = f'https://api.imei.info/v1/check?imei={imei}&api_key={api_key}'
+    respuesta = requests.get(url)
+    
+    if respuesta.status_code == 200:
+        datos = respuesta.json()
+        if 'error' not in datos:
+            return datos
+        else:
+            return f"Error: {datos['error']}"
+    else:
+        return f"Error en la solicitud: {respuesta.status_code}"
+
+# Ejemplo de uso
+imei = '353780100216662'
+resultado = verificar_imei(imei)
+print(resultado)
