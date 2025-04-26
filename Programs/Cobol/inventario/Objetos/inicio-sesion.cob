@@ -1,18 +1,16 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. inicio_sesion.
-       AUTHOR. "ANDRES CAMILO LAGUNA BERNAL".
 
       ****************************************************************
       *                INICIO DE SESION                              *
-      *                                                              *
-      * Descripción: Manejo de usuarios mediante archivo indexado.   *
+      *AUTHOR. "ANDRES CAMILO LAGUNA BERNAL".                        *
+      * Descripción: Manejo de usuarios mediante archivo indexado.  *
       *              Se utilizan operaciones CRUD basadas en         *
       *              la clave NUMDOC.                                *
       *                                                              *
       * Autor: ANDRES CAMILO LAGUNA BERNAL                           *
       * Fecha: 04-01-2025                                            *
       ****************************************************************
-       DATE-WRITTEN. "03-01-2025".
 
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
@@ -90,7 +88,7 @@
            ACCEPT T-CODUNI LINE 7 POSITION 55.
            MOVE T-NUMDOC TO NUMDOC.
             READ ARCHIVO-CLIENTES RECORD KEY NUMDOC
-                INVALID KEY 
+                INVALID KEY
                 DISPLAY "Usuario no encontrado." LINE 9 POSITION 50
                 NOT INVALID KEY
                 IF T-CODUNI = CODUNI
@@ -105,7 +103,7 @@
       *                  CALL PANT-EM USING PASA
       *                  END-CALL
                     END-IF
-                ELSE 
+                ELSE
                 DISPLAY "CREDENCIALES ERRONEAS" LINE 9 POSITION 50
             END-READ.
            PERFORM PAUSA.
@@ -129,7 +127,7 @@
            DISPLAY "  1. -> ADMN USUARIOS"          LINE 7  POSITION 20.
            DISPLAY "  2. -> ADMN ARTICULOS"         LINE 9  POSITION 20.
            DISPLAY "  Q -> Salir"                   LINE 11 POSITION 20.
-           DISPLAY "Seleccione una opción:"         LINE 17 POSITION 20.
+           DISPLAY "Seleccione una opción:"        LINE 17 POSITION 20.
            ACCEPT WS-OPCION                         LINE 17 POSITION 41.
            EVALUATE WS-OPCION
              WHEN '1'
@@ -151,5 +149,3 @@
            DISPLAY "  BIENVENIDO "                  LINE 4  POSITION 20.
            DISPLAY NOMAPE                           LINE 4  POSITION 40.
            DISPLAY "------------------------------" LINE 5  POSITION 20.
-
-

@@ -1,17 +1,16 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. GESTION-ARTICLES.
-       AUTHOR. ANDRES CAMILO LAGUNA BERNAL.
+      * AUTHOR. ANDRES CAMILO LAGUNA BERNAL.
       ****************************************************************
-      *                GESTIÓN DE ARTUCULOS 
+      *                GESTIÓN DE ARTUCULOS
       *
-      * Descripcion: Manejo de articulos mediantes el archivo indexado 
+      * Descripcion: Manejo de articulos mediantes el archivo indexado
       *              Se utilizan operaciones CRUD basadas en         *
       *              la clave NUMDOC.                                *
       *                                                              *
       * Autor: ANDRES CAMILO LAGUNA BERNAL                           *
       * Fecha: 07-02-2025                                            *
       ****************************************************************
-       DATE-WRITTEN.07-02-2025.
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
@@ -41,12 +40,12 @@
            05 PRECOM         PIC 9(10)V99.
            05 PREVEN         PIC 9(10)V99.
            05 FECHA          PIC 9(8).
-       
+
        WORKING-STORAGE SECTION.
        01 WS-FS              PIC XX.
        01 LIM                PIC X.
-       01 WS-OPTION          PIC X.
-       
+       01 WS-OPCION          PIC X.
+
        LINKAGE SECTION.
        01 PASAR.
            07 T-NUMDOC       PIC 9(10).
@@ -101,17 +100,17 @@
            DISPLAY "Seleccione una opción:"         LINE 17 POSITION 20.
            ACCEPT WS-OPCION LINE 17 POSITION 41.
            EVALUATE WS-OPCION
-               WHEN "C" 
+               WHEN "C"
                     PERFORM OPERACION-CREAR
-               WHEN "R" 
+               WHEN "R"
                     PERFORM OPERACION-LEER
-               WHEN "U" 
+               WHEN "U"
                     PERFORM OPERACION-ACTUALIZAR
-               WHEN "D" 
+               WHEN "D"
                     PERFORM OPERACION-ELIMINAR
-               WHEN "Q" 
+               WHEN "Q"
                     DISPLAY "Saliendo..."
-               WHEN OTHER 
+               WHEN OTHER
                     DISPLAY "Opción no válida."
            END-EVALUATE.
 
@@ -122,9 +121,9 @@
            DISPLAY "-------------------------------" LINE 5 POSITION 20.
            DISPLAY "--- CATEGORIA --- "              LINE 6 POSITION 20.
            ACCEPT CP-NOMBRE                          LINE 7 POSITION 40.
-           READ ARCHIVO-ART 
+           READ ARCHIVO-ART
              RECORD KEY CODART
-             INVALID KEY 
+             INVALID KEY
                DISPLAY "NUEVA CATREGORIA " LINE 8 POSITION 20
                DISPLAY "DESCRIPCION DE LA CATEGORIA"LINE 9 POSITION 20
                ACCEPT CP-DESCRI LINE 9 POSITION 40
@@ -132,5 +131,8 @@
                ACCEPT SC-NOMBRE LINE 10 POSITION 40
                DISPLAY "DESCRIPCION SUB CATEGORIA" LINE 11 POSITION 20
                ACCEPT SC-DESCRI LINE 11 POSITION 40
-           STRING CP-NOMBRE CP-DESCRI SC-NOMBRE SC-DESCRI INTO CODART 
-               DISPLAY "DESCRIPCION DEC"
+           STRING CP-NOMBRE CP-DESCRI SC-NOMBRE SC-DESCRI INTO CODART
+               DISPLAY "DESCRIPCION DEC".
+
+       CLEAR-SCREEN.
+           DISPLAY " " LINE 1 POSITION 1 ERASE EOS.

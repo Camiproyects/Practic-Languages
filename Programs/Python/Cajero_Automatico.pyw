@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Name: Cajero Automático
-Description: Programa Como Practica Para Un Cajero Automatico (Incluye Pantalla de Acceso y Creacion de Usuario Con Tkinter)
+Description: Programa Como Practica Para Un Cajero Automatico 
+(Incluye Pantalla de Acceso y Creacion de Usuario Con Tkinter)
 Author: Andres Camilo Laguna Bernal
 Date:
 Terminado: Si
@@ -16,7 +17,7 @@ from tkinter import messagebox
 
 def ruta_archivo():
     """Devuelve la ruta completa del archivo JSON."""
-    return os.path.join(os.path.dirname(__file__), "Cajero_Automatico.json")
+    return os.path.join(os.path.dirname(__file__), "json/Cajero_Automatico.json")
 
 def Cargar_Usuarios():
     """Carga los usuarios desde un archivo JSON."""

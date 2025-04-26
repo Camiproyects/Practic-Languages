@@ -1,11 +1,19 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. INVENTARIO.
-       
+      ***********************************************************
+      *w
+      *
+      *
+      *
+      *
+      *
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        01  ARTICULO.
-           05  CODORG   PIC X(13). *> Código original ("CAFCAST10258")
-           05  CODOPT PIC X(8).  *> Código optimizado ("01010528")
+           05  CODORG   PIC X(13). 
+      *> Código original ("CAFCAST10258")
+           05  CODOPT PIC X(8).  
+      *> Código optimizado ("01010528")
        
       *> Tablas de conversión de categorías y subcategorías a ID numérico
        01  TABLA-CATEGORIA.

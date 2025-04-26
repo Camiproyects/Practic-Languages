@@ -6,10 +6,10 @@ Author: Andres Camilo Laguna Bernal
 Date:
 Terminado: Si
 """
-# pip install matplotlib
 
 import math
 import matplotlib.pyplot as plt
+# pip install matplotlib
 
 # Validaciones de datos
 def validar_lado(lado):

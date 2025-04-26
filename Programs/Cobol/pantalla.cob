@@ -1,5 +1,5 @@
-			IDENTIFICATION DIVISION.
-        PROGRAM-ID. inventario.
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. inventario.
       ****************************************************************
       *    PROGRAMA PARA LA PRACTICA DE MUESTRA DE PANTALLA DE COBOL *
       *    DATE: 2025-01-27                                          *
@@ -7,7 +7,7 @@
       ****************************************************************
        DATA DIVISION.
        WORKING-STORAGE SECTION.
-       
+
        01 PRODUCTOS.
            05 COD         PIC 9(6).
            05 NOMBRE      PIC X(50).
@@ -15,7 +15,7 @@
            05 PRECOM      PIC 9(8)V9(2).
            05 PREVEN      PIC 9(8)V9(2).
            05 STOCK       PIC 9(6).
-       
+
        01 PRODUCTO-TEMP.
            05 COD-TEMP         PIC 9(6).
            05 NOMBRE-TEMP      PIC X(50).
@@ -23,13 +23,15 @@
            05 PRECOM-TEMP      PIC 9(8)V9(2).
            05 PREVEN-TEMP      PIC 9(8)V9(2).
            05 STOCK-TEMP       PIC 9(6).
-       
+       01 SW-FT.
+           05 OPCION PIC XX.
+
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
            DISPLAY '**** SISTEMA DE GESTIÓN DE INVENTARIOS ****'.
            PERFORM MENU-PRINCIPAL.
            STOP RUN.
-       
+
        MENU-PRINCIPAL.
            DISPLAY '1. Agregar Producto'.
            DISPLAY '2. Editar Producto'.
@@ -47,9 +49,9 @@
                WHEN 5 PERFORM GENERAR-INFORME
                WHEN 6 PERFORM CONFIGURAR-ALERTAS
                WHEN 7 STOP RUN
-               WHEN OTHER DISPLAY 'Opción no válida. Intente de nuevo.'
+               WHEN OTHER DISPLAY 'Opcion no valida. Intente de nuevo'
            END-EVALUATE.
-       
+
        AGREGAR-PRODUCTO.
            DISPLAY 'Ingrese el código del producto: '.
            ACCEPT COD-TEMP.
@@ -71,24 +73,23 @@
            MOVE STOCK-TEMP TO STOCK.
            DISPLAY 'Producto agregado exitosamente!'.
            PERFORM MENU-PRINCIPAL.
-       
+
        EDITAR-PRODUCTO.
            DISPLAY 'Funcionalidad pendiente de implementación.'.
            PERFORM MENU-PRINCIPAL.
-       
+
        ELIMINAR-PRODUCTO.
            DISPLAY 'Funcionalidad pendiente de implementación.'.
            PERFORM MENU-PRINCIPAL.
-       
+
        BUSCAR-PRODUCTO.
            DISPLAY 'Funcionalidad pendiente de implementación.'.
            PERFORM MENU-PRINCIPAL.
-       
+
        GENERAR-INFORME.
            DISPLAY 'Funcionalidad pendiente de implementación.'.
            PERFORM MENU-PRINCIPAL.
-       
+
        CONFIGURAR-ALERTAS.
            DISPLAY 'Funcionalidad pendiente de implementación.'.
            PERFORM MENU-PRINCIPAL.
-       

@@ -17,21 +17,21 @@
 
        PROCEDURE DIVISION.
        INICIO.
-            DISPLAY '--------------------------------------------------'.
-            DISPLAY '--- POR FAVOR INTRODUZCA EL NÚMERO DE LA TABLA ---'.
-            DISPLAY '--- PARA SALIR, DIGITE (99) ----------------------'.
-            DISPLAY '--------------------------------------------------'.
+           DISPLAY '--------------------------------------------------'.
+           DISPLAY '--- POR FAVOR INTRODUZCA EL NÚMERO DE LA TABLA ---'.
+           DISPLAY '--- PARA SALIR, DIGITE (99) ----------------------'.
+           DISPLAY '--------------------------------------------------'.
 
-            PERFORM UNTIL NUMTAB = 99
-               ACCEPT NUMTAB
-               IF NUMTAB NOT = 99 THEN
-                   PERFORM MOSTRAR
-               END-IF
+           PERFORM UNTIL NUMTAB = 99
+              ACCEPT NUMTAB
+              IF NUMTAB NOT = 99 THEN
+                  PERFORM MOSTRAR
+              END-IF
            END-PERFORM.
 
            DISPLAY '--- GRACIAS ;p ------------------------------------'.
            STOP RUN.
-       
+
        MOSTRAR.
            MOVE 0 TO CONT.
            PERFORM UNTIL CONT >= MAX

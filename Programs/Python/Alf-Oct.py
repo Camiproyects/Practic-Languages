@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+Name: Conversor de Alfabetico a Octal
+Description: Programa Diceñado Para Convertir palabras, Oraciones, Textos E.t.c. A Octal
+Author: Andres Camilo Laguna Bernal
+Date:
+Terminado: Si
+"""
 import pickle
 
 # Crear diccionario de traducción alfabético → octal

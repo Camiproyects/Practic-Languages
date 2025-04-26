@@ -11,14 +11,14 @@ import os
 
 def cargar_tareas():
     """Carga las tareas desde un archivo JSON."""
-    if os.path.exists("Tareas.json"):
-        with open("Tareas.json", "r") as archivo:
+    if os.path.exists("Programs/Python/json/Tareas.json"):
+        with open("Programs/Python/json/Tareas.json", "r") as archivo:
             return json.load(archivo)
     return []
 
 def guardar_tareas(tareas):
     """Guarda las tareas en un archivo JSON."""
-    with open("Tareas.json", "w") as archivo:
+    with open("Programs/Python/json/Tareas.json", "w") as archivo:
         json.dump(tareas, archivo, indent=4)
 
 def mostrar_tareas(tareas):
@@ -36,6 +36,9 @@ def agregar_tarea(tareas):
     titulo = input("Título de la tarea: ")
     descripcion = input("Descripción: ")
     fecha = input("Fecha límite (YYYY-MM-DD): ")
+    if fecha == "":
+        fecha = "sin tiempo de finalización"
+        
     tarea = {
         "titulo": titulo,
         "descripcion": descripcion,

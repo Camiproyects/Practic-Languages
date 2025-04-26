@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+Name: Ensayo de Dibujo
+Description: Programa Diceñado Para Ensayo De Dibujo con python
+Author: Andres Camilo Laguna Bernal
+Date:
+Terminado: No
+"""
 import turtle
 
 # Configuración de pantalla
