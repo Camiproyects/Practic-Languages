@@ -1,6 +1,6 @@
 DOCUMENTACIÓN DE CÓDIGOS DE ERROR EN GNUCOBOL 3.2
 
-Autor: [Nombre del Autor] Fecha: [Fecha de Elaboración]
+Autor: Andrés Camilo Laguna Bernal Fecha: 06-07-2025
 Tabla de Contenidos
 
     Introducción
@@ -39,7 +39,7 @@ Tabla de Contenidos
 
 Introducción
 
-Este documento tiene como propósito describir de manera detallada los códigos de error que pueden generarse en GNUCobol 3.2 durante operaciones con ficheros. Se explica el significado de cada código, sus posibles causas y se proporcionan recomendaciones para su manejo, con el fin de facilitar el diagnóstico y la solución de problemas en aplicaciones COBOL.
+Este documento tiene como propósito describir de manera detallada los códigos de error que pueden generarse en GNUCobol 3.2 durante su operacion. Se explica el significado de cada código, sus posibles causas y se proporcionan recomendaciones para su manejo, con el fin de facilitar el diagnóstico y la solución de problemas en aplicaciones COBOL.
 
     Objetivos del Documento
 
