@@ -2,33 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Visor Vintage del Repositorio</title>
+  <title>Explorador Vintage del Repositorio</title>
   <style>
     body {
-      font-family: Georgia, serif;
-      background-color: #f5f5dc;
-      color: #2c2c2c;
-      margin: 0;
+      background-color: #f8f5e3;
+      font-family: 'Courier New', monospace;
+      color: #4b3a2f;
       padding: 2rem;
     }
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
     h1 {
-      font-size: 2.5rem;
-      color: #5c4033;
-      text-shadow: 1px 1px #d2b48c;
+      text-align: center;
+      font-size: 2em;
+      color: #5b4636;
+      margin-bottom: 1rem;
     }
-    .entry {
-      padding: 8px 12px;
-      margin: 4px 0;
-      border-left: 4px solid #d2b48c;
+    .explorer {
+      background-color: #fefaf1;
+      border: 1px solid #d6c1a6;
+      padding: 1rem;
+      border-radius: 8px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .folder, .file {
+      margin: 0.3rem 0;
+      padding-left: 1rem;
       cursor: pointer;
-      transition: background 0.2s;
-    }
-    .entry:hover {
-      background-color: #fdf6e3;
     }
     .folder::before {
       content: '📁 ';
@@ -36,97 +35,103 @@
     .file::before {
       content: '📄 ';
     }
+    .file:hover, .folder:hover {
+      background-color: #f2e7ce;
+    }
     #viewer {
       white-space: pre-wrap;
-      font-family: monospace;
-      background-color: #fff8dc;
+      background-color: #fff;
       padding: 1rem;
-      border: 1px solid #d2b48c;
-      border-radius: 10px;
-      max-height: 500px;
-      overflow-y: auto;
+      margin-top: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
       display: none;
+      max-height: 400px;
+      overflow-y: auto;
     }
-    #back {
+    #backBtn {
+      display: none;
       margin-top: 1rem;
       background: #d2b48c;
       padding: 0.5rem 1rem;
       border: none;
-      border-radius: 8px;
-      font-weight: bold;
+      border-radius: 5px;
       cursor: pointer;
-      display: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Explorador Vintage del Repositorio</h1>
-    <p>Haz clic en carpetas o archivos para navegar</p>
-  </header>
 
-  <div id="explorer"></div>
+  <h1>Explorador Vintage del Repositorio</h1>
+  <div class="explorer" id="explorer"></div>
   <div id="viewer"></div>
-  <button id="back" onclick="volver()">Volver</button>
+  <button id="backBtn" onclick="volver()">Volver</button>
 
   <script>
-    let estructura = {};
-    let rutaActual = [];
-    let pila = [];
+    let estructura;
+    let history = [];
 
     async function cargarEstructura() {
-      const res = await fetch('estructura.json');
-      estructura = await res.json();
-      render(estructura);
+      const response = await fetch('estructura.json');
+      estructura = await response.json();
+
+      // Filtrar solo carpetas relevantes en raíz
+      const carpetasPermitidas = ['Documentation', 'Programs', 'mi_entorno', '.vscode'];
+      const filtrada = {};
+      for (let clave in estructura) {
+        if (typeof estructura[clave] === 'object' && carpetasPermitidas.includes(clave)) {
+          filtrada[clave] = estructura[clave];
+        }
+      }
+
+      render(filtrada);
     }
 
-    function obtenerRuta(obj, ruta) {
-      return ruta.reduce((acc, dir) => acc[dir], obj);
-    }
-
-    function render(nodo) {
+    function render(obj) {
       const explorer = document.getElementById('explorer');
-      const viewer = document.getElementById('viewer');
       explorer.innerHTML = '';
-      viewer.style.display = 'none';
-      document.getElementById('back').style.display = rutaActual.length > 0 ? 'inline-block' : 'none';
-
-      for (const key in nodo) {
-        const div = document.createElement('div');
-        div.classList.add('entry');
-
-        if (typeof nodo[key] === 'object') {
-          div.classList.add('folder');
-          div.textContent = key;
-          div.onclick = () => {
-            pila.push(nodo);
-            rutaActual.push(key);
-            render(obtenerRuta(estructura, rutaActual));
+      for (let clave in obj) {
+        const elemento = document.createElement('div');
+        if (typeof obj[clave] === 'object') {
+          elemento.textContent = clave;
+          elemento.className = 'folder';
+          elemento.onclick = () => {
+            history.push(obj);
+            render(obj[clave]);
+            document.getElementById('backBtn').style.display = 'inline-block';
+            document.getElementById('viewer').style.display = 'none';
           };
         } else {
-          div.classList.add('file');
-          div.textContent = key;
-          div.onclick = () => {
-            explorer.innerHTML = '';
-            viewer.textContent = nodo[key];
-            viewer.style.display = 'block';
+          elemento.textContent = clave;
+          elemento.className = 'file';
+          elemento.onclick = () => {
+            document.getElementById('viewer').textContent = obj[clave];
+            document.getElementById('viewer').style.display = 'block';
+            document.getElementById('explorer').style.display = 'none';
+            document.getElementById('backBtn').style.display = 'inline-block';
           };
         }
-
-        explorer.appendChild(div);
+        explorer.appendChild(elemento);
       }
+      explorer.style.display = 'block';
     }
 
     function volver() {
-      if (rutaActual.length > 0) {
-        rutaActual.pop();
-        render(obtenerRuta(estructura, rutaActual));
-      } else {
-        render(estructura);
+      const viewer = document.getElementById('viewer');
+      const explorer = document.getElementById('explorer');
+      const backBtn = document.getElementById('backBtn');
+
+      if (history.length > 0) {
+        const anterior = history.pop();
+        render(anterior);
+        viewer.style.display = 'none';
+        explorer.style.display = 'block';
+        backBtn.style.display = history.length > 0 ? 'inline-block' : 'none';
       }
     }
 
     cargarEstructura();
   </script>
+
 </body>
 </html>

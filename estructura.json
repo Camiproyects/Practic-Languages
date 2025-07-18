@@ -3,10 +3,10 @@
   "index.html": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Visor Vintage del Repositorio</title>\n  <style>\n    body {\n      font-family: Georgia, serif;\n      background-color: #f5f5dc;\n      color: #2c2c2c;\n      margin: 0;\n      padding: 2rem;\n    }\n    header {\n      text-align: center;\n      margin-bottom: 2rem;\n    }\n    h1 {\n      font-size: 2.5rem;\n      color: #5c4033;\n      text-shadow: 1px 1px #d2b48c;\n    }\n    .entry {\n      padding: 8px 12px;\n      margin: 4px 0;\n      border-left: 4px solid #d2b48c;\n      cursor: pointer;\n      transition: background 0.2s;\n    }\n    .entry:hover {\n      background-color: #fdf6e3;\n    }\n    .folder::before {\n      content: '📁 ';\n    }\n    .file::before {\n      content: '📄 ';\n    }\n    #viewer {\n      white-space: pre-wrap;\n      font-family: monospace;\n      background-color: #fff8dc;\n      padding: 1rem;\n      border: 1px solid #d2b48c;\n      border-radius: 10px;\n      max-height: 500px;\n      overflow-y: auto;\n      display: none;\n    }\n    #back {\n      margin-top: 1rem;\n      background: #d2b48c;\n      padding: 0.5rem 1rem;\n      border: none;\n      border-radius: 8px;\n      font-weight: bold;\n      cursor: pointer;\n      display: none;\n    }\n  </style>\n</head>\n<body>\n  <header>\n    <h1>Explorador Vintage del Repositorio</h1>\n    <p>Haz clic en carpetas o archivos para navegar</p>\n  </header>\n\n  <div id=\"explorer\"></div>\n  <div id=\"viewer\"></div>\n  <button id=\"back\" onclick=\"volver()\">Volver</button>\n\n  <script>\n    let estructura = {};\n    let rutaActual = [];\n    let pila = [];\n\n    async function cargarEstructura() {\n      const res = await fetch('estructura.json');\n      estructura = await res.json();\n      render(estructura);\n    }\n\n    function obtenerRuta(obj, ruta) {\n      return ruta.reduce((acc, dir) => acc[dir], obj);\n    }\n\n    function render(nodo) {\n      const explorer = document.getElementById('explorer');\n      const viewer = document.getElementById('viewer');\n      explorer.innerHTML = '';\n      viewer.style.display = 'none';\n      document.getElementById('back').style.display = rutaActual.length > 0 ? 'inline-block' : 'none';\n\n      for (const key in nodo) {\n        const div = document.createElement('div');\n        div.classList.add('entry');\n\n        if (typeof nodo[key] === 'object') {\n          div.classList.add('folder');\n          div.textContent = key;\n          div.onclick = () => {\n            pila.push(nodo);\n            rutaActual.push(key);\n            render(obtenerRuta(estructura, rutaActual));\n          };\n        } else {\n          div.classList.add('file');\n          div.textContent = key;\n          div.onclick = () => {\n            explorer.innerHTML = '';\n            viewer.textContent = nodo[key];\n            viewer.style.display = 'block';\n          };\n        }\n\n        explorer.appendChild(div);\n      }\n    }\n\n    function volver() {\n      if (rutaActual.length > 0) {\n        rutaActual.pop();\n        render(obtenerRuta(estructura, rutaActual));\n      } else {\n        render(estructura);\n      }\n    }\n\n    cargarEstructura();\n  </script>\n</body>\n</html>\n",
   "README.md": "-Este Es Un Repocitorio El Cual Esta Pensado En La Practica De Distintos\nLenguajes De programacion Incluyendo Los De Visualizaciones Como \n-Este Repocitorio Se Actuliza Cada Cierto Tiempo Segun Se Vallan Formando Las Habilidades\n# Hi there 👋, I'm Camiproyects!\n\n### 👨‍💻 About Me:\n- 🔭 I’m currently working on Pratic-Languages\n- 🌱 I’m currently learning Practice of various programming languages, including view languages ​​(css.html...)\n- 👯 I seek to collaborate on my projects based on learning and practicing programming languages\n- 📫 How to reach me: andresillopillo2004@gmail.com\n\n### 🛠️ Languages and Tools:\n- Programming Languages: use of various languages ​​(as you are learning)\n- Tools and Technologies: don't use une tecnologies specific\n\n### 🏆 GitHub Stats:\n![Camiproyects's GitHub stats](https://github-readme-stats.vercel.app/api?username=Camiproyects&show_icons=true&theme=radical)\n\n### 📈 Top Languages:\n![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Camiproyects&langs_count=8&theme=radical)\n\n### 🌐 Connect with me:\n[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/your-linkedin-profile)\n[![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/your-twitter-handle)\n[![Email](https://img.shields.io/badge/Email-%23D14836.svg?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your-email@example.com)\n",
   ".MERGE_MSG.swp": "[ERROR: 'utf-8' codec can't decode byte 0xc8 in position 17: invalid continuation byte]",
-  "COMMIT_EDITMSG": "\n# Please enter the commit message for your changes. Lines starting\n# with '#' will be ignored, and an empty message aborts the commit.\n#\n# On branch main\n# Your branch is up to date with 'origin/main'.\n#\n# Changes to be committed:\n#\tmodified:   estructura.json\n#\n",
+  "COMMIT_EDITMSG": "17/07/2025.2\n",
   "config": "[core]\n\trepositoryformatversion = 0\n\tfilemode = false\n\tbare = false\n\tlogallrefupdates = true\n\tsymlinks = false\n\tignorecase = true\n[remote \"origin\"]\n\turl = https://github.com/Camiproyects/Practic-Languages.git\n\tfetch = +refs/heads/*:refs/remotes/origin/*\n[branch \"main\"]\n\tremote = origin\n\tmerge = refs/heads/main\n\tvscode-merge-base = origin/main\n\tvscode-merge-base = origin/main\n",
   "description": "Unnamed repository; edit this file 'description' to name the repository.\n",
-  "FETCH_HEAD": "2281649f7582589c94ff9c41fac9051bbc94988b\t\tbranch 'main' of https://github.com/Camiproyects/Practic-Languages\n",
+  "FETCH_HEAD": "5cbc4561fecc4a97a9f6c9774f270e2bdf4fccb2\t\tbranch 'main' of https://github.com/Camiproyects/Practic-Languages\n",
   "HEAD": "ref: refs/heads/main\n",
   "index": "[ERROR: 'utf-8' codec can't decode byte 0xee in position 13: invalid continuation byte]",
   "ORIG_HEAD": "58aa9383f0cef6b717c9fd4b2ac7d4b6fd03954b\n",
@@ -32,15 +32,15 @@
     "exclude": "# git ls-files --others --exclude-from=.git/info/exclude\n# Lines that start with '#' are comments.\n# For a project mostly in C, the following would be a good set of\n# exclude patterns (uncomment them if you want to use them):\n# *.[oa]\n# *~\n"
   },
   "logs": {
-    "HEAD": "0000000000000000000000000000000000000000 6a7b906dbd6241de4f2886abe940f6959dfab3c5 unknown <camlo@DESKTOP-BA5T7O8.(none)> 1743651785 -0500\tclone: from https://github.com/Camiproyects/Practic-Languages.git\n6a7b906dbd6241de4f2886abe940f6959dfab3c5 42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 CamiProyects <andresillopillo2004@gmail.com> 1745675126 -0500\tcommit: 26/04/2025\n42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 47e7c0e5a3b9cb733d97a3ec738801ad5540b363 CamiProyects <andresillopillo2004@gmail.com> 1746023702 -0500\tcommit: 30-04-2025\n47e7c0e5a3b9cb733d97a3ec738801ad5540b363 58aa9383f0cef6b717c9fd4b2ac7d4b6fd03954b CamiProyects <andresillopillo2004@gmail.com> 1752811521 -0500\tcommit: 17/07/2025\n58aa9383f0cef6b717c9fd4b2ac7d4b6fd03954b 2281649f7582589c94ff9c41fac9051bbc94988b CamiProyects <andresillopillo2004@gmail.com> 1752811781 -0500\tcommit (merge): Merge branch 'main' of https://github.com/Camiproyects/Practic-Languages\n2281649f7582589c94ff9c41fac9051bbc94988b d0f359ccd972f27c2af1b9ffd54900d3feab4fbd CamiProyects <andresillopillo2004@gmail.com> 1752812297 -0500\tcommit: Test automático con pre-commit\n",
+    "HEAD": "0000000000000000000000000000000000000000 6a7b906dbd6241de4f2886abe940f6959dfab3c5 unknown <camlo@DESKTOP-BA5T7O8.(none)> 1743651785 -0500\tclone: from https://github.com/Camiproyects/Practic-Languages.git\n6a7b906dbd6241de4f2886abe940f6959dfab3c5 42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 CamiProyects <andresillopillo2004@gmail.com> 1745675126 -0500\tcommit: 26/04/2025\n42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 47e7c0e5a3b9cb733d97a3ec738801ad5540b363 CamiProyects <andresillopillo2004@gmail.com> 1746023702 -0500\tcommit: 30-04-2025\n47e7c0e5a3b9cb733d97a3ec738801ad5540b363 58aa9383f0cef6b717c9fd4b2ac7d4b6fd03954b CamiProyects <andresillopillo2004@gmail.com> 1752811521 -0500\tcommit: 17/07/2025\n58aa9383f0cef6b717c9fd4b2ac7d4b6fd03954b 2281649f7582589c94ff9c41fac9051bbc94988b CamiProyects <andresillopillo2004@gmail.com> 1752811781 -0500\tcommit (merge): Merge branch 'main' of https://github.com/Camiproyects/Practic-Languages\n2281649f7582589c94ff9c41fac9051bbc94988b d0f359ccd972f27c2af1b9ffd54900d3feab4fbd CamiProyects <andresillopillo2004@gmail.com> 1752812297 -0500\tcommit: Test automático con pre-commit\nd0f359ccd972f27c2af1b9ffd54900d3feab4fbd 367c09b290fb963ec291613df238f894464d92c0 CamiProyects <andresillopillo2004@gmail.com> 1752812469 -0500\tcommit: Actualizar estructura del proyecto y corregir errores de codificación en archivos JSON\n367c09b290fb963ec291613df238f894464d92c0 5cbc4561fecc4a97a9f6c9774f270e2bdf4fccb2 CamiProyects <andresillopillo2004@gmail.com> 1752812504 -0500\tcommit: 17/07/2025.2\n",
     "refs": {
       "heads": {
-        "main": "0000000000000000000000000000000000000000 6a7b906dbd6241de4f2886abe940f6959dfab3c5 unknown <camlo@DESKTOP-BA5T7O8.(none)> 1743651785 -0500\tclone: from https://github.com/Camiproyects/Practic-Languages.git\n6a7b906dbd6241de4f2886abe940f6959dfab3c5 42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 CamiProyects <andresillopillo2004@gmail.com> 1745675126 -0500\tcommit: 26/04/2025\n42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 47e7c0e5a3b9cb733d97a3ec738801ad5540b363 CamiProyects <andresillopillo2004@gmail.com> 1746023702 -0500\tcommit: 30-04-2025\n47e7c0e5a3b9cb733d97a3ec738801ad5540b363 58aa9383f0cef6b717c9fd4b2ac7d4b6fd03954b CamiProyects <andresillopillo2004@gmail.com> 1752811521 -0500\tcommit: 17/07/2025\n58aa9383f0cef6b717c9fd4b2ac7d4b6fd03954b 2281649f7582589c94ff9c41fac9051bbc94988b CamiProyects <andresillopillo2004@gmail.com> 1752811781 -0500\tcommit (merge): Merge branch 'main' of https://github.com/Camiproyects/Practic-Languages\n2281649f7582589c94ff9c41fac9051bbc94988b d0f359ccd972f27c2af1b9ffd54900d3feab4fbd CamiProyects <andresillopillo2004@gmail.com> 1752812297 -0500\tcommit: Test automático con pre-commit\n"
+        "main": "0000000000000000000000000000000000000000 6a7b906dbd6241de4f2886abe940f6959dfab3c5 unknown <camlo@DESKTOP-BA5T7O8.(none)> 1743651785 -0500\tclone: from https://github.com/Camiproyects/Practic-Languages.git\n6a7b906dbd6241de4f2886abe940f6959dfab3c5 42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 CamiProyects <andresillopillo2004@gmail.com> 1745675126 -0500\tcommit: 26/04/2025\n42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 47e7c0e5a3b9cb733d97a3ec738801ad5540b363 CamiProyects <andresillopillo2004@gmail.com> 1746023702 -0500\tcommit: 30-04-2025\n47e7c0e5a3b9cb733d97a3ec738801ad5540b363 58aa9383f0cef6b717c9fd4b2ac7d4b6fd03954b CamiProyects <andresillopillo2004@gmail.com> 1752811521 -0500\tcommit: 17/07/2025\n58aa9383f0cef6b717c9fd4b2ac7d4b6fd03954b 2281649f7582589c94ff9c41fac9051bbc94988b CamiProyects <andresillopillo2004@gmail.com> 1752811781 -0500\tcommit (merge): Merge branch 'main' of https://github.com/Camiproyects/Practic-Languages\n2281649f7582589c94ff9c41fac9051bbc94988b d0f359ccd972f27c2af1b9ffd54900d3feab4fbd CamiProyects <andresillopillo2004@gmail.com> 1752812297 -0500\tcommit: Test automático con pre-commit\nd0f359ccd972f27c2af1b9ffd54900d3feab4fbd 367c09b290fb963ec291613df238f894464d92c0 CamiProyects <andresillopillo2004@gmail.com> 1752812469 -0500\tcommit: Actualizar estructura del proyecto y corregir errores de codificación en archivos JSON\n367c09b290fb963ec291613df238f894464d92c0 5cbc4561fecc4a97a9f6c9774f270e2bdf4fccb2 CamiProyects <andresillopillo2004@gmail.com> 1752812504 -0500\tcommit: 17/07/2025.2\n"
       },
       "remotes": {
         "origin": {
           "HEAD": "0000000000000000000000000000000000000000 6a7b906dbd6241de4f2886abe940f6959dfab3c5 unknown <camlo@DESKTOP-BA5T7O8.(none)> 1743651785 -0500\tclone: from https://github.com/Camiproyects/Practic-Languages.git\n",
-          "main": "6a7b906dbd6241de4f2886abe940f6959dfab3c5 42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 CamiProyects <andresillopillo2004@gmail.com> 1745675135 -0500\tupdate by push\n42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 47e7c0e5a3b9cb733d97a3ec738801ad5540b363 CamiProyects <andresillopillo2004@gmail.com> 1746023709 -0500\tupdate by push\n47e7c0e5a3b9cb733d97a3ec738801ad5540b363 c71aad6d20f700428d7d700d46a1d0023f377865 CamiProyects <andresillopillo2004@gmail.com> 1752805399 -0500\tfetch: fast-forward\nc71aad6d20f700428d7d700d46a1d0023f377865 2281649f7582589c94ff9c41fac9051bbc94988b CamiProyects <andresillopillo2004@gmail.com> 1752811886 -0500\tupdate by push\n2281649f7582589c94ff9c41fac9051bbc94988b d0f359ccd972f27c2af1b9ffd54900d3feab4fbd CamiProyects <andresillopillo2004@gmail.com> 1752812327 -0500\tupdate by push\n"
+          "main": "6a7b906dbd6241de4f2886abe940f6959dfab3c5 42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 CamiProyects <andresillopillo2004@gmail.com> 1745675135 -0500\tupdate by push\n42c383aab3ef4a181c290ee8d3124b0fd9f5a5a1 47e7c0e5a3b9cb733d97a3ec738801ad5540b363 CamiProyects <andresillopillo2004@gmail.com> 1746023709 -0500\tupdate by push\n47e7c0e5a3b9cb733d97a3ec738801ad5540b363 c71aad6d20f700428d7d700d46a1d0023f377865 CamiProyects <andresillopillo2004@gmail.com> 1752805399 -0500\tfetch: fast-forward\nc71aad6d20f700428d7d700d46a1d0023f377865 2281649f7582589c94ff9c41fac9051bbc94988b CamiProyects <andresillopillo2004@gmail.com> 1752811886 -0500\tupdate by push\n2281649f7582589c94ff9c41fac9051bbc94988b d0f359ccd972f27c2af1b9ffd54900d3feab4fbd CamiProyects <andresillopillo2004@gmail.com> 1752812327 -0500\tupdate by push\nd0f359ccd972f27c2af1b9ffd54900d3feab4fbd 5cbc4561fecc4a97a9f6c9774f270e2bdf4fccb2 CamiProyects <andresillopillo2004@gmail.com> 1752812514 -0500\tupdate by push\n"
         }
       }
     }
@@ -55,12 +55,18 @@
     "13": {
       "c9596f9b3661dce26ef03b8ac21eec4ffffc5c": "[ERROR: 'utf-8' codec can't decode byte 0xe5 in position 2: invalid continuation byte]"
     },
+    "1c": {
+      "b466abbb9ca8d9b2acca00e35f1202b6cd449c": "[ERROR: 'utf-8' codec can't decode byte 0xbd in position 16: invalid start byte]"
+    },
     "22": {
       "81649f7582589c94ff9c41fac9051bbc94988b": "[ERROR: 'utf-8' codec can't decode byte 0xa5 in position 2: invalid start byte]",
       "f65c7ba1463c523912baa48837f5bb186c925b": "[ERROR: 'utf-8' codec can't decode byte 0xb2 in position 9: invalid start byte]"
     },
     "24": {
       "8a2299051a09c18de3e90bf695828d0d7549fd": "[ERROR: 'utf-8' codec can't decode byte 0xb5 in position 2: invalid start byte]"
+    },
+    "27": {
+      "2f8c6eb52c59f1daa34d34dddf278863d2be4d": "[ERROR: 'utf-8' codec can't decode bytes in position 2-3: invalid continuation byte]"
     },
     "29": {
       "2cef2076375a6b6d4dd0c5897c572f87dbc3fa": "[ERROR: 'utf-8' codec can't decode byte 0x9d in position 2: invalid start byte]",
@@ -71,6 +77,9 @@
     },
     "2e": {
       "c56455d15dbe5efe8d10c711fdfc0d101123d4": "[ERROR: 'utf-8' codec can't decode byte 0xcd in position 4: invalid continuation byte]"
+    },
+    "36": {
+      "7c09b290fb963ec291613df238f894464d92c0": "[ERROR: 'utf-8' codec can't decode byte 0xa5 in position 2: invalid start byte]"
     },
     "37": {
       "e0ba155f9acf50e92a198be09d7a8d1a086d83": "[ERROR: 'utf-8' codec can't decode byte 0xad in position 2: invalid start byte]"
@@ -97,7 +106,8 @@
       "ca90ea896677df234e88046a37d48463c6784a": "[ERROR: 'utf-8' codec can't decode byte 0xb5 in position 9: invalid start byte]"
     },
     "5c": {
-      "42c1a7cab2af68c6aff1cb9bd324518887a175": "[ERROR: 'utf-8' codec can't decode byte 0xce in position 18: invalid continuation byte]"
+      "42c1a7cab2af68c6aff1cb9bd324518887a175": "[ERROR: 'utf-8' codec can't decode byte 0xce in position 18: invalid continuation byte]",
+      "bc4561fecc4a97a9f6c9774f270e2bdf4fccb2": "[ERROR: 'utf-8' codec can't decode byte 0xa5 in position 2: invalid start byte]"
     },
     "60": {
       "e8ad7f90b258c707ddf3cec1e739774097851c": "[ERROR: 'utf-8' codec can't decode byte 0xad in position 2: invalid start byte]"
@@ -218,12 +228,12 @@
   },
   "refs": {
     "heads": {
-      "main": "d0f359ccd972f27c2af1b9ffd54900d3feab4fbd\n"
+      "main": "5cbc4561fecc4a97a9f6c9774f270e2bdf4fccb2\n"
     },
     "remotes": {
       "origin": {
         "HEAD": "ref: refs/remotes/origin/main\n",
-        "main": "d0f359ccd972f27c2af1b9ffd54900d3feab4fbd\n"
+        "main": "5cbc4561fecc4a97a9f6c9774f270e2bdf4fccb2\n"
       }
     },
     "tags": {}
