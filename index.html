@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Visor del Repositorio</title>
+  <meta charset="UTF-8">
+  <title>Visor Vintage del Repositorio</title>
   <style>
     body {
       font-family: Georgia, serif;
       background-color: #f5f5dc;
-      color: #3e3e3e;
+      color: #2c2c2c;
       margin: 0;
       padding: 2rem;
     }
@@ -21,21 +20,15 @@
       color: #5c4033;
       text-shadow: 1px 1px #d2b48c;
     }
-    .section {
-      background-color: #fffaf0;
-      border: 1px solid #d2b48c;
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    }
-    .folder, .file {
+    .entry {
+      padding: 8px 12px;
+      margin: 4px 0;
+      border-left: 4px solid #d2b48c;
       cursor: pointer;
-      margin-left: 1rem;
-      padding-left: 1rem;
-      border-left: 2px solid #d2b48c;
-      margin-bottom: 5px;
-      transition: background-color 0.2s;
+      transition: background 0.2s;
+    }
+    .entry:hover {
+      background-color: #fdf6e3;
     }
     .folder::before {
       content: '📁 ';
@@ -43,96 +36,97 @@
     .file::before {
       content: '📄 ';
     }
-    .folder:hover, .file:hover {
-      background-color: #fdf6e3;
-    }
     #viewer {
-      background: #fdf5e6;
-      border: 1px solid #d2b48c;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-top: 2rem;
       white-space: pre-wrap;
       font-family: monospace;
-      max-height: 400px;
+      background-color: #fff8dc;
+      padding: 1rem;
+      border: 1px solid #d2b48c;
+      border-radius: 10px;
+      max-height: 500px;
       overflow-y: auto;
-      color: #2e2e2e;
+      display: none;
     }
-    #backBtn {
+    #back {
       margin-top: 1rem;
-      display: inline-block;
-      padding: 0.5rem 1rem;
       background: #d2b48c;
+      padding: 0.5rem 1rem;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
+      display: none;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Visor del Repositorio</h1>
-    <p>Haz clic para explorar carpetas y ver archivos</p>
+    <h1>Explorador Vintage del Repositorio</h1>
+    <p>Haz clic en carpetas o archivos para navegar</p>
   </header>
 
-  <div class="section" id="explorer">Cargando...</div>
-  <div id="viewer" style="display:none;"></div>
-  <button id="backBtn" style="display:none;" onclick="volver()">Volver</button>
+  <div id="explorer"></div>
+  <div id="viewer"></div>
+  <button id="back" onclick="volver()">Volver</button>
 
   <script>
     let estructura = {};
-    const history = [];
+    let rutaActual = [];
+    let pila = [];
 
-    function render(obj) {
+    async function cargarEstructura() {
+      const res = await fetch('estructura.json');
+      estructura = await res.json();
+      render(estructura);
+    }
+
+    function obtenerRuta(obj, ruta) {
+      return ruta.reduce((acc, dir) => acc[dir], obj);
+    }
+
+    function render(nodo) {
       const explorer = document.getElementById('explorer');
+      const viewer = document.getElementById('viewer');
       explorer.innerHTML = '';
-      for (let key in obj) {
-        const el = document.createElement('div');
-        if (typeof obj[key] === 'object') {
-          el.textContent = key;
-          el.className = 'folder';
-          el.onclick = () => {
-            history.push(obj);
-            render(obj[key]);
-            document.getElementById('viewer').style.display = 'none';
-            document.getElementById('explorer').style.display = 'block';
-            document.getElementById('backBtn').style.display = 'inline-block';
+      viewer.style.display = 'none';
+      document.getElementById('back').style.display = rutaActual.length > 0 ? 'inline-block' : 'none';
+
+      for (const key in nodo) {
+        const div = document.createElement('div');
+        div.classList.add('entry');
+
+        if (typeof nodo[key] === 'object') {
+          div.classList.add('folder');
+          div.textContent = key;
+          div.onclick = () => {
+            pila.push(nodo);
+            rutaActual.push(key);
+            render(obtenerRuta(estructura, rutaActual));
           };
         } else {
-          el.textContent = key;
-          el.className = 'file';
-          el.onclick = () => {
-            document.getElementById('explorer').style.display = 'none';
-            document.getElementById('viewer').style.display = 'block';
-            document.getElementById('viewer').textContent = obj[key];
-            document.getElementById('backBtn').style.display = 'inline-block';
+          div.classList.add('file');
+          div.textContent = key;
+          div.onclick = () => {
+            explorer.innerHTML = '';
+            viewer.textContent = nodo[key];
+            viewer.style.display = 'block';
           };
         }
-        explorer.appendChild(el);
+
+        explorer.appendChild(div);
       }
     }
 
     function volver() {
-      if (history.length > 0) {
-        const anterior = history.pop();
-        render(anterior);
-        document.getElementById('viewer').style.display = 'none';
-        document.getElementById('explorer').style.display = 'block';
-        document.getElementById('backBtn').style.display = history.length > 0 ? 'inline-block' : 'none';
+      if (rutaActual.length > 0) {
+        rutaActual.pop();
+        render(obtenerRuta(estructura, rutaActual));
+      } else {
+        render(estructura);
       }
     }
 
-    fetch('estructura.json')
-      .then(r => r.json())
-      .then(data => {
-        estructura = data;
-        render(estructura);
-      })
-      .catch(err => {
-        document.getElementById('explorer').innerHTML = "❌ Error al cargar la estructura.";
-        console.error(err);
-      });
+    cargarEstructura();
   </script>
 </body>
 </html>
