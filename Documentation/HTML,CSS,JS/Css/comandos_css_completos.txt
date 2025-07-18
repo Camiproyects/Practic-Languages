@@ -1,0 +1,82 @@
+COLOR Y FONDO:
+- color: Define el color del texto.
+- background-color: Define el color de fondo.
+- background-image: Aplica una imagen de fondo.
+- background-repeat: Repite o no la imagen de fondo.
+- background-size: Tamaño del fondo (auto, cover, contain).
+- background-position: Posición del fondo (center, top, left, etc.).
+- opacity: Controla la opacidad del elemento (0 a 1).
+
+TIPOGRAFÍA:
+- font-family: Define la familia de la fuente.
+- font-size: Define el tamaño del texto.
+- font-weight: Grosor del texto (normal, bold, 100–900).
+- font-style: Estilo del texto (normal, italic, oblique).
+- line-height: Altura de línea.
+- letter-spacing: Espacio entre letras.
+- word-spacing: Espacio entre palabras.
+- text-align: Alineación del texto (left, right, center, justify).
+- text-decoration: Decoración del texto (underline, none, etc.).
+- text-transform: Transforma el texto (uppercase, lowercase, capitalize).
+- white-space: Controla los espacios en blanco.
+
+BOX MODEL:
+- margin: Espacio exterior del elemento.
+- padding: Espacio interior del elemento.
+- border: Borde del elemento.
+- border-radius: Bordes redondeados.
+- box-shadow: Sombra alrededor del elemento.
+- width / height: Ancho y alto del elemento.
+- max-width / min-width: Límites del ancho.
+- max-height / min-height: Límites del alto.
+
+POSICIONAMIENTO:
+- position: Tipo de posicionamiento (static, relative, absolute, fixed, sticky).
+- top / right / bottom / left: Posicionamiento relativo a su contenedor.
+- z-index: Orden en la pila de elementos.
+- float: Hace que un elemento flote a la izquierda o derecha.
+- clear: Controla el comportamiento de los elementos flotantes.
+
+FLEXBOX:
+- display: flex: Activa el modo Flexbox.
+- flex-direction: Dirección del eje principal (row, column).
+- justify-content: Alineación horizontal (start, center, space-between, etc.).
+- align-items: Alineación vertical.
+- flex-wrap: Controla si los elementos se envuelven o no.
+- flex-grow: Expansión proporcional del hijo.
+- flex-shrink: Contracción proporcional.
+- flex-basis: Tamaño base del hijo.
+- align-self: Alineación individual.
+
+GRID:
+- display: grid: Activa el modo Grid.
+- grid-template-columns / rows: Define columnas o filas.
+- gap: Espacio entre filas y columnas.
+- grid-column / grid-row: Posicionamiento en columnas o filas.
+- justify-items / align-items: Alineación de hijos.
+- place-items: Atajo para justificar y alinear.
+
+ANIMACIONES Y TRANSICIONES:
+- transition: Define transición suave de propiedades.
+- transition-duration / property / delay / timing-function: Parámetros de transición.
+- animation-name / duration / timing-function / delay / iteration-count / direction / fill-mode: Parámetros de animación.
+- @keyframes: Define etapas de una animación.
+
+TRANSFORMACIONES:
+- transform: Aplica transformaciones (rotate, scale, skew, translate).
+- transform-origin: Punto de origen para transformaciones.
+
+VISIBILIDAD:
+- display: Controla si el elemento se muestra (block, inline, none, flex, grid).
+- visibility: visible o hidden.
+- overflow: Define qué hacer con contenido que desborda (hidden, scroll, auto).
+
+OTROS:
+- cursor: Tipo de cursor al pasar por encima.
+- box-sizing: Controla cómo se mide el tamaño total de un elemento.
+- object-fit: Ajuste del contenido (como imágenes).
+- filter: Aplica efectos visuales (blur, grayscale, etc.).
+- clip-path: Recorta el contenido con formas.
+
+MEDIA QUERIES:
+- @media: Permite aplicar reglas CSS condicionales por tamaño de pantalla.

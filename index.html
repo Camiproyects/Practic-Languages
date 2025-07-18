@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visor del Repositorio</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background-color: #f5f5dc;
+      color: #3e3e3e;
+      margin: 0;
+      padding: 2rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #5c4033;
+      text-shadow: 1px 1px #d2b48c;
+    }
+    .section {
+      background-color: #fffaf0;
+      border: 1px solid #d2b48c;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    .folder, .file {
+      cursor: pointer;
+      margin-left: 1rem;
+      padding-left: 1rem;
+      border-left: 2px solid #d2b48c;
+      margin-bottom: 5px;
+      transition: background-color 0.2s;
+    }
+    .folder::before {
+      content: '📁 ';
+    }
+    .file::before {
+      content: '📄 ';
+    }
+    .folder:hover, .file:hover {
+      background-color: #fdf6e3;
+    }
+    #viewer {
+      background: #fdf5e6;
+      border: 1px solid #d2b48c;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 2rem;
+      white-space: pre-wrap;
+      font-family: monospace;
+      max-height: 400px;
+      overflow-y: auto;
+      color: #2e2e2e;
+    }
+    #backBtn {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #d2b48c;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Visor del Repositorio</h1>
+    <p>Haz clic para explorar carpetas y ver archivos</p>
+  </header>
+
+  <div class="section" id="explorer">Cargando...</div>
+  <div id="viewer" style="display:none;"></div>
+  <button id="backBtn" style="display:none;" onclick="volver()">Volver</button>
+
+  <script>
+    let estructura = {};
+    const history = [];
+
+    function render(obj) {
+      const explorer = document.getElementById('explorer');
+      explorer.innerHTML = '';
+      for (let key in obj) {
+        const el = document.createElement('div');
+        if (typeof obj[key] === 'object') {
+          el.textContent = key;
+          el.className = 'folder';
+          el.onclick = () => {
+            history.push(obj);
+            render(obj[key]);
+            document.getElementById('viewer').style.display = 'none';
+            document.getElementById('explorer').style.display = 'block';
+            document.getElementById('backBtn').style.display = 'inline-block';
+          };
+        } else {
+          el.textContent = key;
+          el.className = 'file';
+          el.onclick = () => {
+            document.getElementById('explorer').style.display = 'none';
+            document.getElementById('viewer').style.display = 'block';
+            document.getElementById('viewer').textContent = obj[key];
+            document.getElementById('backBtn').style.display = 'inline-block';
+          };
+        }
+        explorer.appendChild(el);
+      }
+    }
+
+    function volver() {
+      if (history.length > 0) {
+        const anterior = history.pop();
+        render(anterior);
+        document.getElementById('viewer').style.display = 'none';
+        document.getElementById('explorer').style.display = 'block';
+        document.getElementById('backBtn').style.display = history.length > 0 ? 'inline-block' : 'none';
+      }
+    }
+
+    fetch('estructura.json')
+      .then(r => r.json())
+      .then(data => {
+        estructura = data;
+        render(estructura);
+      })
+      .catch(err => {
+        document.getElementById('explorer').innerHTML = "❌ Error al cargar la estructura.";
+        console.error(err);
+      });
+  </script>
+</body>
+</html>

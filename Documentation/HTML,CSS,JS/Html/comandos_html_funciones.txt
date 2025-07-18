@@ -1,0 +1,106 @@
+
+*********************************************
+LISTA DE ETIQUETAS HTML Y SU FUNCIÓN PRINCIPAL
+*********************************************
+
+1. <!DOCTYPE html> – Define el tipo de documento como HTML5.
+2. <html> – Contenedor raíz de todo el documento HTML.
+3. <head> – Contiene metadatos, enlaces a scripts, estilos, etc.
+4. <meta> – Define metadatos (codificación, viewport, etc).
+5. <title> – Título de la página que aparece en la pestaña del navegador.
+6. <link> – Vincula hojas de estilo externas.
+7. <style> – Contiene estilos CSS embebidos.
+8. <script> – Inserta o enlaza código JavaScript.
+9. <body> – Contenido visible de la página.
+
+*** ESTRUCTURA DE TEXTO ***
+10. <h1> a <h6> – Títulos de mayor a menor nivel.
+11. <p> – Párrafo.
+12. <br> – Salto de línea.
+13. <hr> – Línea horizontal divisoria.
+14. <strong> – Texto en negrita (importancia).
+15. <b> – Negrita (sin semántica).
+16. <em> – Énfasis (cursiva con significado).
+17. <i> – Cursiva (sin semántica).
+18. <u> – Subrayado.
+19. <small> – Texto más pequeño.
+20. <mark> – Texto resaltado.
+21. <sub> – Subíndice.
+22. <sup> – Superíndice.
+23. <blockquote> – Cita textual.
+24. <code> – Fragmento de código.
+25. <pre> – Texto preformateado (respeta espacios).
+26. <abbr> – Abreviatura con tooltip.
+
+*** LISTAS ***
+27. <ul> – Lista desordenada.
+28. <ol> – Lista ordenada.
+29. <li> – Elemento de lista.
+30. <dl> – Lista de definiciones.
+31. <dt> – Término de definición.
+32. <dd> – Descripción del término.
+
+*** ENLACES E IMÁGENES ***
+33. <a> – Enlace (hipervínculo).
+34. <img> – Imagen.
+35. <figure> – Contenedor semántico para imágenes.
+36. <figcaption> – Descripción de la imagen.
+
+*** FORMULARIOS ***
+37. <form> – Contenedor de formulario.
+38. <input> – Campo de entrada.
+39. <textarea> – Área de texto.
+40. <button> – Botón.
+41. <label> – Etiqueta para campos.
+42. <select> – Lista desplegable.
+43. <option> – Opción de <select>.
+44. <fieldset> – Agrupar campos.
+45. <legend> – Título de <fieldset>.
+
+*** MULTIMEDIA ***
+46. <audio> – Reproductor de audio.
+47. <video> – Reproductor de video.
+48. <source> – Fuente de medios (dentro de <audio>/<video>).
+49. <track> – Subtítulos para video.
+50. <canvas> – Área gráfica para dibujo JS.
+51. <svg> – Gráficos vectoriales.
+
+*** TABLAS ***
+52. <table> – Tabla.
+53. <tr> – Fila de la tabla.
+54. <td> – Celda de datos.
+55. <th> – Celda de encabezado.
+56. <thead> – Encabezado de tabla.
+57. <tbody> – Cuerpo de tabla.
+58. <tfoot> – Pie de tabla.
+59. <caption> – Título de la tabla.
+60. <colgroup> – Agrupar columnas.
+61. <col> – Define una columna.
+
+*** DISEÑO Y ORGANIZACIÓN ***
+62. <div> – Contenedor genérico.
+63. <span> – Contenedor en línea.
+64. <header> – Encabezado de sección.
+65. <footer> – Pie de sección.
+66. <nav> – Navegación.
+67. <section> – Sección temática.
+68. <article> – Contenido independiente.
+69. <aside> – Información relacionada o lateral.
+70. <main> – Contenido principal.
+
+*** OTROS ELEMENTOS ÚTILES ***
+71. <iframe> – Marco embebido (otro sitio web).
+72. <noscript> – Contenido alternativo sin JS.
+73. <details> – Sección expandible.
+74. <summary> – Título del <details>.
+
+*** CARACTERES ESPECIALES (ENTIDADES) ***
+75. &lt; – menor que (<)
+76. &gt; – mayor que (>)
+77. &amp; – ampersand (&)
+78. &quot; – comillas ("")
+79. &apos; – comilla simple (')
+
+*********************************************
+Archivo generado automáticamente.
+*********************************************

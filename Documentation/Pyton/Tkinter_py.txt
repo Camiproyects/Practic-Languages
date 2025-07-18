@@ -1,0 +1,197 @@
+DOCUMENTACION: tkinter en Python
+
+El módulo tkinter es la biblioteca gráfica estándar incluida en Python. Sirve para crear interfaces 
+gráficas de usuario (GUI), lo que significa que puedes construir ventanas, botones, cuadros de texto, 
+listas desplegables y otros elementos visuales con los que el usuario puede interactuar sin usar la 
+terminal o consola.
+
+No necesita instalación adicional porque viene incluida en la instalación estándar de Python. Su 
+principal ventaja es su simplicidad y disponibilidad inmediata. Es ideal para principiantes o para 
+crear herramientas internas con interfaz visual.
+
+IMPORTACIÓN BÁSICA DEL MÓDULO
+
+import tkinter as tk
+
+Puedes usar directamente tkinter o su versión orientada a clases con submódulos. Pero la forma más 
+común y clara es importar como "tk" para evitar nombres largos y repetitivos.
+
+CREAR UNA VENTANA BÁSICA
+
+import tkinter as tk
+
+ventana = tk.Tk()
+ventana.title("Mi primera ventana")
+ventana.geometry("300x200")
+ventana.mainloop()
+
+- tk.Tk() crea la ventana principal.
+- .title() define el título que aparece en la barra superior.
+- .geometry("ancho x alto") define las dimensiones iniciales.
+- .mainloop() mantiene la ventana abierta y esperando interacción.
+
+AÑADIR UN BOTÓN
+
+def saludar():
+    print("¡Hola!")
+
+boton = tk.Button(ventana, text="Saludar", command=saludar)
+boton.pack()
+
+- El botón se agrega con tk.Button().
+- El parámetro "text" define lo que se muestra en el botón.
+- El parámetro "command" recibe la función que se ejecutará al hacer clic.
+- .pack() es uno de los tres métodos de geometría para mostrar widgets.
+
+ENTRADA DE TEXTO Y BOTÓN PARA LEERLO
+
+entrada = tk.Entry(ventana)
+entrada.pack()
+
+def mostrar():
+    texto = entrada.get()
+    print("Texto ingresado:", texto)
+
+boton2 = tk.Button(ventana, text="Leer entrada", command=mostrar)
+boton2.pack()
+
+- tk.Entry crea un campo de entrada de texto de una línea.
+- .get() obtiene el texto que el usuario escribió.
+
+PRINCIPALES WIDGETS DISPONIBLES
+
+- Label: muestra texto.
+- Button: crea botones.
+- Entry: entrada de texto corta.
+- Text: entrada de texto larga (multilínea).
+- Checkbutton: casillas de verificación.
+- Radiobutton: botones de opción excluyente.
+- Listbox: lista seleccionable.
+- Frame: contenedor para agrupar otros widgets.
+- Canvas: espacio para dibujar formas o imágenes.
+- Menu: menús desplegables.
+- Scrollbar: barras de desplazamiento.
+- Combobox: lista desplegable (requiere ttk).
+
+DISTRIBUCIÓN DE WIDGETS
+
+Hay tres métodos principales para ubicar widgets:
+
+- pack(): coloca los widgets uno debajo del otro (orden vertical por defecto).
+- grid(): coloca los widgets en un sistema de filas y columnas.
+- place(): posiciona de manera absoluta usando coordenadas x, y.
+
+Nunca mezcles pack() y grid() dentro del mismo contenedor. Puedes usar diferentes métodos en diferentes 
+Frames, pero no en el mismo bloque.
+
+USO DE FRAME PARA ORGANIZAR
+
+frame = tk.Frame(ventana)
+frame.pack()
+
+boton1 = tk.Button(frame, text="Botón 1")
+boton1.pack(side=tk.LEFT)
+
+boton2 = tk.Button(frame, text="Botón 2")
+boton2.pack(side=tk.RIGHT)
+
+- Frame permite agrupar widgets lógicamente y manejar su ubicación como grupo.
+- side=tk.LEFT coloca elementos uno al lado del otro horizontalmente.
+
+USO DE VARIABLES DE CONTROL
+
+tkinter ofrece variables especiales que enlazan valores entre widgets y lógica:
+
+- StringVar: para campos de texto.
+- IntVar: para valores enteros (checkboxes, radio).
+- DoubleVar: para números decimales.
+- BooleanVar: para valores True/False.
+
+Ejemplo:
+
+valor = tk.StringVar()
+entrada = tk.Entry(ventana, textvariable=valor)
+
+def imprimir_valor():
+    print("Valor:", valor.get())
+
+boton = tk.Button(ventana, text="Mostrar", command=imprimir_valor)
+boton.pack()
+
+USO DE EVENTOS
+
+Puedes enlazar eventos del teclado o ratón:
+
+def tecla_presionada(evento):
+    print("Presionaste:", evento.char)
+
+ventana.bind("<Key>", tecla_presionada)
+
+Eventos comunes:
+- <Button-1>: clic izquierdo.
+- <Button-2>: clic central.
+- <Button-3>: clic derecho.
+- <Key>: cualquier tecla.
+- <Return>: tecla Enter.
+
+MANEJO DE MENSAJES EMERGENTES (messagebox)
+
+from tkinter import messagebox
+
+def advertencia():
+    messagebox.showwarning("Advertencia", "Esto es una advertencia")
+
+boton = tk.Button(ventana, text="Advertir", command=advertencia)
+boton.pack()
+
+FUNCIONES AVANZADAS CON ttk
+
+ttk es una versión moderna de widgets con mejor estilo visual. Algunos widgets:
+
+from tkinter import ttk
+
+combo = ttk.Combobox(ventana, values=["Opción 1", "Opción 2", "Opción 3"])
+combo.pack()
+
+ttk también tiene su propio botón, etiqueta, barra de progreso, etc.
+
+ERRORES COMUNES
+
+- Olvidar llamar mainloop() → la ventana no se mantiene abierta.
+- Usar command=funcion() en lugar de command=funcion → se ejecuta antes de hacer clic.
+- No usar .pack(), .grid() o .place() → el widget no aparece.
+- Mezclar pack() y grid() en un mismo contenedor.
+- No convertir ángulos a radianes al usar canvas para gráficos.
+
+BUENAS PRÁCTICAS
+
+- Agrupa la lógica en funciones o clases para mantener el orden.
+- Usa Frame para dividir la ventana en secciones.
+- Usa variables de control para evitar lecturas repetidas con .get().
+- No escribas toda la lógica en la función principal.
+- Usa ttk para mejorar la apariencia visual.
+
+CUANDO USAR TKINTER
+
+- Interfaces simples, formularios, mini herramientas, prototipos, utilidades internas.
+- Ideal para practicar eventos, programación estructurada y lógica de interfaz.
+
+LIMITACIONES
+
+- Apariencia básica y anticuada.
+- No es responsive por defecto.
+- Pocas capacidades modernas comparado con PyQt, Kivy o Electron.
+
+Aun así, tkinter es una herramienta potente para aprender cómo funcionan las GUI desde la base, sin 
+tener que aprender un framework pesado ni instalar nada externo.
+
+Aplicaciones reales comunes:
+- Calculadoras
+- Formularios de ingreso
+- Exploradores de archivos simples
+- Launchers o configuradores internos
+- Herramientas educativas
+
+Resumen: tkinter te permite crear GUI en Python de forma rápida y sin dependencias externas. Si tu 
+aplicación no requiere una apariencia moderna o funciones muy específicas, es perfectamente suficiente 
+para tareas reales y profesionales dentro de su alcance.

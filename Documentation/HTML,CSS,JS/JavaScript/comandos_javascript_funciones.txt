@@ -1,0 +1,112 @@
+
+******************************************************
+LISTA DE COMANDOS, FUNCIONES Y ESTRUCTURAS DE JAVASCRIPT
+******************************************************
+
+*** DECLARACIÓN DE VARIABLES ***
+1. var – Declara una variable (alcance funcional, desaconsejado hoy).
+2. let – Declara una variable (alcance de bloque).
+3. const – Declara una constante (no puede ser reasignada).
+
+*** TIPOS DE DATOS ***
+4. Number – Números (enteros o flotantes).
+5. String – Cadenas de texto.
+6. Boolean – true / false.
+7. Null – Ausencia intencional de valor.
+8. Undefined – Variable declarada pero sin valor.
+9. Object – Estructura con pares clave/valor.
+10. Array – Lista indexada de elementos.
+11. Symbol – Identificadores únicos.
+12. BigInt – Números enteros muy grandes.
+
+*** OPERADORES ***
+13. +, -, *, /, % – Aritméticos.
+14. +=, -=, *= – Asignación compuesta.
+15. ===, !== – Comparación estricta.
+16. ==, != – Comparación no estricta.
+17. >, <, >=, <= – Comparación de valores.
+18. &&, ||, ! – Lógicos.
+19. typeof – Devuelve el tipo de una variable.
+20. instanceof – Verifica instancia de objeto.
+
+*** ESTRUCTURAS DE CONTROL ***
+21. if – Condición.
+22. else if – Otra condición.
+23. else – Alternativa final.
+24. switch – Múltiples condiciones.
+25. for – Bucle con contador.
+26. while – Bucle con condición.
+27. do...while – Bucle que ejecuta al menos una vez.
+28. break – Sale de un bucle.
+29. continue – Salta a la siguiente iteración.
+
+*** FUNCIONES ***
+30. function – Declara una función tradicional.
+31. () => {} – Función flecha (arrow function).
+32. return – Devuelve un valor desde la función.
+33. arguments – Acceso a los argumentos (solo en funciones tradicionales).
+
+*** OBJETOS Y ARRAYS ***
+34. obj.prop / obj["prop"] – Acceso a propiedades.
+35. Object.keys(obj) – Devuelve claves.
+36. Object.values(obj) – Devuelve valores.
+37. Object.entries(obj) – Devuelve pares clave-valor.
+38. arr.push(valor) – Agrega al final.
+39. arr.pop() – Quita el último.
+40. arr.shift() – Quita el primero.
+41. arr.unshift(valor) – Agrega al principio.
+42. arr.map(fn) – Transforma elementos.
+43. arr.filter(fn) – Filtra elementos.
+44. arr.forEach(fn) – Itera sobre elementos.
+45. arr.reduce(fn, init) – Reduce a un valor.
+
+*** STRINGS ***
+46. str.length – Longitud de texto.
+47. str.toUpperCase() – Mayúsculas.
+48. str.toLowerCase() – Minúsculas.
+49. str.trim() – Elimina espacios.
+50. str.includes("txt") – Verifica contenido.
+51. str.indexOf("txt") – Posición.
+52. str.replace("a", "b") – Reemplazo.
+53. str.split(" ") – Divide en array.
+
+*** EVENTOS Y DOM ***
+54. document.getElementById(id) – Obtener elemento.
+55. document.querySelector(sel) – Selector CSS.
+56. document.createElement(tag) – Crear nodo.
+57. element.addEventListener(evento, fn) – Escuchar evento.
+58. element.innerHTML – Contenido HTML.
+59. element.textContent – Contenido solo texto.
+60. element.setAttribute(attr, val) – Setear atributo.
+
+*** FECHAS Y TIEMPO ***
+61. new Date() – Fecha actual.
+62. Date.now() – Timestamp actual.
+63. setTimeout(fn, ms) – Ejecuta una vez después de X ms.
+64. setInterval(fn, ms) – Ejecuta repetidamente cada X ms.
+65. clearTimeout(id) – Cancela timeout.
+66. clearInterval(id) – Cancela intervalo.
+
+*** JSON Y ALMACENAMIENTO ***
+67. JSON.stringify(obj) – Convierte a texto.
+68. JSON.parse(texto) – Convierte a objeto.
+69. localStorage.setItem(clave, valor) – Guarda en navegador.
+70. localStorage.getItem(clave) – Obtiene valor.
+
+*** PROMESAS Y ASINCRONISMO ***
+71. new Promise((res, rej) => {}) – Promesa.
+72. .then(fn) – Maneja éxito.
+73. .catch(fn) – Maneja error.
+74. .finally(fn) – Siempre se ejecuta.
+75. async function – Declara función asíncrona.
+76. await – Espera resultado de una promesa.
+
+*** CONSOLE Y DEBUG ***
+77. console.log() – Imprimir en consola.
+78. console.error() – Error.
+79. console.warn() – Advertencia.
+80. debugger – Punto de depuración.
+
+******************************************************
+Archivo generado automáticamente – JavaScript Básico
+******************************************************
