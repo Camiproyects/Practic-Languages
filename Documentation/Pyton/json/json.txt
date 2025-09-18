@@ -1,0 +1,144 @@
+DOCUMENTACION: Manejo de JSON en Python
+
+INTRODUCCIÓN
+JSON (JavaScript Object Notation) es un formato de intercambio de datos ligero y legible.
+Se usa ampliamente para almacenar configuraciones, enviar datos entre cliente y servidor,
+y guardar información estructurada en archivos.
+
+En Python, el manejo de JSON se hace con el módulo estándar "json", que no necesita instalación.
+
+-------------------------------------------------------------------
+IMPORTACIÓN DEL MÓDULO
+
+import json
+
+-------------------------------------------------------------------
+CREAR Y GUARDAR UN ARCHIVO JSON
+
+datos = {
+    "nombre": "Andrés",
+    "edad": 19,
+    "estudiante": True,
+    "cursos": ["Python", "Tkinter", "Bases de Datos"]
+}
+
+with open("datos.json", "w", encoding="utf-8") as f:
+    json.dump(datos, f, indent=4, ensure_ascii=False)
+
+- json.dump() escribe el diccionario en el archivo.
+- indent=4 agrega formato legible.
+- ensure_ascii=False permite guardar acentos y caracteres especiales.
+
+Resultado en datos.json:
+{
+    "nombre": "Andrés",
+    "edad": 19,
+    "estudiante": true,
+    "cursos": ["Python", "Tkinter", "Bases de Datos"]
+}
+
+-------------------------------------------------------------------
+LEER UN ARCHIVO JSON
+
+with open("datos.json", "r", encoding="utf-8") as f:
+    contenido = json.load(f)
+
+print(contenido)
+print("Nombre:", contenido["nombre"])
+
+- json.load() convierte el contenido en un diccionario de Python.
+- Ahora puedes acceder a los datos con claves.
+
+-------------------------------------------------------------------
+CONVERTIR TEXTO JSON A PYTHON
+
+texto = '{"ciudad":"Bogotá","pais":"Colombia"}'
+diccionario = json.loads(texto)
+
+print(diccionario["pais"])  # Colombia
+
+- json.loads() convierte un string en un diccionario de Python.
+
+-------------------------------------------------------------------
+CONVERTIR PYTHON A TEXTO JSON
+
+diccionario = {"lenguaje": "Python", "version": 3.11}
+texto_json = json.dumps(diccionario, indent=2)
+
+print(texto_json)
+
+- json.dumps() convierte un diccionario a string JSON.
+- Útil para enviar datos por red o APIs.
+
+-------------------------------------------------------------------
+ACTUALIZAR ARCHIVO JSON
+
+# Leer el archivo
+with open("datos.json", "r", encoding="utf-8") as f:
+    datos = json.load(f)
+
+# Modificar datos
+datos["edad"] = 20
+datos["cursos"].append("JSON")
+
+# Guardar cambios
+with open("datos.json", "w", encoding="utf-8") as f:
+    json.dump(datos, f, indent=4, ensure_ascii=False)
+
+-------------------------------------------------------------------
+ELIMINAR UNA CLAVE EN JSON
+
+with open("datos.json", "r", encoding="utf-8") as f:
+    datos = json.load(f)
+
+del datos["estudiante"]
+
+with open("datos.json", "w", encoding="utf-8") as f:
+    json.dump(datos, f, indent=4, ensure_ascii=False)
+
+-------------------------------------------------------------------
+ERRORES COMUNES
+
+- Olvidar abrir el archivo con encoding="utf-8" → caracteres extraños.
+- Usar json.load() en un string (debe ser json.loads()).
+- Abrir el archivo en modo "w" antes de leerlo → borra el contenido.
+- No manejar excepciones si el archivo está vacío o corrupto.
+
+-------------------------------------------------------------------
+BUENAS PRÁCTICAS
+
+- Siempre usar "with open()" para abrir archivos → se cierran automáticamente.
+- Validar con try/except cuando se cargan archivos JSON.
+- Usar indent para archivos legibles por humanos.
+- Separar la lógica en funciones (leer_json(), guardar_json()).
+
+-------------------------------------------------------------------
+CASOS DE USO DE JSON EN PYTHON
+
+- Guardar configuraciones de aplicaciones.
+- Intercambiar datos entre cliente y servidor (APIs REST).
+- Almacenar datos simples en proyectos pequeños.
+- Integración con interfaces gráficas (ej. Tkinter) para guardar preferencias.
+
+Ejemplo simple integrando con Tkinter:
+
+import tkinter as tk, json
+
+def guardar():
+    datos = {"usuario": entrada.get()}
+    with open("config.json","w",encoding="utf-8") as f:
+        json.dump(datos,f,indent=4,ensure_ascii=False)
+
+ventana = tk.Tk()
+entrada = tk.Entry(ventana)
+entrada.pack()
+tk.Button(ventana,text="Guardar",command=guardar).pack()
+ventana.mainloop()
+
+-------------------------------------------------------------------
+RESUMEN
+
+- El módulo json de Python maneja datos en formato JSON.
+- dump/load trabajan con archivos, dumps/loads con strings.
+- JSON es ideal para configuraciones y comunicación entre sistemas.
+- Con buenas prácticas se convierte en una herramienta confiable para proyectos reales.

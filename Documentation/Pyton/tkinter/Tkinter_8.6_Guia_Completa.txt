@@ -1,0 +1,248 @@
+DOCUMENTACION: tkinter 8.6 en Python
+
+El módulo tkinter es la biblioteca gráfica estándar incluida en Python. Sirve para crear interfaces
+gráficas de usuario (GUI), lo que significa que puedes construir ventanas, botones, cuadros de texto,
+listas desplegables y otros elementos visuales con los que el usuario puede interactuar sin usar la
+terminal o consola.
+
+No necesita instalación adicional porque viene incluida en la instalación estándar de Python.
+Su principal ventaja es su simplicidad y disponibilidad inmediata. Es ideal para principiantes o
+para crear herramientas internas con interfaz visual.
+
+En la versión 8.6 se incluyen mejoras importantes como:
+- Soporte más completo de widgets modernos con ttk.
+- Nuevos widgets: Spinbox, Notebook (pestañas), Treeview (tablas jerárquicas), Progressbar.
+- Manejo de estilos y temas con ttk.Style.
+- Mejoras en validación de entradas y manejo de eventos.
+
+-------------------------------------------------------------------
+IMPORTACIÓN BÁSICA DEL MÓDULO
+
+import tkinter as tk
+from tkinter import ttk
+
+Puedes usar directamente tkinter (tk) o la extensión ttk para widgets modernos.
+La forma más clara es importar como "tk" y "ttk" para evitar nombres largos.
+
+-------------------------------------------------------------------
+CREAR UNA VENTANA BÁSICA
+
+import tkinter as tk
+
+ventana = tk.Tk()
+ventana.title("Mi primera ventana")
+ventana.geometry("300x200")
+ventana.mainloop()
+
+- tk.Tk() crea la ventana principal.
+- .title() define el título que aparece en la barra superior.
+- .geometry("ancho x alto") define las dimensiones iniciales.
+- .mainloop() mantiene la ventana abierta y esperando interacción.
+
+-------------------------------------------------------------------
+AÑADIR UN BOTÓN
+
+def saludar():
+    print("¡Hola!")
+
+boton = tk.Button(ventana, text="Saludar", command=saludar)
+boton.pack()
+
+- El botón se agrega con tk.Button().
+- "text" define lo que se muestra en el botón.
+- "command" recibe la función que se ejecutará al hacer clic.
+- .pack() coloca el botón en la ventana.
+
+Versión moderna con ttk:
+
+boton2 = ttk.Button(ventana, text="Saludar", command=saludar)
+boton2.pack()
+
+-------------------------------------------------------------------
+ENTRADA DE TEXTO Y BOTÓN PARA LEERLO
+
+entrada = tk.Entry(ventana)
+entrada.pack()
+
+def mostrar():
+    texto = entrada.get()
+    print("Texto ingresado:", texto)
+
+boton2 = tk.Button(ventana, text="Leer entrada", command=mostrar)
+boton2.pack()
+
+- tk.Entry crea un campo de entrada de texto.
+- .get() obtiene el texto que el usuario escribió.
+
+-------------------------------------------------------------------
+PRINCIPALES WIDGETS DISPONIBLES
+
+Widgets básicos (tk):
+- Label: muestra texto.
+- Button: crea botones.
+- Entry: entrada de texto corta.
+- Text: entrada de texto larga (multilínea).
+- Checkbutton: casillas de verificación.
+- Radiobutton: botones de opción excluyente.
+- Listbox: lista seleccionable.
+- Frame: contenedor para agrupar otros widgets.
+- Canvas: espacio para dibujar formas o imágenes.
+- Menu: menús desplegables.
+- Scrollbar: barras de desplazamiento.
+
+Widgets modernos (ttk) en 8.6:
+- Combobox: lista desplegable.
+- Treeview: tablas con filas y columnas.
+- Notebook: pestañas de navegación.
+- Progressbar: barra de progreso.
+- Separator: separador visual.
+- Spinbox: control numérico incremental.
+
+-------------------------------------------------------------------
+DISTRIBUCIÓN DE WIDGETS
+
+Hay tres métodos principales para ubicar widgets:
+
+- pack(): coloca los widgets uno debajo del otro o a los lados.
+- grid(): coloca los widgets en un sistema de filas y columnas.
+- place(): posiciona de manera absoluta usando coordenadas x, y.
+
+Ejemplo con grid:
+
+ttk.Label(ventana, text="Usuario:").grid(row=0, column=0, padx=5, pady=5, sticky="e")
+ttk.Entry(ventana).grid(row=0, column=1, padx=5, pady=5, sticky="we")
+
+Nota: nunca mezcles pack() y grid() dentro del mismo contenedor.
+
+-------------------------------------------------------------------
+USO DE FRAME PARA ORGANIZAR
+
+frame = tk.Frame(ventana)
+frame.pack()
+
+boton1 = tk.Button(frame, text="Botón 1")
+boton1.pack(side=tk.LEFT)
+
+boton2 = tk.Button(frame, text="Botón 2")
+boton2.pack(side=tk.RIGHT)
+
+- Frame permite agrupar widgets lógicamente.
+- side=tk.LEFT coloca elementos uno al lado del otro.
+
+-------------------------------------------------------------------
+USO DE VARIABLES DE CONTROL
+
+tkinter ofrece variables especiales que enlazan valores entre widgets y lógica:
+
+- StringVar: para texto.
+- IntVar: para enteros.
+- DoubleVar: para decimales.
+- BooleanVar: para True/False.
+
+Ejemplo:
+
+valor = tk.StringVar()
+entrada = tk.Entry(ventana, textvariable=valor)
+
+def imprimir_valor():
+    print("Valor:", valor.get())
+
+boton = tk.Button(ventana, text="Mostrar", command=imprimir_valor)
+boton.pack()
+
+-------------------------------------------------------------------
+USO DE EVENTOS
+
+def tecla_presionada(evento):
+    print("Presionaste:", evento.char)
+
+ventana.bind("<Key>", tecla_presionada)
+
+Eventos comunes:
+- <Button-1>: clic izquierdo.
+- <Button-2>: clic central.
+- <Button-3>: clic derecho.
+- <Key>: cualquier tecla.
+- <Return>: tecla Enter.
+- <FocusIn> y <FocusOut>: foco en un widget.
+
+-------------------------------------------------------------------
+MENSAJES EMERGENTES (messagebox)
+
+from tkinter import messagebox
+
+def advertencia():
+    messagebox.showwarning("Advertencia", "Esto es una advertencia")
+
+boton = tk.Button(ventana, text="Advertir", command=advertencia)
+boton.pack()
+
+Otros disponibles:
+- showinfo()
+- showerror()
+- askyesno()
+- askretrycancel()
+
+-------------------------------------------------------------------
+FUNCIONES AVANZADAS CON ttk
+
+from tkinter import ttk
+
+combo = ttk.Combobox(ventana, values=["Opción 1", "Opción 2", "Opción 3"])
+combo.pack()
+
+# Treeview (tabla)
+tabla = ttk.Treeview(ventana, columns=("Col1","Col2"), show="headings")
+tabla.heading("Col1", text="Columna 1")
+tabla.heading("Col2", text="Columna 2")
+tabla.insert("", tk.END, values=("Dato 1", "Dato 2"))
+tabla.pack()
+
+# Notebook (pestañas)
+notebook = ttk.Notebook(ventana)
+p1 = ttk.Frame(notebook)
+p2 = ttk.Frame(notebook)
+notebook.add(p1, text="Página 1")
+notebook.add(p2, text="Página 2")
+notebook.pack()
+
+# Progressbar
+barra = ttk.Progressbar(ventana, length=200, mode="determinate")
+barra.pack()
+barra["value"] = 50
+
+-------------------------------------------------------------------
+ERRORES COMUNES
+
+- Olvidar mainloop().
+- Usar command=funcion() en vez de command=funcion.
+- No usar pack(), grid() o place().
+- Mezclar pack() y grid().
+- Bloquear la interfaz con time.sleep() en lugar de after().
+
+-------------------------------------------------------------------
+BUENAS PRÁCTICAS
+
+- Organizar el código en clases (heredar de tk.Tk o tk.Frame).
+- Usar Frame para dividir la interfaz.
+- Usar ttk.Style() para cambiar temas: clam, alt, default, classic.
+- Manejar errores con try/except y mostrar con messagebox.
+- Para validación, usar validate y validatecommand en Entry.
+- No usar variables globales, preferir atributos de clase.
+
+-------------------------------------------------------------------
+CUANDO USAR TKINTER
+
+- Formularios, utilidades internas, prototipos rápidos.
+- Interfaces educativas o simples.
+- Aplicaciones que no requieren interfaces modernas complejas.
+
+-------------------------------------------------------------------
+LIMITACIONES
+
+- Apariencia básica comparada con PyQt o Kivy.
+- No es responsive por defecto.
+- Funciones modernas de GUI son limitadas.
+
+Aun así, tkinter 8.6 es potente para aprender y desarrollar aplicaciones reales
+con ventanas, menús y lógica de interacción básica y avanzada.

@@ -101,6 +101,3 @@ LISTA DE ETIQUETAS HTML Y SU FUNCIÓN PRINCIPAL
 78. &quot; – comillas ("")
 79. &apos; – comilla simple (')
 
-*********************************************
-Archivo generado automáticamente.
-*********************************************
