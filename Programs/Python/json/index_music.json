@@ -1,1 +1,702 @@
-[]
+{
+    "Desconocido": {
+        "AlcolirykoZ": [
+            {
+                "titulo": "Medellificación (con Jerónimo) Prod. El Arkeólogo(M4A_128K)_private",
+                "id_letra": "ALC_MEDEL_0001"
+            },
+            {
+                "titulo": "Medellificación (con Jerónimo) Prod. El Arkeólogo(M4A_128K)_private",
+                "id_letra": "ALC_MEDEL_0001"
+            },
+            {
+                "titulo": "Medellificación (con Jerónimo) Prod. El Arkeólogo(M4A_128K)_private",
+                "id_letra": "ALC_MEDEL_0055"
+            }
+        ],
+        "Bad Bunny (ft. Chencho Corleone)": [
+            {
+                "titulo": "Me Porto Bonito (Official Video) _ Un Verano Sin Ti(M4A_128K)_private",
+                "id_letra": "BAD_ME PO_0002"
+            },
+            {
+                "titulo": "Me Porto Bonito (Official Video) _ Un Verano Sin Ti(M4A_128K)_private",
+                "id_letra": "BAD_ME PO_0002"
+            },
+            {
+                "titulo": "Me Porto Bonito (Official Video) _ Un Verano Sin Ti(M4A_128K)_private",
+                "id_letra": "BAD_ME PO_0056"
+            }
+        ],
+        "Desconocido": [
+            {
+                "titulo": "Bien Loco(M4A_128K)_private",
+                "id_letra": "DES_BIEN _0003"
+            },
+            {
+                "titulo": "BLESSD _ INSTAGRAM 😈 ( OFFICIAL VIDEO )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0004"
+            },
+            {
+                "titulo": "BLESSD _ 🔥QUIEN TV  😈 ( OFFICIAL VIDEO )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0005"
+            },
+            {
+                "titulo": "BLESSD ❌ JUSTIN QUILES ❌ LENNY TAVAREZ _ 💥 MEDALLO ( OFFICIAL VIDEO )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0006"
+            },
+            {
+                "titulo": "BLESSD ❌ RYAN CASTRO _ QUIEN TV 🥵 ( REMIX )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0007"
+            },
+            {
+                "titulo": "Dos Locos(M4A_128K)_private",
+                "id_letra": "DES_DOS L_0014"
+            },
+            {
+                "titulo": "En Su Nota(M4A_128K)_private",
+                "id_letra": "DES_EN SU_0015"
+            },
+            {
+                "titulo": "Hay Algo en Ti(M4A_128K)_private",
+                "id_letra": "DES_HAY A_0020"
+            },
+            {
+                "titulo": "Justin Quiles _NattiNatasha _farruko Zion _dalex _LennyTavarezMusic DJ No Pare REMIX (Video Oficial)(M4A_128K)_private",
+                "id_letra": "DES_JUSTI_0029"
+            },
+            {
+                "titulo": "Lo Grande Que Es Perdonar (feat. Gilberto Santa Rosa)(M4A_128K)_private",
+                "id_letra": "DES_LO GR_0031"
+            },
+            {
+                "titulo": "Machucando(M4A_128K)_private",
+                "id_letra": "DES_MACHU_0032"
+            },
+            {
+                "titulo": "Misa de Sanazión (feat. Tito Agudelo)(M4A_128K)_private",
+                "id_letra": "DES_MISA _0033"
+            },
+            {
+                "titulo": "Muñeco de Vitrina(M4A_128K)_private",
+                "id_letra": "DES_MUÑEC_0034"
+            },
+            {
+                "titulo": "MySpace (feat. Wisin _ Yandel)(M4A_128K)_private",
+                "id_letra": "DES_MYSPA_0037"
+            },
+            {
+                "titulo": "Na De Na(M4A_128K)_private",
+                "id_letra": "DES_NA DE_0038"
+            },
+            {
+                "titulo": "Nadie Como Tu(M4A_128K)_private",
+                "id_letra": "DES_NADIE_0039"
+            },
+            {
+                "titulo": "Permitame(M4A_128K)_private",
+                "id_letra": "DES_PERMI_0041"
+            },
+            {
+                "titulo": "Quieren(M4A_128K)_private",
+                "id_letra": "DES_QUIER_0042"
+            },
+            {
+                "titulo": "Quiero(M4A_128K)_private",
+                "id_letra": "DES_QUIER_0043"
+            },
+            {
+                "titulo": "RX(M4A_128K)_1_private",
+                "id_letra": "DES_RX(M4_0044"
+            },
+            {
+                "titulo": "RX(M4A_128K)_private",
+                "id_letra": "DES_RX(M4_0045"
+            },
+            {
+                "titulo": "Shorty(M4A_128K)_private",
+                "id_letra": "DES_SHORT_0052"
+            },
+            {
+                "titulo": "Todo Lo Bueno Tarda(M4A_128K)_private",
+                "id_letra": "DES_TODO _0053"
+            },
+            {
+                "titulo": "Bien Loco(M4A_128K)_private",
+                "id_letra": "DES_BIEN _0003"
+            },
+            {
+                "titulo": "BLESSD _ INSTAGRAM 😈 ( OFFICIAL VIDEO )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0004"
+            },
+            {
+                "titulo": "BLESSD _ 🔥QUIEN TV  😈 ( OFFICIAL VIDEO )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0005"
+            },
+            {
+                "titulo": "BLESSD ❌ JUSTIN QUILES ❌ LENNY TAVAREZ _ 💥 MEDALLO ( OFFICIAL VIDEO )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0006"
+            },
+            {
+                "titulo": "BLESSD ❌ RYAN CASTRO _ QUIEN TV 🥵 ( REMIX )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0007"
+            },
+            {
+                "titulo": "Dos Locos(M4A_128K)_private",
+                "id_letra": "DES_DOS L_0014"
+            },
+            {
+                "titulo": "En Su Nota(M4A_128K)_private",
+                "id_letra": "DES_EN SU_0015"
+            },
+            {
+                "titulo": "Hay Algo en Ti(M4A_128K)_private",
+                "id_letra": "DES_HAY A_0020"
+            },
+            {
+                "titulo": "Justin Quiles _NattiNatasha _farruko Zion _dalex _LennyTavarezMusic DJ No Pare REMIX (Video Oficial)(M4A_128K)_private",
+                "id_letra": "DES_JUSTI_0029"
+            },
+            {
+                "titulo": "Lo Grande Que Es Perdonar (feat. Gilberto Santa Rosa)(M4A_128K)_private",
+                "id_letra": "DES_LO GR_0031"
+            },
+            {
+                "titulo": "Machucando(M4A_128K)_private",
+                "id_letra": "DES_MACHU_0032"
+            },
+            {
+                "titulo": "Misa de Sanazión (feat. Tito Agudelo)(M4A_128K)_private",
+                "id_letra": "DES_MISA _0033"
+            },
+            {
+                "titulo": "Muñeco de Vitrina(M4A_128K)_private",
+                "id_letra": "DES_MUÑEC_0034"
+            },
+            {
+                "titulo": "MySpace (feat. Wisin _ Yandel)(M4A_128K)_private",
+                "id_letra": "DES_MYSPA_0037"
+            },
+            {
+                "titulo": "Na De Na(M4A_128K)_private",
+                "id_letra": "DES_NA DE_0038"
+            },
+            {
+                "titulo": "Nadie Como Tu(M4A_128K)_private",
+                "id_letra": "DES_NADIE_0039"
+            },
+            {
+                "titulo": "Permitame(M4A_128K)_private",
+                "id_letra": "DES_PERMI_0041"
+            },
+            {
+                "titulo": "Quieren(M4A_128K)_private",
+                "id_letra": "DES_QUIER_0042"
+            },
+            {
+                "titulo": "Quiero(M4A_128K)_private",
+                "id_letra": "DES_QUIER_0043"
+            },
+            {
+                "titulo": "RX(M4A_128K)_1_private",
+                "id_letra": "DES_RX(M4_0044"
+            },
+            {
+                "titulo": "RX(M4A_128K)_private",
+                "id_letra": "DES_RX(M4_0045"
+            },
+            {
+                "titulo": "Shorty(M4A_128K)_private",
+                "id_letra": "DES_SHORT_0052"
+            },
+            {
+                "titulo": "Todo Lo Bueno Tarda(M4A_128K)_private",
+                "id_letra": "DES_TODO _0053"
+            },
+            {
+                "titulo": "Bien Loco(M4A_128K)_private",
+                "id_letra": "DES_BIEN _0057"
+            },
+            {
+                "titulo": "BLESSD _ INSTAGRAM 😈 ( OFFICIAL VIDEO )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0058"
+            },
+            {
+                "titulo": "BLESSD _ 🔥QUIEN TV  😈 ( OFFICIAL VIDEO )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0059"
+            },
+            {
+                "titulo": "BLESSD ❌ JUSTIN QUILES ❌ LENNY TAVAREZ _ 💥 MEDALLO ( OFFICIAL VIDEO )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0060"
+            },
+            {
+                "titulo": "BLESSD ❌ RYAN CASTRO _ QUIEN TV 🥵 ( REMIX )(M4A_128K)_private",
+                "id_letra": "DES_BLESS_0061"
+            },
+            {
+                "titulo": "Dos Locos(M4A_128K)_private",
+                "id_letra": "DES_DOS L_0068"
+            },
+            {
+                "titulo": "En Su Nota(M4A_128K)_private",
+                "id_letra": "DES_EN SU_0069"
+            },
+            {
+                "titulo": "Hay Algo en Ti(M4A_128K)_private",
+                "id_letra": "DES_HAY A_0074"
+            },
+            {
+                "titulo": "Justin Quiles _NattiNatasha _farruko Zion _dalex _LennyTavarezMusic DJ No Pare REMIX (Video Oficial)(M4A_128K)_private",
+                "id_letra": "DES_JUSTI_0083"
+            },
+            {
+                "titulo": "Lo Grande Que Es Perdonar (feat. Gilberto Santa Rosa)(M4A_128K)_private",
+                "id_letra": "DES_LO GR_0085"
+            },
+            {
+                "titulo": "Machucando(M4A_128K)_private",
+                "id_letra": "DES_MACHU_0086"
+            },
+            {
+                "titulo": "Misa de Sanazión (feat. Tito Agudelo)(M4A_128K)_private",
+                "id_letra": "DES_MISA _0087"
+            },
+            {
+                "titulo": "Muñeco de Vitrina(M4A_128K)_private",
+                "id_letra": "DES_MUÑEC_0088"
+            },
+            {
+                "titulo": "MySpace (feat. Wisin _ Yandel)(M4A_128K)_private",
+                "id_letra": "DES_MYSPA_0091"
+            },
+            {
+                "titulo": "Na De Na(M4A_128K)_private",
+                "id_letra": "DES_NA DE_0092"
+            },
+            {
+                "titulo": "Nadie Como Tu(M4A_128K)_private",
+                "id_letra": "DES_NADIE_0093"
+            },
+            {
+                "titulo": "Permitame(M4A_128K)_private",
+                "id_letra": "DES_PERMI_0095"
+            },
+            {
+                "titulo": "Quieren(M4A_128K)_private",
+                "id_letra": "DES_QUIER_0096"
+            },
+            {
+                "titulo": "Quiero(M4A_128K)_private",
+                "id_letra": "DES_QUIER_0097"
+            },
+            {
+                "titulo": "RX(M4A_128K)_1_private",
+                "id_letra": "DES_RX(M4_0098"
+            },
+            {
+                "titulo": "RX(M4A_128K)_private",
+                "id_letra": "DES_RX(M4_0099"
+            },
+            {
+                "titulo": "Shorty(M4A_128K)_private",
+                "id_letra": "DES_SHORT_0106"
+            },
+            {
+                "titulo": "Todo Lo Bueno Tarda(M4A_128K)_private",
+                "id_letra": "DES_TODO _0107"
+            }
+        ],
+        "Brytiago_ Darell_ Daddy Yankee_ Ozuna _ Anuel AA": [
+            {
+                "titulo": "Asesina Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "BRY_ASESI_0008"
+            },
+            {
+                "titulo": "Asesina Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "BRY_ASESI_0008"
+            },
+            {
+                "titulo": "Asesina Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "BRY_ASESI_0062"
+            }
+        ],
+        "Casper_ Nio García_ Darell_ Nicky Jam_ Bad Bunny_ Ozuna": [
+            {
+                "titulo": "Te Bote Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "CAS_TE BO_0009"
+            },
+            {
+                "titulo": "Te Bote Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "CAS_TE BO_0009"
+            },
+            {
+                "titulo": "Te Bote Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "CAS_TE BO_0063"
+            }
+        ],
+        "Daddy Yankee": [
+            {
+                "titulo": "Llegamos a La Disco (Official Video)(M4A_128K)_private",
+                "id_letra": "DAD_LLEGA_0010"
+            },
+            {
+                "titulo": "Llegamos a La Disco (Official Video)(M4A_128K)_private",
+                "id_letra": "DAD_LLEGA_0010"
+            },
+            {
+                "titulo": "Llegamos a La Disco (Official Video)(M4A_128K)_private",
+                "id_letra": "DAD_LLEGA_0064"
+            }
+        ],
+        "Dalex": [
+            {
+                "titulo": "Hola Remix ft. Lenny Tavárez_ Chencho Corleone_ Juhn _El All Star_ (Video Lírico Oficial)(M4A_128K)_private",
+                "id_letra": "DAL_HOLA _0011"
+            },
+            {
+                "titulo": "Hola Remix ft. Lenny Tavárez_ Chencho Corleone_ Juhn _El All Star_ (Video Lírico Oficial)(M4A_128K)_private",
+                "id_letra": "DAL_HOLA _0011"
+            },
+            {
+                "titulo": "Hola Remix ft. Lenny Tavárez_ Chencho Corleone_ Juhn _El All Star_ (Video Lírico Oficial)(M4A_128K)_private",
+                "id_letra": "DAL_HOLA _0065"
+            }
+        ],
+        "Don Omar": [
+            {
+                "titulo": "Guaya Guaya (Lyric Video)(M4A_128K)_private",
+                "id_letra": "DON_GUAYA_0012"
+            },
+            {
+                "titulo": "Guaya Guaya (Lyric Video)(M4A_128K)_private",
+                "id_letra": "DON_GUAYA_0012"
+            },
+            {
+                "titulo": "Guaya Guaya (Lyric Video)(M4A_128K)_private",
+                "id_letra": "DON_GUAYA_0066"
+            }
+        ],
+        "Don Omar x Plan B": [
+            {
+                "titulo": "Hooka (Lyric Video)(M4A_128K)_private",
+                "id_letra": "DON_HOOKA_0013"
+            },
+            {
+                "titulo": "Hooka (Lyric Video)(M4A_128K)_private",
+                "id_letra": "DON_HOOKA_0013"
+            },
+            {
+                "titulo": "Hooka (Lyric Video)(M4A_128K)_private",
+                "id_letra": "DON_HOOKA_0067"
+            }
+        ],
+        "Feid": [
+            {
+                "titulo": "Feliz Cumpleaños Ferxxo (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_FELIZ_0016"
+            },
+            {
+                "titulo": "Ferxxo 100 (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_FERXX_0017"
+            },
+            {
+                "titulo": "Normal (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_NORMA_0018"
+            },
+            {
+                "titulo": "Prohibidox (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_PROHI_0019"
+            },
+            {
+                "titulo": "Feliz Cumpleaños Ferxxo (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_FELIZ_0016"
+            },
+            {
+                "titulo": "Ferxxo 100 (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_FERXX_0017"
+            },
+            {
+                "titulo": "Normal (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_NORMA_0018"
+            },
+            {
+                "titulo": "Prohibidox (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_PROHI_0019"
+            },
+            {
+                "titulo": "Feliz Cumpleaños Ferxxo (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_FELIZ_0070"
+            },
+            {
+                "titulo": "Ferxxo 100 (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_FERXX_0071"
+            },
+            {
+                "titulo": "Normal (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_NORMA_0072"
+            },
+            {
+                "titulo": "Prohibidox (Official Video)(M4A_128K)_private",
+                "id_letra": "FEI_PROHI_0073"
+            }
+        ],
+        "J Balvin": [
+            {
+                "titulo": "6 AM ft. Farruko(M4A_128K)_private",
+                "id_letra": "J B_6 AM _0021"
+            },
+            {
+                "titulo": "Ambiente (Official Video)(M4A_128K)_private",
+                "id_letra": "J B_AMBIE_0022"
+            },
+            {
+                "titulo": "Azul (Official Animated Video)(M4A_128K)_private",
+                "id_letra": "J B_AZUL _0023"
+            },
+            {
+                "titulo": "Safari ft. Pharrell Williams_ BIA_ Sky (Official Video)(M4A_128K)_private",
+                "id_letra": "J B_SAFAR_0024"
+            },
+            {
+                "titulo": "6 AM ft. Farruko(M4A_128K)_private",
+                "id_letra": "J B_6 AM _0021"
+            },
+            {
+                "titulo": "Ambiente (Official Video)(M4A_128K)_private",
+                "id_letra": "J B_AMBIE_0022"
+            },
+            {
+                "titulo": "Azul (Official Animated Video)(M4A_128K)_private",
+                "id_letra": "J B_AZUL _0023"
+            },
+            {
+                "titulo": "Safari ft. Pharrell Williams_ BIA_ Sky (Official Video)(M4A_128K)_private",
+                "id_letra": "J B_SAFAR_0024"
+            },
+            {
+                "titulo": "6 AM ft. Farruko(M4A_128K)_private",
+                "id_letra": "J B_6 AM _0075"
+            },
+            {
+                "titulo": "Ambiente (Official Video)(M4A_128K)_private",
+                "id_letra": "J B_AMBIE_0076"
+            },
+            {
+                "titulo": "Azul (Official Animated Video)(M4A_128K)_private",
+                "id_letra": "J B_AZUL _0077"
+            },
+            {
+                "titulo": "Safari ft. Pharrell Williams_ BIA_ Sky (Official Video)(M4A_128K)_private",
+                "id_letra": "J B_SAFAR_0078"
+            }
+        ],
+        "J Balvin_ Bad Bunny": [
+            {
+                "titulo": "QUE PRETENDES (Official Video)(M4A_128K)_private",
+                "id_letra": "J B_QUE P_0025"
+            },
+            {
+                "titulo": "QUE PRETENDES (Official Video)(M4A_128K)_private",
+                "id_letra": "J B_QUE P_0025"
+            },
+            {
+                "titulo": "QUE PRETENDES (Official Video)(M4A_128K)_private",
+                "id_letra": "J B_QUE P_0079"
+            }
+        ],
+        "J. Balvin": [
+            {
+                "titulo": "Ay Vamos (Official Video)(M4A_128K)_private",
+                "id_letra": "J. _AY VA_0026"
+            },
+            {
+                "titulo": "Ay Vamos (Official Video)(M4A_128K)_private",
+                "id_letra": "J. _AY VA_0026"
+            },
+            {
+                "titulo": "Ay Vamos (Official Video)(M4A_128K)_private",
+                "id_letra": "J. _AY VA_0080"
+            }
+        ],
+        "Jhay Cortez_ J. Balvin_ Bad Bunny": [
+            {
+                "titulo": "No Me Conoce (Remix)(M4A_128K)_private",
+                "id_letra": "JHA_NO ME_0027"
+            },
+            {
+                "titulo": "No Me Conoce (Remix)(M4A_128K)_private",
+                "id_letra": "JHA_NO ME_0027"
+            },
+            {
+                "titulo": "No Me Conoce (Remix)(M4A_128K)_private",
+                "id_letra": "JHA_NO ME_0081"
+            }
+        ],
+        "Jon Z": [
+            {
+                "titulo": "0 Sentimientos (Remix) ft. Baby Rasta_ Noriel_ Lyan_ Darkiel_ Messiah [Official Video](M4A_128K)_private",
+                "id_letra": "JON_0 SEN_0028"
+            },
+            {
+                "titulo": "0 Sentimientos (Remix) ft. Baby Rasta_ Noriel_ Lyan_ Darkiel_ Messiah [Official Video](M4A_128K)_private",
+                "id_letra": "JON_0 SEN_0028"
+            },
+            {
+                "titulo": "0 Sentimientos (Remix) ft. Baby Rasta_ Noriel_ Lyan_ Darkiel_ Messiah [Official Video](M4A_128K)_private",
+                "id_letra": "JON_0 SEN_0082"
+            }
+        ],
+        "LEAN": [
+            {
+                "titulo": "Superiority x Towy x Osquel x Beltito x Sammy x Falsetto(M4A_128K)_private",
+                "id_letra": "LEA_SUPER_0030"
+            },
+            {
+                "titulo": "Superiority x Towy x Osquel x Beltito x Sammy x Falsetto(M4A_128K)_private",
+                "id_letra": "LEA_SUPER_0030"
+            },
+            {
+                "titulo": "Superiority x Towy x Osquel x Beltito x Sammy x Falsetto(M4A_128K)_private",
+                "id_letra": "LEA_SUPER_0084"
+            }
+        ],
+        "Myke Towers x _JuhnTV ": [
+            {
+                "titulo": "BANDIDO (Video Oficial)(M4A_128K)_private",
+                "id_letra": "MYK_BANDI_0035"
+            },
+            {
+                "titulo": "BANDIDO (Video Oficial)(M4A_128K)_private",
+                "id_letra": "MYK_BANDI_0035"
+            },
+            {
+                "titulo": "BANDIDO (Video Oficial)(M4A_128K)_private",
+                "id_letra": "MYK_BANDI_0089"
+            }
+        ],
+        "Myke Towers_ Farruko_ Arcangel_ Sech _ Zion": [
+            {
+                "titulo": "Si Se Da Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "MYK_SI SE_0036"
+            },
+            {
+                "titulo": "Si Se Da Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "MYK_SI SE_0036"
+            },
+            {
+                "titulo": "Si Se Da Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "MYK_SI SE_0090"
+            }
+        ],
+        "Nicky Jam Ft. Daddy Yankee": [
+            {
+                "titulo": "En La Cama (Official Video)(M4A_128K)_private",
+                "id_letra": "NIC_EN LA_0040"
+            },
+            {
+                "titulo": "En La Cama (Official Video)(M4A_128K)_private",
+                "id_letra": "NIC_EN LA_0040"
+            },
+            {
+                "titulo": "En La Cama (Official Video)(M4A_128K)_private",
+                "id_letra": "NIC_EN LA_0094"
+            }
+        ],
+        "Ryan Castro": [
+            {
+                "titulo": "JORDAN 🏀 (Video Oficial)(M4A_128K)_private",
+                "id_letra": "RYA_JORDA_0046"
+            },
+            {
+                "titulo": "Wasa Wasa (Video Oficial)(M4A_128K)_private",
+                "id_letra": "RYA_WASA _0047"
+            },
+            {
+                "titulo": "JORDAN 🏀 (Video Oficial)(M4A_128K)_private",
+                "id_letra": "RYA_JORDA_0046"
+            },
+            {
+                "titulo": "Wasa Wasa (Video Oficial)(M4A_128K)_private",
+                "id_letra": "RYA_WASA _0047"
+            },
+            {
+                "titulo": "JORDAN 🏀 (Video Oficial)(M4A_128K)_private",
+                "id_letra": "RYA_JORDA_0100"
+            },
+            {
+                "titulo": "Wasa Wasa (Video Oficial)(M4A_128K)_private",
+                "id_letra": "RYA_WASA _0101"
+            }
+        ],
+        "Ryan Castro_ Feid": [
+            {
+                "titulo": "Monastery (Vídeo Oficial)(M4A_128K)_private",
+                "id_letra": "RYA_MONAS_0048"
+            },
+            {
+                "titulo": "Monastery (Vídeo Oficial)(M4A_128K)_private",
+                "id_letra": "RYA_MONAS_0048"
+            },
+            {
+                "titulo": "Monastery (Vídeo Oficial)(M4A_128K)_private",
+                "id_letra": "RYA_MONAS_0102"
+            }
+        ],
+        "Santa Fe Klan_ Neto Peña_ Yoss Bones": [
+            {
+                "titulo": "Debo Entender(M4A_128K)_private",
+                "id_letra": "SAN_DEBO _0049"
+            },
+            {
+                "titulo": "Debo Entender(M4A_128K)_private",
+                "id_letra": "SAN_DEBO _0049"
+            },
+            {
+                "titulo": "Debo Entender(M4A_128K)_private",
+                "id_letra": "SAN_DEBO _0103"
+            }
+        ],
+        "Sech": [
+            {
+                "titulo": "Otro Trago ft. Darell (Video Oficial)(M4A_128K)_private",
+                "id_letra": "SEC_OTRO _0050"
+            },
+            {
+                "titulo": "Otro Trago ft. Darell (Video Oficial)(M4A_128K)_private",
+                "id_letra": "SEC_OTRO _0050"
+            },
+            {
+                "titulo": "Otro Trago ft. Darell (Video Oficial)(M4A_128K)_private",
+                "id_letra": "SEC_OTRO _0104"
+            }
+        ],
+        "Sech_ Daddy Yankee_ J Balvin_ Rosalía_ Farruko": [
+            {
+                "titulo": "Relación Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "SEC_RELAC_0051"
+            },
+            {
+                "titulo": "Relación Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "SEC_RELAC_0051"
+            },
+            {
+                "titulo": "Relación Remix (Video Oficial)(M4A_128K)_private",
+                "id_letra": "SEC_RELAC_0105"
+            }
+        ],
+        "Yelsid": [
+            {
+                "titulo": "Perdida (Vídeo Lyric)(M4A_128K)_private",
+                "id_letra": "YEL_PERDI_0054"
+            },
+            {
+                "titulo": "Perdida (Vídeo Lyric)(M4A_128K)_private",
+                "id_letra": "YEL_PERDI_0054"
+            },
+            {
+                "titulo": "Perdida (Vídeo Lyric)(M4A_128K)_private",
+                "id_letra": "YEL_PERDI_0108"
+            }
+        ]
+    }
+}

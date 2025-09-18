@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de Música</title>
+    <link href="https://fonts.googleapis.com/css2?family=Scotch+Roman:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="player">
+            <img id="cover" src="https://i.imgur.com/8Km9tLL.jpg" alt="Portada">
+            <div class="info">
+                <div id="song-title">Título</div>
+                <div id="song-artist">Artista</div>
+            </div>
+            <div class="controls">
+                <button id="prev">&#9194;</button>
+                <button id="play">&#9654;</button>
+                <button id="next">&#9193;</button>
+            </div>
+            <div class="progress-container">
+                <div id="progress-bar">
+                    <div id="progress"></div>
+                </div>
+            </div>
+            <div class="time">
+                <span id="current-time">00:00</span>
+                <span id="duration">00:00</span>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <div class="right-panel">
+            <div class="lyrics" id="lyrics">
+                <i>No hay letra disponible</i>
+            </div>
+            <div class="song-list" id="song-list">
+                <b>Lista de canciones:</b>
+                <ul style="padding-left:16px;">
+                    <!-- Canciones se llenan dinámicamente -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <audio id="audio" preload="metadata"></audio>
+    <script src="main.js"></script>
+</body>
+</html>

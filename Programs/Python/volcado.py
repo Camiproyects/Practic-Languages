@@ -1,82 +1,86 @@
 import os
+import re
 import json
+from mutagen import File
 
-# Archivos JSON principales
-INDEX_FILE = r"C:\Users\camlo\Desktop\Practic-Languages\Programs\Python\json\index_music.json"
-LYRICS_FILE = r"C:\Users\camlo\Desktop\Practic-Languages\Programs\Python\json\letras.json"
-LRC_FOLDER = r"C:\Users\camlo\Music\SnapTube Audio"  # Carpeta donde guardas tus .lrc
+# Carpeta de trabajo
+CARPETA = r"C:\Users\camlo\Music\SnapTube Audio"
+INDICE_JSON = os.path.join(CARPETA, "index_music.json")
 
-# Asegurar que los JSON existen y no estén vacíos
-def load_or_init(file_path, default_data):
-    if not os.path.exists(file_path) or os.stat(file_path).st_size == 0:
-        with open(file_path, "w", encoding="utf-8") as f:
-            json.dump(default_data, f, ensure_ascii=False, indent=4)
-        return default_data
-    else:
-        with open(file_path, "r", encoding="utf-8") as f:
+def limpiar_nombre(nombre):
+    # Elimina caracteres no válidos y espacios extra
+    nombre = re.sub(r'[\\/:*?"<>|]', '', nombre)
+    return nombre.strip()
+
+def obtener_metadatos(ruta):
+    audio = File(ruta, easy=True)
+    if not audio:
+        return {}
+    return {
+        "titulo": audio.get("title", [os.path.splitext(os.path.basename(ruta))[0]])[0],
+        "artista": audio.get("artist", ["Desconocido"])[0],
+        "album": audio.get("album", ["Desconocido"])[0],
+        "genero": audio.get("genre", ["Desconocido"])[0],
+        "año": audio.get("date", ["Desconocido"])[0],
+        "duracion": int(audio.info.length) if audio.info else None,
+        "bitrate": int(audio.info.bitrate / 1000) if audio.info and hasattr(audio.info, 'bitrate') else None
+    }
+
+def buscar_lrc(nombre_base):
+    for archivo in os.listdir(CARPETA):
+        if archivo.lower().endswith('.lrc') and nombre_base.lower() in archivo.lower():
+            return archivo
+    return None
+
+indice = {}
+
+for archivo in os.listdir(CARPETA):
+    if archivo.lower().endswith(('.mp3', '.m4a', '.wav', '.flac', '.aac', '.ogg')):
+        ruta_audio = os.path.join(CARPETA, archivo)
+        meta = obtener_metadatos(ruta_audio)
+        artista = limpiar_nombre(meta["artista"])
+        titulo = limpiar_nombre(meta["titulo"])
+        nombre_nuevo = f"{artista} - {titulo}{os.path.splitext(archivo)[1]}"
+        ruta_nueva = os.path.join(CARPETA, nombre_nuevo)
+        if archivo != nombre_nuevo:
             try:
-                return json.load(f)
-            except json.JSONDecodeError:
-                return default_data
-
-# Cargar o inicializar estructuras
-index_music = load_or_init(INDEX_FILE, {})
-lyrics = load_or_init(LYRICS_FILE, [])
-
-# Función para generar ID nemotécnico de la canción
-def generar_id(artista, titulo, contador):
-    base = f"{artista[:3].upper()}_{titulo[:5].upper()}"
-    return f"{base}_{contador:04d}"
-
-# Procesar todos los .lrc de la carpeta
-contador = len(lyrics) + 1
-if not os.path.exists(LRC_FOLDER):
-    print(f"❌ La carpeta '{LRC_FOLDER}' no existe. Por favor, créala y agrega archivos .lrc.")
-    exit(1)
-for archivo in os.listdir(LRC_FOLDER):
-    if archivo.endswith(".lrc"):
-        ruta = os.path.join(LRC_FOLDER, archivo)
-
-        # Leer contenido
-        with open(ruta, "r", encoding="utf-8") as f:
-            lineas = f.readlines()
-
-        # Extraer metadatos básicos del nombre del archivo
-        # Ejemplo: "AlcolirykoZ - Medellificación (con Jerónimo).lrc"
-        nombre_archivo = os.path.splitext(archivo)[0]
-        partes = nombre_archivo.split(" - ")
-        if len(partes) >= 2:
-            artista, titulo = partes[0], partes[1]
-        else:
-            artista, titulo = "Desconocido", nombre_archivo
-
-        genero = "Desconocido"  # De momento, hasta que se catalogue manualmente
-        id_letra = generar_id(artista, titulo, contador)
-
-        # Guardar en lyrics.json
-        letras_obj = {
-            "id_letra": id_letra,
-            "lineas": [linea.strip() for linea in lineas if linea.strip()]
-        }
-        lyrics.append(letras_obj)
-
-        # Guardar en index_music.json
-        if genero not in index_music:
-            index_music[genero] = {}
-        if artista not in index_music[genero]:
-            index_music[genero][artista] = []
-        index_music[genero][artista].append({
+                os.rename(ruta_audio, ruta_nueva)
+            except FileExistsError:
+                print(f"El archivo {ruta_nueva} ya existe. Se omitirá el renombrado de {archivo}.")
+        # Buscar y asociar .lrc
+        lrc_archivo = buscar_lrc(os.path.splitext(archivo)[0])
+        letra = None
+        if lrc_archivo:
+            with open(os.path.join(CARPETA, lrc_archivo), encoding="utf-8") as f:
+                letra = f.read()
+            # Renombrar .lrc si es necesario
+            nombre_lrc_nuevo = f"{artista} - {titulo}.lrc"
+            ruta_lrc_nueva = os.path.join(CARPETA, nombre_lrc_nuevo)
+            if lrc_archivo != nombre_lrc_nuevo:
+                try:
+                    os.rename(os.path.join(CARPETA, lrc_archivo), ruta_lrc_nueva)
+                except FileExistsError:
+                    print(f"El archivo {ruta_lrc_nueva} ya existe. Se omitirá el renombrado de {lrc_archivo}.")
+        # Construir entrada en el índice
+        genero = meta["genero"]
+        if genero not in indice:
+            indice[genero] = {}
+        if artista not in indice[genero]:
+            indice[genero][artista] = []
+        cancion = {
             "titulo": titulo,
-            "id_letra": id_letra
-        })
+            "artista": artista,
+            "album": meta["album"],
+            "año": meta["año"],
+            "duracion": meta["duracion"],
+            "bitrate": meta["bitrate"],
+            "archivo": nombre_nuevo,
+            "letra_lrc": letra
+        }
+        indice[genero][artista].append(cancion)
 
-        contador += 1
+# Guardar índice
+with open(INDICE_JSON, "w", encoding="utf-8") as f:
+    json.dump(indice, f, ensure_ascii=False, indent=4)
 
-# Guardar actualizaciones en los JSON
-with open(INDEX_FILE, "w", encoding="utf-8") as f:
-    json.dump(index_music, f, ensure_ascii=False, indent=4)
-
-with open(LYRICS_FILE, "w", encoding="utf-8") as f:
-    json.dump(lyrics, f, ensure_ascii=False, indent=4)
-
-print("✅ Volcado completado con éxito")
+print("✅ Organización y generación de índice completada.")

@@ -1,0 +1,215 @@
+.separator {
+    width: 2px;
+    min-height: 320px;
+    background: linear-gradient(180deg, #a084e8 0%, #5a189a 100%);
+    border-radius: 2px;
+    margin: 0 24px;
+    box-shadow: 0 0 12px #a084e888;
+    align-self: stretch;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.container {
+    position: relative;
+    animation: fadeIn 0.7s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 900px) {
+    .separator {
+        display: none;
+    }
+}
+@import url('https://fonts.googleapis.com/css2?family=Scotch+Roman:wght@400;700&display=swap');
+body {
+    background: linear-gradient(135deg, #2d0036 0%, #0a0a0a 100%);
+    color: #fff;
+    font-family: 'Scotch Roman', serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 48px auto;
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.player {
+    background: rgba(45,0,54,0.92);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(45,0,54,0.3);
+    padding: 36px 32px;
+    min-width: 340px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    flex: 1;
+    min-width: 320px;
+}
+.lyrics {
+    margin-bottom: 32px;
+}
+#cover {
+    width: 220px;
+    height: 220px;
+    border-radius: 18px;
+    margin-bottom: 24px;
+    object-fit: cover;
+    box-shadow: 0 8px 32px #6a4fcf88;
+    background: linear-gradient(135deg, #6a4fcf 0%, #0a0a0a 100%);
+    border: 4px solid #6a4fcf;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#cover:hover {
+    transform: scale(1.07) rotate(-2deg);
+    box-shadow: 0 16px 48px #a084e8;
+    border-color: #a084e8;
+}
+
+.info {
+    text-align: center;
+    margin-bottom: 18px;
+}
+#song-title {
+    font-size: 1.7em;
+    font-weight: bold;
+    color: #a084e8;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 12px #6a4fcf88;
+}
+#song-artist {
+    font-size: 1.1em;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 1px 6px #6a4fcf88;
+}
+
+.controls {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 18px;
+    align-items: center;
+}
+.controls button {
+    background: linear-gradient(135deg, #a084e8 60%, #6a4fcf 100%);
+    border: none;
+    color: #fff;
+    font-size: 1.5em;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #6a4fcf88;
+    transition: background 0.2s, transform 0.2s;
+}
+.controls button:hover {
+    background: #5a189a;
+    color: #fff;
+    transform: scale(1.12);
+}
+
+.progress-container {
+    width: 100%;
+    margin-bottom: 18px;
+}
+#progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #a084e8;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+}
+#progress {
+    height: 100%;
+    background: #fff;
+    border-radius: 4px;
+    width: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 0.3s;
+}
+.time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95em;
+    color: #fff;
+    margin-bottom: 18px;
+}
+
+.lyrics {
+    background: #1a084e;
+    border-radius: 16px;
+    padding: 18px 16px;
+    min-height: 180px;
+    max-height: 220px;
+    width: 100%;
+    box-shadow: 0 2px 12px #0004;
+    overflow-y: hidden;
+    color: #fff;
+    font-size: 1.1em;
+}
+.lyrics div[active] {
+    color: #a084e8;
+    font-weight: bold;
+    background: #fff2;
+    border-radius: 8px;
+    padding: 2px 6px;
+}
+
+.song-list {
+    background: #2d1674;
+    border-radius: 24px;
+    box-shadow: 0 4px 24px #0006;
+    padding: 32px 24px;
+    min-width: 260px;
+    max-width: 320px;
+    color: #fff;
+}
+.song-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.song-list li {
+    margin-bottom: 8px;
+    cursor: pointer;
+    color: #a084e8;
+    transition: color 0.2s;
+}
+.song-list li:hover {
+    color: #fff;
+}
+
+
+    .container {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+    }
+    .player, .song-list {
+        max-width: 95vw;
+        min-width: unset;
+    }
