@@ -21,7 +21,7 @@
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-              SELECT ARCHIVO-MAESTRO ASSIGN TO "Data-Master.dat"
+              SELECT CUENTAS ASSIGN TO "Data-Master.dat"
                      ORGANIZATION IS INDEXED
                      ACCESS MODE DYNAMIC
                      RECORD KEY IS NUM-CUE
@@ -29,55 +29,52 @@
 
               SELECT CONTADOR ASSIGN TO "Contador.dat"
                      ORGANIZATION IS SEQUENTIAL
-                     ACCESS MODE  IS SEQUENTIAL
-                     FILE STATUS  IS FS-CO.
+                     ACCESS MODE IS SEQUENTIAL
+                     FILE STATUS IS FS-CO.
 
        DATA DIVISION.
        FILE SECTION.
-       FD CUENTAS.
-           01 REG-CUENTA.
-                     05 NUM-CUE   PIC 9(10).
-                     05 NOMBRE    PIC X(99).
-                     05 SALDO     PIC 9(99).
-                     05 CLAVE     PIC 9(4).
-       FD CONTADOR.
-           01 REG-CONTADOR.
-              05 ULT-NUM          PIC 9(8).
+          FD CUENTAS.
+                 01 REG-CUENTA.
+            05 NUM-CUE   PIC 9(10).
+            05 NOMBRE    PIC X(99).
+            05 SALDO     PIC 9(9).
+            05 CLAVE     PIC 9(4).
+          FD CONTADOR.
+                 01 REG-CONTADOR.
+            05 ULT-NUM          PIC 9(8).
               
-       WORKING-STORAGE SECTION.
-           01 FS-AR     PIC XX.
-           01 FS-CO     PIC XX.
-           01 NUM-NUE   PIC 9(8).
-           01 MANEJO.
-                     05 INI       PIC 9 VALUE 0.
-                     05 CLE       PIC X VALUE SPACES.
+          WORKING-STORAGE SECTION.
+                 01 FS-AR     PIC XX.
+                 01 FS-CO     PIC XX.
+                 01 NUM-NUE   PIC 9(8).
+                 01 MANEJO.
+            05 INI       PIC 9 VALUE 0.
+            05 CLE       PIC X VALUE SPACE.
+                 01 NOMBRE     PIC X(99).
+                 01 CLAVE      PIC 9(4).
 
        PROCEDURE DIVISION.
-       INICIO.
+               INICIO.
            PERFORM CLEAR-SCREEN.
-           OPEN I-O ARCHIVO-MAESTRO.
+           OPEN I-O CUENTAS.
            IF FS-AR NOT = "00"
-              PERFORM CLEAR-SCREEN
-              DISPLAY "Eror al abri el archivo, FS = "  FS-AR
-              STOP RUN
-           END-IF.
+             PERFORM CLEAR-SCREEN
+             DISPLAY "Error al abrir el archivo, FS = " FS-AR
+             STOP RUN
+           END-IF
 
-           PERFORM PANTALLA-INI UNTIL INI = "9".
+           PERFORM PANTALLA-INI UNTIL INI = 9.
       *    STOP RUN.
        
        PANTALLA-INI.
-           DISPLAY "-Porfavor selecione el proceso que desea realizar-"
-      -    LINE 4 POSITION 20.
-           DISPLAY "1: Para crear cuenta "
-      -    LINE 5 POSITION 20.
-           DISPLAY "2: Para cambiar clave"
-      -    LINE 6 POSITION 20.   
-           DISPLAY "3: Insertar saldo    "
-      -    LINE 7 POSITION 20.   
-           DISPLAY "4: Retirar saldo     "
-      -    LINE 8 POSITION 20.
-           DISPLAY "9: Salir"
-           ACCEPT INI LINE 10 POSITION 20.
+               DISPLAY "-Porfavor selecione el proceso que desea realizar-".
+               DISPLAY "1: Para crear cuenta ".
+               DISPLAY "2: Para cambiar clave".
+               DISPLAY "3: Insertar saldo    ".
+               DISPLAY "4: Retirar saldo     ".
+               DISPLAY "9: Salir".
+               ACCEPT INI.
 
            EVALUATE INI
               WHEN 1
@@ -86,52 +83,50 @@
                      PERFORM CAMBIO-CLAVE
               WHEN 3
                      PERFORM AGR-SALDO
-              WHEN 4 
+              WHEN 4
                      PERFORM RET-SALDO
-              WHEN 9 
+              WHEN 9
                      DISPLAY "ADIOS ;P"
+                     STOP RUN
               WHEN OTHER
                      DISPLAY "Opcion no encontrada"
+           END-EVALUATE
 
        CREAR-CUENTA.
-           PERFORM CLEAR-SCREEN.
+           PERFORM CLEAR-SCREEN
            DISPLAY "Porfavor digita tu nombre COMPLETO: "
-      -    LINE 4 POSITION 20.
-           ACCEPT NOMBRE LINE 4 POSITION 60.
-           DISPLAY "Porfavor crea tu clave (4 NUEMROS): "
-      -    LINE 5 POSITION 20.
-           ACCEPT CLAVE  LINE 5 POSITION 60.
-           
-           OPEN I-O CONTADOR.
+           ACCEPT NOMBRE
+           DISPLAY "Porfavor crea tu clave (4 NUMEROS): "
+           ACCEPT CLAVE
+
+           OPEN I-O CONTADOR
            IF FS-CO = "35"
-              OPEN OUTPUT CONTADOR
-              MOVE 00000000 TO ULT-NUM
-              WRITE REG-CONTADOR 
-              CLOSE CONTADOR
-           END IF.
-           
+             OPEN OUTPUT CONTADOR
+             MOVE 0 TO ULT-NUM
+             MOVE REG-CONTADOR TO REG-CONTADOR
+             WRITE REG-CONTADOR
+             CLOSE CONTADOR
+           END-IF
+
            READ CONTADOR
-              AT END
-                     MOVE 0 TO ULT-NUM
-           END-READ.
+             AT END
+             MOVE 0 TO ULT-NUM
+           END-READ
 
-           ADD 1 TO ULT-NUM.
-           MOVE ULT-NUM TO NUM-NUE.
+           ADD 1 TO ULT-NUM
+           MOVE ULT-NUM TO NUM-NUE
 
-           REWRITE REG-CONTADOR.
+           MOVE NUM-NUE TO NUM-CUE
+           MOVE 0 TO SALDO
 
-           DISPLAY "Tu numero de cuenta es: "NUM-NUE
-      -    LINE 7 POSITION 20.
+           WRITE REG-CUENTA INVALID KEY
+             PERFORM CLEAR-SCREEN
+             DISPLAY "Error: Numero de cuenta ya"
+             DISPLAY "existente, pruebe de nuevo."
+           END-WRITE
 
-           MOVE NUM-NUE TO NUM-CUE.
-           MOVE 0 TO SALDO.
-
-           WRITE REG-CUENTA INVALID KEY 
-              PERFORM CLEAR-SCREEN
-              DISPLAY "Error: Nuemro de cuenta ya existente prueba de "
-      -               "nuevo."
-              END-WRITE.
-           CLOSE CUENTAS CONTADOR
+           CLOSE CUENTAS
+           CLOSE CONTADOR
 
 
 
