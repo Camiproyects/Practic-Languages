@@ -1,5 +1,5 @@
 """
-TERMINADO:NO.
+TERMINADO:Si.
 
 1.la prueba esta generada por IA.
 2.tiene una duracion de 45 minutos.

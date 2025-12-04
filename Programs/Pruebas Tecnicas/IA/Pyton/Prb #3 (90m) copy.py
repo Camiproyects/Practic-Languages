@@ -1,6 +1,6 @@
 """
 ================================================================================
-SISTEMA DE GESTIÓN DE ENVÍOS - LOGITRACK
+TERMINADO: SI  //   SISTEMA DE GESTIÓN DE ENVÍOS - LOGITRACK 
 ================================================================================
 
 DESCRIPCIÓN DEL PROBLEMA:
@@ -608,5 +608,25 @@ def main():
         else:
             print("Opción inválida. Intente de nuevo.")
 
+# ============================================================================
+# SECCIÓN 7: PUNTO DE ENTRADA DEL PROGRAMA
+# ============================================================================
+# Esta es la última línea de código que se ejecuta cuando se inicia el script
+
 if __name__ == "__main__":
+    """
+    EXPLICACIÓN DE "__name__ == '__main__'":
+    
+    Cuando Python ejecuta un archivo:
+    - Si el archivo se ejecuta directamente, __name__ tiene el valor "__main__"
+    - Si el archivo se importa desde otro módulo, __name__ tiene el nombre del módulo
+    
+    Por lo tanto, este condicional asegura que main() SOLO se ejecute cuando:
+    1. El usuario ejecuta el script directamente (python Prb #3 (90m).py)
+    2. NO se ejecuta si otro script importa este archivo como módulo
+    
+    Esta es una MEJOR PRÁCTICA de Python para evitar efectos secundarios
+    cuando se importan módulos.
+    """
+    # Inicia la ejecución del programa
     main()
